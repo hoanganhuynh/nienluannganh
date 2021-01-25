@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 //const { param } = require('../routes/product');
+const ErrorHandle = require('../utils/errorHandle');
 
 // create new product => /api/v1/admin/product/new
 exports.newProduct = async (req, res, next) => {
@@ -29,11 +30,11 @@ exports.getSingleProduct = async (req, res, next) => {
 
         const product = await Product.findOne({ _id: id }).exec();
 
-        if (!product) return res.status(404).json({ Error: "Product not found" })
+        if (!product) return next(new ErrorHandle('Product not found', 404 ));
 
         return res.status(200).json({ product })
     } catch(error) {
-        return res.status(400).json({ Error: "Product not found" })
+        return next(new ErrorHandle('Product not found', 404 ));
     }
 }
 
@@ -45,7 +46,7 @@ exports.updateProduct = async (req, res, next) => {
 
         let u_product = await Product.findOne({ _id: id }).exec();
 
-        if (!u_product) return res.status(404).json({ Error: "Product not found" })
+        if (!u_product) return next(new ErrorHandle('Product not found', 404 ));
         u_product = await Product.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
@@ -58,7 +59,7 @@ exports.updateProduct = async (req, res, next) => {
         })
         
     } catch(error) {
-        return res.status(404).json({ Error: "Product not found" })
+        return next(new ErrorHandle('Product not found', 404 ));
     }
 }
 
@@ -67,10 +68,8 @@ exports.deleteProduct = async (req, res, next) => {
     const { id } = req.params
 
     try {
-
         const d_product = await Product.findOne({ _id: id }).exec();
-
-        if (!d_product) return res.status(404).json({ Error: "Product not found" })
+        if (!d_product) return next(new ErrorHandle('Product not found', 404 ));
         await d_product.remove();
 
         return res.status(200).json({
@@ -79,7 +78,7 @@ exports.deleteProduct = async (req, res, next) => {
             d_product
         })
     } catch(error) {
-        return res.status(400).json({ Error: "Product not found" })
+        return next(new ErrorHandle('Product not found', 404 ));
     }
 }
 
