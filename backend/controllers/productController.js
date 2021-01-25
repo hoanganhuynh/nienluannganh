@@ -1,29 +1,30 @@
 const Product = require('../models/product');
 //const { param } = require('../routes/product');
 const ErrorHandle = require('../utils/errorHandle');
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 // create new product => /api/v1/admin/product/new
-exports.newProduct = async (req, res, next) => {
+exports.newProduct = catchAsyncErrors (async (req, res, next) => {
     const c_product = await Product.create(req.body);
     res.status(200).json({
         success: true,
         c_product
     })
-}
+})
 
 // get all products => /api/v1/products 
-exports.getProducts = async (req, res, next) => {
+exports.getProducts = catchAsyncErrors (async (req, res, next) => {
     const g_products = await Product.find();
     res.status(200).json({
         success: true,
         count: g_products.length,
         g_products
     })
-}
+})
 
 
 // get: single product => /api/v1/product/:id
-exports.getSingleProduct = async (req, res, next) => {
+exports.getSingleProduct = catchAsyncErrors (async (req, res, next) => {
     const { id } = req.params
 
     try {
@@ -36,10 +37,10 @@ exports.getSingleProduct = async (req, res, next) => {
     } catch(error) {
         return next(new ErrorHandle('Product not found', 404 ));
     }
-}
+})
 
 // update product => api/v1/admin/product:id
-exports.updateProduct = async (req, res, next) => {
+exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
     const { id } = req.params
 
     try {
@@ -61,10 +62,10 @@ exports.updateProduct = async (req, res, next) => {
     } catch(error) {
         return next(new ErrorHandle('Product not found', 404 ));
     }
-}
+})
 
 // delete product => api/v1/admin/product:id
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
     const { id } = req.params
 
     try {
@@ -80,6 +81,6 @@ exports.deleteProduct = async (req, res, next) => {
     } catch(error) {
         return next(new ErrorHandle('Product not found', 404 ));
     }
-}
+})
 
 
