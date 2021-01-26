@@ -10,6 +10,16 @@ app.use(morgan('dev'));
 connectDatabase(); 
 app.use('api/v1',router);
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log(`Server started on Port: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`);
 })
+
+process.on('unhandledRejection', err => {
+    console.log(`ERROR: ${err.message}`);
+    console.log('Shutting down server due to Unhandled Promiss Rejection');
+    server.close(() => {
+        process.exit(1)
+    })
+}) 
+//new Promise((_, reject) => reject({ test: 'Invalid connection string' }));
+ 
