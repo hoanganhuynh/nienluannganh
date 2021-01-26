@@ -28,7 +28,7 @@ exports.getSingleProduct = catchAsyncErrors (async (req, res, next) => {
     const { id } = req.params
 
     try {
-        const product = await Product.findOne({ _id: id }).exec();
+        const product = await Product.findOne({ _id: id });
         if (!product) return next(new ErrorHandle('Product not found', 404 ));
         return res.status(200).json({ product })
     } catch(error) {

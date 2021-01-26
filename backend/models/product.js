@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
+        required: [true, 'Vui lòng nhập mô tả sản phẩm.']
     },
     rating: {
         type: Number,
@@ -58,7 +58,7 @@ const productSchema = new mongoose.Schema({
     },
     stock: {
         type: Number,
-        required: [true, 'Vui lòng nhập kho sản phẩm.'],
+        required: [true, 'Vui lòng nhập kho sản phẩm'],
         maxLength: [5, 'Không quá 5 ký tự.'],
         default: 0
     },

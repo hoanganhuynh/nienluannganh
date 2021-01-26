@@ -1,7 +1,3 @@
-const ErrorHandle = require('../utils/errorHandle');
-const ErrorHandler = require('../utils/errorHandle');
-
-
 module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
 
@@ -17,6 +13,19 @@ module.exports = (err, req, res, next) => {
     if(process.env.NODE_ENV === 'PRODUCTION') {
         let error = {...err};
         error.message = err.message;
+
+        //Wrong Moogose Object ID Error
+        // if(err.name === 'CastError') {
+        //     error = new ErrorHandler(`Invalid ${err.path}: ${err.value}`);
+        // }
+        
+        // Handle Mongoose Validation Error
+        if(err.name === 'ValidationError') {
+            const message = Object.values(err.errors).map(value => value.message)
+            error = new ErrorHandler(message, 400)
+        }
+
+
         res.status(error.statusCode).json({
             success: false,
             message: error.message || 'Internal Server Error.'
