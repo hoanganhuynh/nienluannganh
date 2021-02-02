@@ -1,6 +1,6 @@
 const User = require('../models/user')
-const ErrorHandle = require('../utils/errorHandle')
-const catchAsyncErrors = require('../middlewares/errors')
+const ErrorHandler = require('../utils/errorHandle')
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors')
 
 // register user => /api/v1/register
 exports.registerUser = catchAsyncErrors( async ( req, res, next ) => {
@@ -10,8 +10,15 @@ exports.registerUser = catchAsyncErrors( async ( req, res, next ) => {
         email,
         password,
         avatar: {
-            public_id: '',
-            url: ''
+            public_id: 'avatars/derick-mckinney-eyFbjKWlR2g-unsplash_wmynoe',
+            url: 'https://res.cloudinary.com/hha-nlnganh/image/upload/v1612106833/nlnganh/avatars/derick-mckinney-eyFbjKWlR2g-unsplash_wmynoe.jpg'
         }
     })
-})
+
+    const token = user.getJwtToken();
+
+    res.status(201).json({
+        success: true,
+        token
+    })
+}) 

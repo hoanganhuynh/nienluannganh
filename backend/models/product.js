@@ -38,18 +38,18 @@ const productSchema = new mongoose.Schema({
         required: true,
         enum: {
             values: [
-                'Điện tử',
-                'Máy ảnh',
+                'Electronic',
+                'Camera',
                 'Laptop',
-                'Điện thoại',
-                'Thực phẩm',
-                'Sách',
-                'Trang phục/Áo',
-                'Mỹ phẩm',
-                'Thể thao',
-                'Nội thất'
+                'MobilePhone',
+                'Food',
+                'Book',
+                'Clothes',
+                'Cosmetic',
+                'Sports',
+                'Furniture'
             ],
-            messages: 'Vui long chọn danh mục cho sản phẩm.'
+            messages: 'Vui lòng chọn danh mục cho sản phẩm.'
         }
     },
     seller: {

@@ -12,6 +12,18 @@ exports.newProduct = catchAsyncErrors (async (req, res, next) => {
         c_product
     })
 })
+// delete all products in database => /api/v1/admin/delAllProducts
+exports.deleteAllProducts = catchAsyncErrors (async (req, res, next) => {
+    try {
+        await Product.deleteMany();
+        return res.status(200).json({
+            success: true,
+            messsage: 'All products Deleted !'
+        })
+    } catch (error) {
+        return next(new ErrorHandle('ERROR: 404', 404 ));
+    }
+})
 
 // get all products => /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors (async (req, res, next) => {

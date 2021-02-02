@@ -16,17 +16,10 @@ module.exports = (err, req, res, next) => {
         let error = {...err};
         error.message = err.message;
 
-        //Wrong Moogose Object ID Error
-        // if(err.name === 'CastError') {
-        //     error = new ErrorHandler(`Invalid ${err.path}: ${err.value}`);
-        // }
-
-        // Handle Mongoose Validation Error
         if(err.name === 'ValidationError') {
             const message = Object.values(err.errors).map(value => value.message)
             error = new ErrorHandler(message, 400)
         }
-
 
         res.status(error.statusCode).json({
             success: false,
