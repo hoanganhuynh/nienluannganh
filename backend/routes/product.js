@@ -11,18 +11,18 @@ const {
 } = require('../controllers/productController');
 
 const {
-    isAuthenticateUser
+    isAuthenticateUser,
+    authorizeRoles
 } = require('../middlewares/auth');
 
-router.post('/admin/product/new', newProduct);
-router.delete('/admin/delAllProducts', deleteAllProducts); // warning: delete all products in DB
-// router.get('/products', isAuthenticateUser, getProducts);
-router.route('/products').get(isAuthenticateUser, getProducts)
-router.get('/product/:id', getSingleProduct);
-
+router.post('/admin/product/new',authorizeRoles('admin'), newProduct);
+router.delete('/admin/delAllProducts', authorizeRoles('admin'), deleteAllProducts); // warning: delete all products in DB
 router.route('/admin/product/:id')
-    .put(isAuthenticateUser, updateProduct)
-    .delete(isAuthenticateUser, deleteProduct);
+    .put(isAuthenticateUser, authorizeRoles('admin'), updateProduct)
+    .delete(isAuthenticateUser, authorizeRoles('admin'), deleteProduct);
+
+router.route('/products').get(isAuthenticateUser, authorizeRoles('admin'), getProducts);
+router.get('/product/:id', getSingleProduct);
 
 
 module.exports = router;

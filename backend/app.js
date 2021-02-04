@@ -3,7 +3,6 @@ const app = express();
 const errorMiddleware = require('./middlewares/errors' );
 const cookieParser = require('cookie-parser'); 
 
-
 app.use(express.json());
 app.use(cookieParser()); 
 

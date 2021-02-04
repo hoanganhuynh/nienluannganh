@@ -2,6 +2,15 @@ const morgan = require('morgan');
 const app = require('./app');
 const connectDatabase = require('./config/database');
 const router = require('./routes/product');
+const cors = require('cors');
+var corsOptions = {
+    origin: "http://localhost:4000"
+  };
+app.use(cors(corsOptions));
+
+// const db = require('./models/role');
+// const Role = db.role;
+
 
 require('dotenv').config();
 app.use(morgan('dev'));
