@@ -6,12 +6,14 @@ const APIFeatures = require('../utils/appFeatures');
 
 // create new product => /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors (async (req, res, next) => {
+    req.body.user = req.user.id; // lay tu isAuthenticateUser dong 13
     const c_product = await Product.create(req.body);
     res.status(200).json({
         success: true,
         c_product
     })
 })
+
 // delete all products in database => /api/v1/admin/delAllProducts
 exports.deleteAllProducts = catchAsyncErrors (async (req, res, next) => {
     try {

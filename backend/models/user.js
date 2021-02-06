@@ -9,12 +9,6 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Vui lòng nhập tên của bạn'],
         maxlength: [30, 'Tên không được dài quá 30 kí tự']
     },
-    // roles: [
-    //     {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       ref: "Role"
-    //     }
-    // ],
     email: {
         type: String,
         required: [true, 'Vui lòng nhập email của bạn'],
@@ -61,7 +55,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 }
 
 // return JWT
-userSchema.methods.getJwtToken = function () {
+userSchema.methods.getJwtToken = function () { // ko dc su dung arrow function khi viet methods object
     return jwt.sign( { id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_TIME
     });
