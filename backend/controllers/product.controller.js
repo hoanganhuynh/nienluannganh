@@ -1,7 +1,7 @@
-const Product = require('../models/product');
+const Product = require('../models/product.model');
 //const { param } = require('../routes/product');
 const ErrorHandle = require('../utils/errorHandle');
-const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors.middleware');
 const APIFeatures = require('../utils/appFeatures');
 
 // create new product => /api/v1/admin/product/new

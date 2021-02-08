@@ -8,12 +8,12 @@ const {
     updateProduct,
     deleteProduct,
     deleteAllProducts
-} = require('../controllers/productController');
+} = require('../controllers/product.controller');
 
 const {
     isAuthenticateUser,
     authorizeRoles
-} = require('../middlewares/auth');
+} = require('../middlewares/auth.middleware');
 
 
 router.post('/admin/product/new',isAuthenticateUser, authorizeRoles('admin'), newProduct);
