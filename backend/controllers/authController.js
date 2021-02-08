@@ -42,7 +42,6 @@ exports.loginUser = catchAsyncErrors ( async (req, res, next) => {
 // Forgot password
 exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
-    console.log('user', user);
     if(!user) {
         return next(new ErrorHandle('User not found with this email', 404));
     }
@@ -73,23 +72,27 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
 })
 
 // reset new password => /api/v1/password/reset:token
-// exports.resetPassword = catchAsyncErrors (async (req, res, next) => {
-//     // hash url token 
-//     const resetPasswordToken = crypto.createHash('sha256').updade(req.params.token).digest('hex')
-//     const user = await User.findOne({
-//         resetPasswordToken,
-//         resetPasswordExpire: { $gt: Date.now() }
-//     })
-//     // check
-//     if(!user) {
-//         return next(new ErrorHandle('Password reset token is valid or has been expired', 400))
-//     }
-//     if(req.body.password !== req.body.confirmPassword) {
-//         return next(new ErrorHandle('Password does not match', 400))
-//     }
-//     // setup new password
-//     user.password = req.body.password
-// })
+exports.resetPassword = catchAsyncErrors (async (req, res, next) => {
+    // hash url token 
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    })
+    // check
+    if(!user) {
+        return next(new ErrorHandle('Password reset token is valid or has been expired', 400))
+    }
+    if(req.body.password !== req.body.confirmPassword) {
+        return next(new ErrorHandle('Password does not match', 400))
+    }
+    // setup new password
+    user.password = req.body.password
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined; 
+    await user.save()
+    sendToken(user, 200, res)
+})
 
 // logout => /api/v1/logout
 exports.logoutUser = catchAsyncErrors (async (req, res, next) => {
