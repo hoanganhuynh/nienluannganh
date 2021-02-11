@@ -155,3 +155,15 @@ exports.getAllUsers = catchAsyncErrors (async (req, res, next) => {
         users
     })
 })
+// get user by id
+exports.getUserById = catchAsyncErrors (async (req, res, next) => {
+    const { id } = req.params
+
+    try {
+        const user = await User.findOne({ _id: id });
+        if (!user) return next(new ErrorHandle('User not found', 404 ));
+        return res.status(200).json({ user })
+    } catch(error) {
+        return next(new ErrorHandle('Product not found', 404 ));
+    }
+})
