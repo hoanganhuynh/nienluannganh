@@ -128,3 +128,25 @@ exports.updatePassword = catchAsyncErrors( async (req, res, next) => {
     
     sendToken(user, 200, res)
 })
+
+// update profile => api/vi/me/update
+exports.updateProfile = catchAsyncErrors ( async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+    // Update Avatar
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+    res.status(200).json({
+        success: true,
+        message: `Profile Updated !`
+    })
+})
+// get all user in db
+// exports.getUsers = catchAsyncErrors (async (req, res, next) => {
+
+// })
