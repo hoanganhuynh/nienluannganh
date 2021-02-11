@@ -147,6 +147,11 @@ exports.updateProfile = catchAsyncErrors ( async (req, res, next) => {
     })
 })
 // get all user in db
-// exports.getUsers = catchAsyncErrors (async (req, res, next) => {
-
-// })
+exports.getAllUsers = catchAsyncErrors (async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+        success: true,
+        count: users.length,
+        users
+    })
+})
