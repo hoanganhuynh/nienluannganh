@@ -192,16 +192,15 @@ exports.deleteUser = catchAsyncErrors (async (req, res, next) => {
     const { id } = req.params
 
     try {
-        const d_user = await User.findOne({ _id: id }).exec();
-        if (!d_user) return next(new ErrorHandle('User not found', 404 ));
-        await d_user.remove();
+        const user = await User.findOne({ _id: id }).exec();
+        if (!user) return next(new ErrorHandle(`User ${req.params.id} not found`, 404 ));
+        await user.remove();
 
         return res.status(200).json({
             success: true,
             messsage: 'User Deleted !',
-            d_user
         })
     } catch(error) {
-        return next(new ErrorHandle('Product not found', 404 ));
+        //return next(new ErrorHandle(`User ${req.params.id} not found`, 404 ));
     }
 })
