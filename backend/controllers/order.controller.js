@@ -60,6 +60,7 @@ exports.getAllOrder = catchAsyncErrors( async (req, res, next) => {
     orders.forEach(order => {
         totalAmount += order.totalPrice
     })
+    
     res.status(200).json({
         success: true,
         countOrders: orders.length,
