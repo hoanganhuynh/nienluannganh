@@ -5,7 +5,8 @@ const { newOrder,
     getSingleOrder,
     myOrders,
     getAllOrder,
-    updateOrders
+    updateOrders,
+    deleteOrder
 } = require('../controllers/order.controller')
 
 const {
@@ -17,7 +18,9 @@ router.post('/order/new', isAuthenticateUser, newOrder);
 router.get('/order/:id', isAuthenticateUser, getSingleOrder);
 router.get('/orders/me', isAuthenticateUser, myOrders);
 router.get('/admin/orders', isAuthenticateUser, authorizeRoles('admin'), getAllOrder);
+
 router.put('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), updateOrders);
+router.delete('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), deleteOrder);
 
 module.exports = router;
 
