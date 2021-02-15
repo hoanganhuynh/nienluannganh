@@ -3,6 +3,7 @@ const Product = require('../models/product.model');
 const ErrorHandle = require('../utils/errorHandle');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors.middleware');
 const APIFeatures = require('../utils/appFeatures');
+//const dateFormat = require('dateformat');
 
 // create new product => /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors (async (req, res, next) => {
@@ -30,7 +31,7 @@ exports.deleteAllProducts = catchAsyncErrors (async (req, res, next) => {
 // get all products => /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors (async (req, res, next) => {
 
-    const resPerPage = 2; // limit product show in each page
+    const resPerPage = 10; // limit product show in each page
     const productCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
                         .search()
@@ -104,4 +105,44 @@ exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
     }
 })
 
+// create new review => api/v1/review
+exports.createNewReview = catchAsyncErrors( async (req, res, next) => {
+    //var date = dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT");
+    const { rating, comment, createdAt, productId } = req.body;
 
+    const review = {
+        user: req.user._id,
+        name: req.user.name,
+        rating: Number(rating),
+        createdAt: Date.now(),
+        comment
+    }
+
+    const product = await Product.findById(productId);
+
+    // console.log(product.reviews);
+    const isReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString())
+
+    // check user reviewd
+    if(isReviewed) { // update comment + rating
+        product.reviews.forEach(review => {
+            if(review.user.toString() === req.user._id.toString()){
+                 review.comment = comment;
+                 review.rating = rating;
+                 review.createdAt = createdAt;
+            }
+        })
+    } else { // add new review of new user to db
+        product.reviews.push(review);
+        product.numOfReviews = product.reviews.length;
+    }
+
+    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+        success: true,
+        message: "Send review successfully !"
+    })
+})
