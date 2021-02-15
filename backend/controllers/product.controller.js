@@ -146,3 +146,13 @@ exports.createNewReview = catchAsyncErrors( async (req, res, next) => {
         message: "Send review successfully !"
     })
 })
+
+// get all reviews of product by id
+exports.getProductPreviews = catchAsyncErrors( async( req, res, next) => {
+    const product = await Product.findById(req.params.id);
+    res.status(200).json({
+        success: true,
+        count: product.reviews.length,
+        reviews: product.reviews
+    })
+})
