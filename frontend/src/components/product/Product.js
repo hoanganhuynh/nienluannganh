@@ -20,7 +20,6 @@ const Product = ({ product }) => {
                         <span id="no_of_reviews">{product.numOfReview} Đánh giá</span>
                     </div>
                     <p className="card-text">{product.price} VNĐ</p>
-
                 </div>
             </div>
         </div>

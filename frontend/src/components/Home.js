@@ -6,11 +6,14 @@ import React,
 
 import MetaData from './layouts/MetaData';
 import Product from './product/Product';
+import Loader from './layouts/Loader';
 
 import {
     useDispatch,
     useSelector
 } from 'react-redux';
+
+import { useAlert } from 'react-alert';
 
 import {
     getProducts
@@ -21,6 +24,7 @@ import {
 
 const Home = () => {
 
+    const alert = useAlert();
     const dispatch = useDispatch();
 
     const {
@@ -31,12 +35,13 @@ const Home = () => {
     } = useSelector(state => state.products);
     
     useEffect(() => {
+        if(error) return alert.error(error);
         dispatch(getProducts());
-    }, [dispatch])
+    }, [dispatch, alert, error])
 
     return (
         <Fragment>
-            {loading ? <h3>Đang tải sản phẩm...</h3> : (
+            {loading ? <Loader /> : (
                 <Fragment>
                     <MetaData title={'Trang web mua sắm hàng đầu Việt Nam'} />
 
