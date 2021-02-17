@@ -17,7 +17,7 @@ const Header = () => {
                             type="text"
                             id="search_field"
                             className="form-control"
-                            placeholder="Enter Product Name ..."
+                            placeholder="Tìm kiếm sản phẩm ..."
                         />
                         <div className="input-group-append">
                             <button id="search_btn" className="btn">
@@ -28,7 +28,7 @@ const Header = () => {
                 </div>
 
                 <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-                    <button className="btn" id="login_btn">Login</button>
+                    <button className="btn" id="login_btn">Đăng nhập</button>
 
                     <span id="cart" className="ml-3"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </span>

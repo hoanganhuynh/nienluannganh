@@ -8,10 +8,11 @@ const APIFeatures = require('../utils/appFeatures');
 // create new product => /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors (async (req, res, next) => {
     req.body.user = req.user.id; // lay tu isAuthenticateUser dong 13
-    const c_product = await Product.create(req.body);
+    console.log('hello em yeu',req.body);
+    const product = await Product.create(req.body);
     res.status(200).json({
         success: true,
-        c_product
+        product
     })
 })
 
@@ -31,20 +32,21 @@ exports.deleteAllProducts = catchAsyncErrors (async (req, res, next) => {
 // get all products => /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors (async (req, res, next) => {
 
-    const resPerPage = 10; // limit product show in each page
+    const resPerPage = 2; // limit product show in each page
     const productCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
                         .search()
                         .filter()
                         .pagination(resPerPage)
 
-    const g_products = await apiFeatures.query;
-    res.status(200).json({
-        success: true,
-        count: g_products.length,
-        productCount,
-        g_products
-    })
+    const products = await apiFeatures.query;
+    setTimeout(() => {
+        res.status(200).json({
+            success: true,
+            productCount,
+            products
+        })
+    }, 1000)
 })
 
 
@@ -67,10 +69,10 @@ exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
 
     try {
 
-        let u_product = await Product.findOne({ _id: id }).exec();
+        let product = await Product.findOne({ _id: id }).exec();
 
-        if (!u_product) return next(new ErrorHandle('Product not found', 404 ));
-        u_product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+        if (!product) return next(new ErrorHandle('Product not found', 404 ));
+        product = await Product.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
             useFindAndModify: false
@@ -78,7 +80,7 @@ exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
         return res.status(200).json({
             success: true,
             messsage: 'Product Updated !',
-            u_product
+            product
         })
         
     } catch(error) {
@@ -91,14 +93,14 @@ exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
     const { id } = req.params
 
     try {
-        const d_product = await Product.findOne({ _id: id }).exec();
-        if (!d_product) return next(new ErrorHandle('Product not found', 404 ));
-        await d_product.remove();
+        const product = await Product.findOne({ _id: id }).exec();
+        if (!product) return next(new ErrorHandle('Product not found', 404 ));
+        await product.remove();
 
         return res.status(200).json({
             success: true,
             messsage: 'Product Deleted !',
-            d_product
+            product
         })
     } catch(error) {
         return next(new ErrorHandle('Product not found', 404 ));

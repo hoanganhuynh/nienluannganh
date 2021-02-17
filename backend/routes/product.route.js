@@ -25,7 +25,7 @@ router.route('/admin/product/:id')
     .put(isAuthenticateUser, authorizeRoles('admin'), updateProduct)
     .delete(isAuthenticateUser, deleteProduct);
 
-router.route('/products').get(isAuthenticateUser, getProducts);
+router.route('/products').get(getProducts);
 router.get('/product/:id', getSingleProduct);
 
 router.post('/review', isAuthenticateUser, createNewReview);
