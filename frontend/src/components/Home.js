@@ -31,7 +31,6 @@ const Home = () => {
         loading,
         products,
         error,
-        productCount
     } = useSelector(state => state.products);
     
     useEffect(() => {

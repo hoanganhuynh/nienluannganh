@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import '../../App.css'
-
+// eslint-disable-next-line
 const Header = () => {
     return (
         <Fragment>
             <nav className="navbar row">
                 <div className="col-12 col-md-3">
                     <div className="navbar-brand">
-                        <img src="/images/logo.png" />
+                        <img alt="logo image" src="/images/logo.png" />
                     </div>
                 </div>
 
