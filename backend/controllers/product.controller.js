@@ -31,7 +31,7 @@ exports.deleteAllProducts = catchAsyncErrors(async (req, res, next) => {
 // get all products => /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
-    const resPerPage = 10; // limit product show in each page
+    const resPerPage = 2; // limit product show in each page
     const productCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
@@ -43,6 +43,7 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
         res.status(200).json({
             success: true,
             productCount,
+            resPerPage,
             products
         })
     }, 1000)
@@ -56,7 +57,7 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) return next(new ErrorHandle('Product not found', 404));
-        return res.status(200).json({ product })
+        return setTimeout(() => {res.status(200).json({ product })}, 400)
     } catch (error) {
         return next(new ErrorHandle('Product not found', 404));
     }

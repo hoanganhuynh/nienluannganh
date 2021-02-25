@@ -11,25 +11,25 @@ import { getProductDetails, clearErrors } from '../../actions/product.actions'
 
 const ProductDetails = ({ match }) => {
 
-    const disptach = useDispatch();
+    const dispatch = useDispatch();
     const alert = useAlert();
 
     const { loading, error, product } = useSelector(state => state.productDetails)
 
     useEffect(() => {
-        disptach(getProductDetails(match.params.id))
+        dispatch(getProductDetails(match.params.id))
 
         if(error) {
             alert.error(error);
-            disptach(clearErrors())
+            dispatch(clearErrors())
         }
 
-    }, [disptach, alert, error, match.params.id])
+    }, [dispatch, alert, error, match.params.id])
 
     return (
         <Fragment>
         {loading ? <Loader /> : (
-                <Fragment>
+            <Fragment>
                     <MetaData title={product.name} />
                     <div className="row f-flex justify-content-around">
                         <div className="col-12 col-lg-5 img-fluid" id="product_image">
@@ -57,14 +57,14 @@ const ProductDetails = ({ match }) => {
             
                             <p id="product_price">{product.price} VNĐ</p>
                             <div className="stockCounter d-inline">
-                                <span className="btn btn-danger minus">-</span>
+                                <span className={product.stock > 0 ? "btn btn-danger minus" : 'd-none'}>-</span>
             
-                                <input type="number" className="form-control count d-inline" value="1" readOnly />
+                                <input type="number" className={product.stock > 0 ? "form-control count d-inline" : 'd-none'} value="1" readOnly />
             
-                                <span className="btn btn-primary plus">+</span>
+                                <span className={product.stock > 0 ? 'btn btn-primary plus' : 'd-none'}>+</span>
                             </div>
-                                <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4">Thêm vào giỏ hàng</button>
-            
+                                <button type="button" id="cart_btn" className={product.stock > 0 ? "btn btn-primary d-inline ml-4" : 'd-none'}>Thêm vào giỏ hàng</button>
+
                             <hr/>
             
                             <p>Trạng thái: <span id="stock_status" className={product.stock > 0 ? 'greenColor' : 'redColor'}>{product.stock > 0 ? `Còn hàng (${product.stock})` : 'Hết hàng'}</span></p>
