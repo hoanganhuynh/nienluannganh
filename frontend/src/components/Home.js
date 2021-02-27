@@ -71,10 +71,10 @@ const Home = () => {
                                 itemsCountPerPage={resPerPage}
                                 totalItemsCount={productCount}
                                 onChange={setCurrentpageNo}
-                                nextPageText={'Next'}
-                                prevPageText={'Prev'}
-                                firstPageText={'First'}
-                                lastPageText={'Last'}
+                                nextPageText={'>'}
+                                prevPageText={'<'}
+                                firstPageText={'Trang đầu'}
+                                lastPageText={'Trang cuối'}
                                 itemClass="page-item"
                                 linkClass = "page-link"
                             />
