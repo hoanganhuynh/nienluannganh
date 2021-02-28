@@ -73,6 +73,15 @@ nav {
 
 .card {
   height: 100%;
+  border: none !important;
+  background-color: #fafafa;
+  transition: .3s;
+}
+
+.card:hover {
+  box-shadow: 1px 6px 36px rgb(0,0,0,0.25) !important;
+  transition: .3s;
+  
 }
 
 .card-title a {
