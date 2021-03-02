@@ -43,11 +43,7 @@ const productSchema = new mongoose.Schema({
                 'Laptop',
                 'MobilePhone',
                 'Food',
-                'Book',
-                'Clothes',
-                'Cosmetic',
-                'Sports',
-                'Furniture'
+                'Book'
             ],
             messages: 'Vui lòng chọn danh mục cho sản phẩm.'
         }

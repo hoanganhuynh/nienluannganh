@@ -31,7 +31,19 @@ const Range = createSliderWithTooltip(Slider.Range);
 const Home = ({ match }) => {
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([1, 200000])
+    const [price, setPrice] = useState([1, 5000000]);
+
+    const [category, setCategory] = useState('')
+    //const [rating, setRating] = useState(0)
+
+    const categories = [
+        'Electronic',
+        'Camera',
+        'Laptop',
+        'MobilePhone',
+        'Food',
+        'Book'
+    ]
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -41,7 +53,8 @@ const Home = ({ match }) => {
         products,
         error,
         productCount,
-        resPerPage
+        resPerPage,
+        filteredProductsCount
     } = useSelector(state => state.products);
 
     const keyword = match.params.keyword; 
@@ -49,12 +62,17 @@ const Home = ({ match }) => {
     useEffect(() => {
         if(error) return alert.error(error);
 
-        dispatch(getProducts(keyword, currentPage, price));
+        dispatch(getProducts(keyword, currentPage, price, category));
 
-    }, [dispatch, alert, error, keyword, currentPage, price])
+    }, [dispatch, alert, error, keyword, currentPage, price, category])
 
     function setCurrentpageNo(pageNumber) {
         setCurrentPage(pageNumber)
+    }
+
+    let count = productCount;
+    if (keyword) {
+        count = filteredProductsCount
     }
 
     return (
@@ -74,12 +92,12 @@ const Home = ({ match }) => {
                                     <Range
                                         marks={{
                                             1: `1đ`,
-                                            200000: `100000đ`
+                                            500000: `500000đ`
                                         }}
                                         min={1}
-                                        max={200000}
-                                        step={10000}
-                                        defaultValue={[1, 200000]}
+                                        max={500000}
+                                        step={5000}
+                                        defaultValue={[1, 500000]}
                                         tipFormatter={value => `${value}`}
                                         tipProps={{
                                             placement: "top",
@@ -89,6 +107,29 @@ const Home = ({ match }) => {
                                         onChange={price => setPrice(price)}
                                     />
                                     
+                                    <hr className="my-5" />
+
+                                    <div className="mt-5">
+                                        <h4 className="mb-3">
+                                            Categories
+                                        </h4>
+
+                                        <ul className="pl-0">
+                                            {categories.map(category => (
+                                                <li
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        listStyleType: 'none'
+                                                    }}
+                                                    key={category}
+                                                    onClick={() => setCategory(category)}
+                                                >
+                                                    {category}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -109,7 +150,7 @@ const Home = ({ match }) => {
                 </div>
                     </section>
 
-                    {resPerPage <= productCount &&(
+                    {resPerPage <= count &&(
                         <div className="d-flex justify-content-center mt-5">
                             <Pagination
                                 activePage={currentPage}
