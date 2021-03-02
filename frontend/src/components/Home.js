@@ -31,7 +31,7 @@ const Range = createSliderWithTooltip(Slider.Range);
 const Home = ({ match }) => {
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([20000, 100000])
+    const [price, setPrice] = useState([1, 200000])
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -73,12 +73,13 @@ const Home = ({ match }) => {
                                 <div className="px-5">
                                     <Range
                                         marks={{
-                                            20000: `20000đ`,
-                                            100000: `100000đ`
+                                            1: `1đ`,
+                                            200000: `100000đ`
                                         }}
-                                        min={20000}
-                                        max={100000}
-                                        defaultValue={[20000, 100000]}
+                                        min={1}
+                                        max={200000}
+                                        step={10000}
+                                        defaultValue={[1, 200000]}
                                         tipFormatter={value => `${value}`}
                                         tipProps={{
                                             placement: "top",
@@ -87,6 +88,7 @@ const Home = ({ match }) => {
                                         value={price}
                                         onChange={price => setPrice(price)}
                                     />
+                                    
                                 </div>
                             </div>
 
