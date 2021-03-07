@@ -12,6 +12,7 @@ import 'rc-slider/assets/index.css';
 import MetaData from './layouts/MetaData';
 import Product from './product/Product';
 import Loader from './layouts/Loader';
+//import Error from './layouts/Error';
 
 import {
     useDispatch,
@@ -60,6 +61,7 @@ const Home = ({ match }) => {
     
     useEffect(() => {
         if(error) return alert.error(error);
+        //if(error) return <Error />;
 
         dispatch(getProducts(keyword, currentPage, price, category, rating));
 

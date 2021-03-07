@@ -31,6 +31,8 @@ exports.deleteAllProducts = catchAsyncErrors(async (req, res, next) => {
 // get all products => /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
+    //return next(new ErrorHandle('My Error',400));
+
     const resPerPage = 8; // limit product show in each page
     const productCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
