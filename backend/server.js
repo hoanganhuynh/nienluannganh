@@ -1,12 +1,10 @@
 const morgan = require('morgan');
 const app = require('./app');
 const connectDatabase = require('./config/database');
+const cloudinary = require('cloudinary')
+
 const router = require('./routes/product.route');
-const cors = require('cors');
-var corsOptions = {
-    origin: "http://localhost:4000"
-  };
-app.use(cors(corsOptions));
+
 
 // const db = require('./models/role');
 // const Role = db.role;
@@ -26,6 +24,13 @@ process.on('uncaughtException', err => {
 
 // Connect to Database
 connectDatabase();
+
+// Setting up cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 app.use('api/v1', router);
 
