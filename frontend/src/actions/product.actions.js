@@ -15,7 +15,7 @@ export const getProducts = (keyword = '', currentPage = 1, price, category, rati
         
         let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&rating[gte]=${rating}`
 
-        console.log('linkkk',link)
+        console.log('link product: ',link)
 
         if (category) {
             link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}&rating[gte]=${rating}`
