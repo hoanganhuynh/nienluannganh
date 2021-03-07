@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from './components/layouts/Header';
@@ -6,8 +7,17 @@ import Home from './components/Home';
 import ProductDetails from './components/product/ProductDetails'
 import Login from './components/user/Login'
 import Register from './components/user/Register'
+import { loadUser } from './actions/user.actions'
+import store from './store'
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser())
+
+  }, [])
+
+  //const { user, isAuthenticated, loading } = useSelector(state => state.auth)
+
   return (
     <Router>
       <div className="App">
