@@ -2,40 +2,57 @@ import React, { Fragment, useState, useEffect } from 'react'
 
 import MetaData from '../layouts/MetaData'
 
-import { useAlert } from 'react-alert'
+//import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { register, clearErrors } from '../../actions/user.actions'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure({
+    autoClose: 1500,
+    draggable: false,
+    position: toast.POSITION.TOP_RIGHT,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+})
+
 
 const Register = ({ history }) => {
-
+    
     const [user, setUser] = useState({
         name: '',
         email: '',
         password: '',
     })
-
+    
     const { name, email, password } = user;
-
+    
     const [avatar, setAvatar] = useState('')
     const [avatarPreview, setAvatarPreview] = useState('/images/default_avatar.png')
+    
 
-    const alert = useAlert();
+    //const alert = useAlert();
+    //const notify = () => toast()
     const dispatch = useDispatch();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
+    
 
     useEffect(() => {
 
         if (isAuthenticated) {
+            toast.success('Register Success !')
             history.push('/')
         }
 
         if (error) {
-            alert.error(error);
+            //alert.error(error);
+            toast.error(error)
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history])
+    }, [dispatch, isAuthenticated, error, history])
 
     const submitHandler = (e) => {
         e.preventDefault();

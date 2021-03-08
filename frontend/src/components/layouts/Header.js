@@ -1,14 +1,25 @@
 import React, { Fragment } from 'react';
 import {  Route, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useAlert } from 'react-alert'
+//import { useAlert } from 'react-alert'
 import { logout } from '../../actions/user.actions'
 import Search from './Search'
 import '../../App.css'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure({
+    autoClose: 1500,
+    draggable: false,
+    position: toast.POSITION.TOP_RIGHT,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+})
 // eslint-disable-next-line
 const Header = () => {
 
-    const alert = useAlert();
+    //const alert = useAlert();
     const dispatch = useDispatch();
 
     const { user, loading } = useSelector(state => state.auth)
@@ -16,7 +27,8 @@ const Header = () => {
 
     const logoutHandler = () => {
         dispatch(logout());
-        alert.success('Logged out successfully.')
+        toast.success('🦄 Logged out successfully')
+        //alert.success('Logged out successfully.')
     }
 
     return (

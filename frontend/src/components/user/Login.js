@@ -4,16 +4,25 @@ import { Link } from 'react-router-dom'
 import Loader from '../layouts/Loader'
 import MetaData from '../layouts/MetaData'
 
-import { useAlert } from 'react-alert'
+//import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/user.actions'
+
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure({
+  autoClose: 100,
+  draggable: false,
+  position: toast.POSITION.TOP_RIGHT
+})
 
 const Login = ({ history, location }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const alert = useAlert();
+    //const alert = useAlert();
+    //const notify = () => toast()
     const dispatch = useDispatch();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
@@ -23,15 +32,18 @@ const Login = ({ history, location }) => {
     useEffect(() => {
 
         if (isAuthenticated) {
+            toast.success('Login Success !')
             history.push(redirect)
         }
 
         if (error) {
-            alert.error(error);
+            toast.error(error)
+
+            //alert.error(error);
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history])
+    }, [dispatch, isAuthenticated, error, history])
 
     const submitHandler = (e) => {
         e.preventDefault();
