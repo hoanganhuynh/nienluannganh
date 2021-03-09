@@ -10,11 +10,6 @@ import { login, clearErrors } from '../../actions/user.actions'
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-toast.configure({
-  autoClose: 100,
-  draggable: false,
-  position: toast.POSITION.TOP_RIGHT
-})
 
 const Login = ({ history, location }) => {
 
@@ -32,14 +27,12 @@ const Login = ({ history, location }) => {
     useEffect(() => {
 
         if (isAuthenticated) {
-            toast.success('Login Success !')
+            toast.success('Đăng nhập thành công!')
             history.push(redirect)
         }
 
         if (error) {
             toast.error(error)
-
-            //alert.error(error);
             dispatch(clearErrors());
         }
 

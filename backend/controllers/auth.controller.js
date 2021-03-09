@@ -9,26 +9,31 @@ const cloudinary = require('cloudinary');
 
 
 // register user => /api/v1/register
-exports.registerUser = catchAsyncErrors( async ( req, res, next ) => {
-    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        folder: 'avatars',
-        width: 150,
-        crop: "scale"
-    })
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+    let result;
+    if (req.body.avatar) {
+        result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: "scale"
+        })
+    }
 
     const { name, email, password } = req.body;
+
     const user = await User.create({
         name,
         email,
         password,
         avatar: {
-            public_id: result.public_id,
-            url: result.secure_url
+            public_id: result ? result.public_id : 'n1yrlpvkfbqwtcql1wdd',
+            url: result ? result.secure_url : 'https://res.cloudinary.com/hha-nlnganh/image/upload/v1615168946/avatars/n1yrlpvkfbqwtcql1wdd.png'
         }
     })
 
-    sendToken(user, 200, res); 
-}) 
+    sendToken(user, 200, res)
+
+})
 // login => /api/v1/login
 exports.loginUser = catchAsyncErrors ( async (req, res, next) => {
     const { email, password} = req.body;
@@ -117,10 +122,13 @@ exports.logoutUser = catchAsyncErrors (async (req, res, next) => {
 // get profile
 exports.getUserProfile = catchAsyncErrors( async( req, res, next) => {
     const user = await User.findById(req.user.id);
-    res.status(200).json({
-        success: true,
-        user
-    })
+    setTimeout(()=>{
+        res.status(200).json({
+            success: true,
+            user
+        })
+
+    }, 500)
 })
 
 // update / change password => api/v1/password/updade (PUT)
@@ -128,7 +136,7 @@ exports.updatePassword = catchAsyncErrors( async (req, res, next) => {
     const user = await User.findById(req.user.id).select('+password')
     // check previous user password
     const isMatched = await user.comparePassword(req.body.oldPassword)
-    if(!isMatched) return next(new ErrorHandle('Old Password is incorrect !', 400));
+    if(!isMatched) return next(new ErrorHandle('Mật khẩu cũ không chính xác !', 400));
 
     user.password = req.body.password;
 
@@ -144,6 +152,24 @@ exports.updateProfile = catchAsyncErrors ( async (req, res, next) => {
         email: req.body.email
     }
     // Update Avatar
+    if (req.body.avatar !== '') {
+        const user = await User.findById(req.user.id)
+
+        const image_id = user.avatar.public_id;
+        const res = await cloudinary.v2.uploader.destroy(image_id);
+
+        const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: "scale"
+        })
+
+        newUserData.avatar = {
+            public_id: result.public_id,
+            url: result.secure_url
+        }
+    }
+
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,

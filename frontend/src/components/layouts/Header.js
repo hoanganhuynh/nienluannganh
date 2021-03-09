@@ -7,15 +7,7 @@ import Search from './Search'
 import '../../App.css'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-toast.configure({
-    autoClose: 1500,
-    draggable: false,
-    position: toast.POSITION.TOP_RIGHT,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-})
+
 // eslint-disable-next-line
 const Header = () => {
 
@@ -27,7 +19,7 @@ const Header = () => {
 
     const logoutHandler = () => {
         dispatch(logout());
-        toast.success('🦄 Logged out successfully')
+        toast.info('Đã đăng xuất tài khoản. Hẹn gặp lại !')
         //alert.success('Logged out successfully.')
     }
 
