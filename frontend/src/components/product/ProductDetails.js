@@ -1,18 +1,22 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Carousel } from 'react-bootstrap'
 
 import Loader from '../layouts/Loader'
 import MetaData from '../layouts/MetaData'
 
-import { useAlert } from 'react-alert'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductDetails, clearErrors } from '../../actions/product.actions'
+import { addItemToCart } from '../../actions/cart.action'
 
 
 const ProductDetails = ({ match }) => {
 
+    const [quantity, setQuantity] = useState(1)
+
     const dispatch = useDispatch();
-    const alert = useAlert();
 
     const { loading, error, product } = useSelector(state => state.productDetails)
 
@@ -20,11 +24,35 @@ const ProductDetails = ({ match }) => {
         dispatch(getProductDetails(match.params.id))
 
         if(error) {
-            alert.error(error);
+            toast.error(error)
             dispatch(clearErrors())
         }
 
-    }, [dispatch, alert, error, match.params.id])
+    }, [dispatch, error, match.params.id])
+
+    const addToCart = () => {
+        dispatch(addItemToCart(match.params.id, quantity));
+        toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng !`)
+    }
+
+    const increaseQty = () => {
+        const count = document.querySelector('.count')
+
+        if (count.valueAsNumber >= product.stock) return;
+
+        const qty = count.valueAsNumber + 1;
+        setQuantity(qty)
+    }
+
+    const decreaseQty = () => {
+
+        const count = document.querySelector('.count')
+
+        if (count.valueAsNumber <= 1) return;
+
+        const qty = count.valueAsNumber - 1;
+        setQuantity(qty)
+    }
 
     return (
         <Fragment>
@@ -57,13 +85,13 @@ const ProductDetails = ({ match }) => {
             
                             <p id="product_price">{product.price} VNĐ</p>
                             <div className="stockCounter d-inline">
-                                <span className={product.stock > 0 ? "btn btn-danger minus" : 'd-none'}>-</span>
+                                <span className="btn btn-danger minus" disabled={product.stock === 0} onClick={decreaseQty}>-</span>
             
-                                <input type="number" className={product.stock > 0 ? "form-control count d-inline" : 'd-none'} value="1" readOnly />
+                                <input type="number" className="form-control count d-inline" value={quantity} readOnly />
             
-                                <span className={product.stock > 0 ? 'btn btn-primary plus' : 'd-none'}>+</span>
+                                <span className="btn btn-primary plus" disabled={product.stock === 0} onClick={increaseQty}>+</span>
                             </div>
-                                <button type="button" id="cart_btn" className={product.stock > 0 ? "btn btn-primary d-inline ml-4" : 'd-none'}>Thêm vào giỏ hàng</button>
+                                <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4" disabled={product.stock === 0} onClick={addToCart}>Thêm vào giỏ hàng</button>
 
                             <hr/>
             
