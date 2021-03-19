@@ -58,7 +58,7 @@ const productSchema = new mongoose.Schema({
         maxLength: [5, 'Không quá 5 ký tự.'],
         default: 0
     },
-    numOfReview: {
+    numOfReviews: {
         type: Number,
         default: 0
     },

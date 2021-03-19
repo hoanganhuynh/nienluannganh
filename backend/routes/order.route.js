@@ -6,7 +6,8 @@ const { newOrder,
     myOrders,
     getAllOrder,
     updateOrders,
-    deleteOrder
+    deleteOrder,
+    deleteAllOrders
 } = require('../controllers/order.controller')
 
 const {
@@ -21,6 +22,8 @@ router.get('/admin/orders', isAuthenticateUser, authorizeRoles('admin'), getAllO
 
 router.put('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), updateOrders);
 router.delete('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), deleteOrder);
+
+router.delete('/admin/delAllOrders',isAuthenticateUser, authorizeRoles('admin'), deleteAllOrders);
 
 module.exports = router;
 

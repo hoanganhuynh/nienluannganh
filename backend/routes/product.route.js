@@ -28,7 +28,7 @@ router.route('/admin/product/:id')
 router.route('/products').get(getProducts);
 router.get('/product/:id', getSingleProduct);
 
-router.post('/review', isAuthenticateUser, createNewReview);
+router.put('/review', isAuthenticateUser, createNewReview);
 router.get('/reviews/:id', isAuthenticateUser, getProductPreviews);
 router.delete('/reviews', isAuthenticateUser, deleteReview);
 

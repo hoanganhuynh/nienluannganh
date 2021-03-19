@@ -9,10 +9,12 @@ import { UPDATE_PROFILE_RESET } from '../../constants/user.constant'
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
 toast.configure({
-    autoClose: 2000,
+    autoClose: 1500,
     draggable: false,
-    position: toast.POSITION.TOP_RIGHT,
+    position: toast.POSITION.BOTTOM_RIGHT,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,

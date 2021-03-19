@@ -6,7 +6,7 @@ const orderSchema = mongoose.Schema({
             type: String,
             required: true
         },
-        city: {
+        city: { // tinh, thanh pho
             type: String,
             required: true
         },
@@ -14,11 +14,11 @@ const orderSchema = mongoose.Schema({
             type: String,
             required: true
         },
-        postalCode: {
+        district: { // quan, huyen
             type: String,
             required: true
         },
-        country: {
+        ward: { // thi tran, xa, phuong
             type: String,
             required: true
         }
@@ -36,16 +36,20 @@ const orderSchema = mongoose.Schema({
             },
             quantity: {
                 type: Number,
-                required: true,
+                required: true
             },
             image: {
                 type: String,
                 required: true
             },
+            price: {
+                type: Number,
+                required: true
+            },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-                required: true
+                required: true,
+                ref: 'Product'
             }
         }
     ],
@@ -60,12 +64,7 @@ const orderSchema = mongoose.Schema({
     paidAt: {
         type: Date
     },
-    itemPrice: {
-        type: Number,
-        required: true,
-        default: 0.0
-    },
-    taxPrice: {
+    itemsPrice: {
         type: Number,
         required: true,
         default: 0.0
