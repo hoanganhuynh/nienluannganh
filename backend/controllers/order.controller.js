@@ -59,12 +59,15 @@ exports.getAllOrder = catchAsyncErrors( async (req, res, next) => {
         totalAmount += order.totalPrice
     })
 
-    res.status(200).json({
-        success: true,
-        countOrders: orders.length,
-        totalAmount,
-        orders
-    })
+    setTimeout(() => {
+        res.status(200).json({
+            success: true,
+            countOrders: orders.length,
+            totalAmount,
+            orders
+        })
+    },400)
+    
 })
 
 // get process order => api/v1/admin/order/id

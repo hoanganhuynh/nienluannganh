@@ -1,33 +1,21 @@
-import React,
-{
-    Fragment,
-    useState,
-    useEffect
-} from 'react';
-import Pagination from 'react-js-pagination';
-
+import React, { Fragment, useState, useEffect } from 'react'
+import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
 
-import MetaData from './layouts/MetaData';
-import Product from './product/Product';
-import Loader from './layouts/Loader';
-//import Error from './layouts/Error';
+import MetaData from './layouts/MetaData'
+import Product from './product/Product'
+import Loader from './layouts/Loader'
 
-import {
-    useDispatch,
-    useSelector
-} from 'react-redux';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-import { useAlert } from 'react-alert';
-
-import {
-    getProducts
-} from '../actions/product.actions';
+import { useDispatch, useSelector } from 'react-redux'
+// import { useAlert } from 'react-alert';
+import { getProducts } from '../actions/product.actions'
 
 const { createSliderWithTooltip } = Slider;
-const Range = createSliderWithTooltip(Slider.Range);
-
+const Range = createSliderWithTooltip(Slider.Range)
 
 const Home = ({ match }) => {
 
@@ -45,29 +33,23 @@ const Home = ({ match }) => {
         'Book'
     ]
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
-    const {
-        loading,
-        products,
-        error,
-        productCount,
-        resPerPage,
-        filteredProductsCount
-    } = useSelector(state => state.products);
+    const { loading, products, error, productCount, resPerPage, filteredProductsCount } = useSelector(state => state.products)
 
-    const keyword = match.params.keyword; 
-    
+    const keyword = match.params.keyword
+
     useEffect(() => {
-        if(error) return alert.error(error);
-        //if(error) return <Error />;
+        if (error) {
+            return toast.error(error)
+        }
 
         dispatch(getProducts(keyword, currentPage, price, category, rating));
 
-    }, [dispatch, alert, error, keyword, currentPage, price, category, rating])
 
-    function setCurrentpageNo(pageNumber) {
+    }, [dispatch, error, keyword, currentPage, price, category, rating])
+
+    function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
     }
 
@@ -75,7 +57,6 @@ const Home = ({ match }) => {
     if (keyword) {
         count = filteredProductsCount
     }
-
     return (
         <Fragment>
             {loading ? <Loader /> : (
@@ -167,14 +148,14 @@ const Home = ({ match }) => {
 
                             <div className="col-6 col-md-9">
                                 <div className="row">
-                                    {products.map(product => (
+                                    {products?.map(product => (
                                         <Product key={product._id} product={product} col={4} />
                                     ))}
                                 </div>
                             </div>
                         </Fragment>
                     ) : (
-                            products.map(product => (
+                            products?.map(product => (
                                 <Product key={product._id} product={product} col={3} />
                             ))
                         )}
@@ -188,7 +169,7 @@ const Home = ({ match }) => {
                                 activePage={currentPage}
                                 itemsCountPerPage={resPerPage}
                                 totalItemsCount={productCount}
-                                onChange={setCurrentpageNo}
+                                onChange={setCurrentPageNo}
                                 nextPageText={'>'}
                                 prevPageText={'<'}
                                 firstPageText={'Trang đầu'}

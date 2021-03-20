@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from './components/layouts/Header';
@@ -11,6 +12,9 @@ import Payment from './components/cart/Payment'
 import OrderSuccess from './components/cart/OrderSuccess'
 import ListOrders from './components/order/ListOrder'
 import OrderDetails from './components/order/OrderDetails'
+import ProductsList from './components/admin/ProductList'
+import NewProduct from './components/admin/NewProduct'
+import UpdateProduct from './components/admin/UpdateProduct'
 
 import ProductDetails from './components/product/ProductDetails'
 import Login from './components/user/Login'
@@ -20,6 +24,9 @@ import UpdateProfile from './components/user/UpdateProfile'
 import UpdatePassword from './components/user/UpdatePassword'
 import ForgotPassword from './components/user/ForgotPassword'
 import NewPassword from './components/user/NewPassword'
+
+// Admin Imports
+import Dashboard from './components/admin/Dashboard'
 
 
 import ProtectedRoute from './components/route/ProtectedRoute'
@@ -32,13 +39,14 @@ function App() {
     store.dispatch(loadUser())
 
   }, [])
+  const { user, isAuthenticated, loading } = useSelector(state => state.auth)
 
 
   return (
     <Router>
       <div className="App">
         <Header />
-        <div className="container container-fluid">
+        <div className="container-fluid">
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} />
           <Route path="/cart" component={Cart} exact />
@@ -63,9 +71,17 @@ function App() {
           <ProtectedRoute path="/orders/me" component={ListOrders} exact />
           <ProtectedRoute path="/order/:id" component={OrderDetails} exact />
 
+          <ProtectedRoute path="/dashboard" isAdmin={true} component={Dashboard} exact />
+          <ProtectedRoute path="/admin/products" isAdmin={true} component={ProductsList} exact />
+          <ProtectedRoute path="/admin/product" isAdmin={true} component={NewProduct} exact />
+          <ProtectedRoute path="/admin/product/:id" isAdmin={true} component={UpdateProduct} exact />
+
 
         </div>
-        <Footer />
+        {!loading && (!isAuthenticated || user.role !== 'admin') && (
+          <Footer />
+        )}
+        
       </div>
     </Router>
   );

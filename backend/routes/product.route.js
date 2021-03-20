@@ -10,7 +10,8 @@ const {
     deleteAllProducts,
     createNewReview,
     getProductPreviews,
-    deleteReview
+    deleteReview,
+    getAdminProducts
 } = require('../controllers/product.controller');
 
 const {
@@ -20,6 +21,7 @@ const {
 
 
 router.post('/admin/product/new',isAuthenticateUser, authorizeRoles('admin'), newProduct);
+router.route('/admin/products').get(getAdminProducts);
 router.delete('/admin/delAllProducts',isAuthenticateUser, authorizeRoles('admin'), deleteAllProducts); // warning: delete all products in DB
 router.route('/admin/product/:id')
     .put(isAuthenticateUser, authorizeRoles('admin'), updateProduct)
