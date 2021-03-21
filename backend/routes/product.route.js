@@ -9,7 +9,7 @@ const {
     deleteProduct,
     deleteAllProducts,
     createNewReview,
-    getProductPreviews,
+    getProductReviews,
     deleteReview,
     getAdminProducts
 } = require('../controllers/product.controller');
@@ -31,7 +31,7 @@ router.route('/products').get(getProducts);
 router.get('/product/:id', getSingleProduct);
 
 router.put('/review', isAuthenticateUser, createNewReview);
-router.get('/reviews/:id', isAuthenticateUser, getProductPreviews);
+router.get('/reviews', isAuthenticateUser, getProductReviews);
 router.delete('/reviews', isAuthenticateUser, deleteReview);
 
 module.exports = router;

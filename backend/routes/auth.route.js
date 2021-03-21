@@ -10,7 +10,7 @@ const {
     getUserProfile,
     updatePassword,
     updateProfile,
-    getAllUsers,
+    allUsers,
     getUserById,
     updateUser,
     deleteUser
@@ -28,7 +28,7 @@ router.put('/password/reset/:token', resetPassword);
 router.get('/me', isAuthenticateUser, getUserProfile);
 router.put('/password/update', isAuthenticateUser, updatePassword);
 router.put('/me/update', isAuthenticateUser, updateProfile);
-router.get('/admin/users', isAuthenticateUser, authorizeRoles('admin'), getAllUsers);
+router.get('/admin/users', isAuthenticateUser, authorizeRoles('admin'), allUsers);
 router.get('/admin/user/:id', isAuthenticateUser, authorizeRoles('admin'), getUserById);
 router.put('/admin/user/:id', isAuthenticateUser, authorizeRoles('admin'), updateUser);
 router.delete('/admin/user/:id', isAuthenticateUser, authorizeRoles('admin'), deleteUser);

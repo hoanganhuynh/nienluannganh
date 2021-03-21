@@ -180,12 +180,12 @@ exports.updateProfile = catchAsyncErrors ( async (req, res, next) => {
         message: `Profile Updated !`
     })
 })
-// get all user in db
-exports.getAllUsers = catchAsyncErrors (async (req, res, next) => {
+// Get all users   =>   /api/v1/admin/users
+exports.allUsers = catchAsyncErrors(async (req, res, next) => {
     const users = await User.find();
+
     res.status(200).json({
         success: true,
-        count: users.length,
         users
     })
 })

@@ -1,6 +1,7 @@
+
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable } from 'mdbreact'
+import { MDBDataTable, MDBView } from 'mdbreact'
 
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
@@ -9,47 +10,42 @@ import Sidebar from './Sidebar'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-//import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/product.actions'
-import { DELETE_PRODUCT_RESET } from '../../constants/product.constant'
+import { allUsers, deleteUser, clearErrors } from '../../actions/user.actions'
+import { DELETE_USER_RESET } from '../../constants/user.constant'
 
-const ProductsList = ({ history }) => {
+const UsersList = ({ history }) => {
 
-    //const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, error, products } = useSelector(state => state.products);
-    console.log(products);
-    const { error: deleteError, isDeleted } = useSelector(state => state.product)
+    const { loading, error, users } = useSelector(state => state.allUsers);
+    const { isDeleted } = useSelector(state => state.user)
 
     useEffect(() => {
-        dispatch(getAdminProducts());
+        dispatch(allUsers());
 
         if (error) {
             toast.error(error)
             dispatch(clearErrors())
         }
 
-        if (deleteError) {
-            toast.error(deleteError)
-            dispatch(clearErrors())
-        }
-
         if (isDeleted) {
-            //alert.success('Product deleted successfully');
-            toast.success('Đã xoá sản phẩm')
-            history.push('/admin/products');
-            dispatch({ type: DELETE_PRODUCT_RESET })
+            toast.success('Đã xoá người dùng thành công !')
+            history.push('/admin/users');
+            dispatch({ type: DELETE_USER_RESET })
         }
 
-    }, [dispatch, error, deleteError, isDeleted, history])
+    }, [dispatch, error, isDeleted, history])
 
-    const setProducts = () => {
+    const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id))
+    }
+
+    const setUsers = () => {
         const data = {
             columns: [
                 {
-                    label: 'ID',
+                    label: 'User ID',
                     field: 'id',
                     sort: 'asc'
                 },
@@ -59,13 +55,18 @@ const ProductsList = ({ history }) => {
                     sort: 'asc'
                 },
                 {
-                    label: 'Price',
-                    field: 'price',
+                    label: 'Created At',
+                    field: 'createdAt',
                     sort: 'asc'
                 },
                 {
-                    label: 'Stock',
-                    field: 'stock',
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Role',
+                    field: 'role',
                     sort: 'asc'
                 },
                 {
@@ -76,17 +77,19 @@ const ProductsList = ({ history }) => {
             rows: []
         }
 
-        products?.forEach(product => {
+        users.forEach(user => {
             data.rows.push({
-                id: product._id,
-                name: product.name,
-                price: `$${product.price}`,
-                stock: product.stock,
+                id: user._id,
+                name: user.name,
+                createdAt: user.createdAt,
+                email: user.email,
+                role: user.role,
+
                 actions: <Fragment>
-                    <Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
+                    <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
                         <i className="fa fa-pencil"></i>
                     </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(product._id)}>
+                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteUserHandler(user._id)}>
                         <i className="fa fa-trash"></i>
                     </button>
                 </Fragment>
@@ -96,19 +99,15 @@ const ProductsList = ({ history }) => {
         return data;
     }
 
-    const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id))
-    }
-
     let title = '';
-    let total = products.length;
-    
-    if (total > 0) title = 'All products: ' + total.toString();
-    else title = 'No order'
+    console.log(users);
+    let total = users.length;
+    if (total > 0) title = 'All users: ' + total.toString();
+    else title = 'No user'
 
     return (
         <Fragment>
-            <MetaData title={'All Products'} />
+            <MetaData title={'All Users'} />
             <div className="row">
                 <div className="col-12 col-md-2">
                     <Sidebar />
@@ -120,7 +119,7 @@ const ProductsList = ({ history }) => {
 
                         {loading ? <Loader /> : (
                             <MDBDataTable
-                                data={setProducts()}
+                                data={setUsers()}
                                 className="px-3"
                                 bordered
                                 striped
@@ -136,4 +135,4 @@ const ProductsList = ({ history }) => {
     )
 }
 
-export default ProductsList
+export default UsersList

@@ -25,6 +25,8 @@ const ProductDetails = ({ match }) => {
 
     const { loading, error, product } = useSelector(state => state.productDetails)
 
+    console.log(product)
+
     const { user } = useSelector(state => state.auth)
     const { error: reviewError, success } = useSelector(state => state.newReview)
 
@@ -146,7 +148,7 @@ const ProductDetails = ({ match }) => {
                             <div className="rating-outer">
                                 <div className="rating-inner" style={{ width: `${(product.rating / 5) * 100}%` }}></div>
                             </div>
-                            <span id="no_of_reviews">({product.numOfReviews} đánh giá)</span>
+                            <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
             
                             <hr/>
             
