@@ -1,8 +1,13 @@
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Header from './components/layouts/Header';
+import Header from './components/layouts/_Header';
+import SliderPhoto from './components/layouts/SliderPhoto';
+import MenuCategory from './components/layouts/MenuCategory';
+import SupportComp from './components/layouts/SupportComp'
+import BrandPartner from './components/layouts/BrandPartner'
+import SendLetter from './components/layouts/SendLetter'
 import Footer from './components/layouts/Footer';
 import Home from './components/Home';
 import Cart from './components/cart/Cart'
@@ -52,6 +57,8 @@ function App() {
     <Router>
       <div className="App">
         <Header />
+        <MenuCategory />
+        <SliderPhoto />
         <div className="container-fluid">
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} />
@@ -88,8 +95,16 @@ function App() {
           <ProtectedRoute path="/admin/reviews" isAdmin={true} component={ProductReviews} exact />
 
         </div>
+        
+
         {!loading && (!isAuthenticated || user.role !== 'admin') && (
-          <Footer />
+          <Fragment>
+            <SupportComp />
+            <BrandPartner />
+            <SendLetter />
+            <Footer />
+          </Fragment>
+          
         )}
         
       </div>

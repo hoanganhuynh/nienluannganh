@@ -1,7 +1,7 @@
 
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable, MDBView } from 'mdbreact'
+import { MDBDataTable } from 'mdbreact'
 
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
@@ -100,7 +100,6 @@ const UsersList = ({ history }) => {
     }
 
     let title = '';
-    console.log(users);
     let total = users.length;
     if (total > 0) title = 'All users: ' + total.toString();
     else title = 'No user'

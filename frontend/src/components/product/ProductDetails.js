@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Carousel } from 'react-bootstrap'
+import '../../style.css'
 
 import Loader from '../layouts/Loader'
 import MetaData from '../layouts/MetaData'

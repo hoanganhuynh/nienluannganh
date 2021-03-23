@@ -43,6 +43,8 @@ nav {
 #search_field {
   height: 2.4rem;
   padding: 1rem;
+  z-index: 0;
+  float: none;
 }
 
 #login_btn,

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 //import { useAlert } from 'react-alert'
 import { logout } from '../../actions/user.actions'
 import Search from './Search'
-import '../../App.css'
+// import '../../App.css'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -29,7 +29,7 @@ const Header = () => {
                 <div className="col-12 col-md-3">
                     <div className="navbar-brand">
                         <Link to="/">
-                        <img alt="logo image" src="/images/logo.png" />
+                        <img alt="logo image" src="/images/logonew.png" />
                         </Link>
                     </div>
                 </div>

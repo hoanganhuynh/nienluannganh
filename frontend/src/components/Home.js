@@ -2,6 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react'
 import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
+import '../../src/style.css';
+import '/Users/popmaker20/projects/knowllipop/hoangan/nienluannganh/frontend/src/default-theme.css';
+
 
 import MetaData from './layouts/MetaData'
 import Product from './product/Product'
@@ -70,7 +73,7 @@ const Home = ({ match }) => {
                     {keyword ? (
                         <Fragment>
                             <div className="col-6 col-md-3 mt-5 mb-5">
-                                <div className="px-5">
+                                <aside className="aa-sidebar">
                                     <Range
                                         marks={{
                                             1: `1đ`,
@@ -91,12 +94,32 @@ const Home = ({ match }) => {
                                     
                                     <hr className="my-5" />
 
-                                    <div className="mt-5">
+                                    {/* <div className="mt-5">
                                         <h4 className="mb-3">
                                             Categories
                                         </h4>
 
                                         <ul className="pl-0">
+                                            {categories.map(category => (
+                                                <li
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                        listStyleType: 'none'
+                                                    }}
+                                                    key={category}
+                                                    onClick={() => setCategory(category)}
+                                                >
+                                                    {category}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div> */}
+
+                                    <div className="aa-sidebar-widget">
+                                        <h4 className="mb-3">
+                                            Categories
+                                        </h4>
+                                        <ul className="aa-catg-nav">
                                             {categories.map(category => (
                                                 <li
                                                     style={{
@@ -143,22 +166,26 @@ const Home = ({ match }) => {
                                         </ul>
                                     </div>
                                 
-                                </div>
+                                </aside>
                             </div>
 
                             <div className="col-6 col-md-9">
-                                <div className="row">
+                                {/* <div className="row">
                                     {products?.map(product => (
                                         <Product key={product._id} product={product} col={4} />
                                     ))}
-                                </div>
+                                </div> */}
+                                <ul className="aa-product-catg">
+                                    {products?.map(product => <Product key={product._id} product={product} col={3} />)}
+                                </ul>
                             </div>
                         </Fragment>
                     ) : (
-                            products?.map(product => (
-                                <Product key={product._id} product={product} col={3} />
-                            ))
-                        )}
+                        <ul className="aa-product-catg">
+                            {products?.map(product => <Product key={product._id} product={product} col={3} />)}
+                        </ul>
+                        )
+                    }
 
                 </div>
                     </section>
@@ -181,6 +208,8 @@ const Home = ({ match }) => {
                     )}
                 </Fragment>
             )}
+            <p></p>
+            <a className="scrollToTop" href="#"><i className="fa fa-chevron-up"></i></a>
         </Fragment>
     )
 }
