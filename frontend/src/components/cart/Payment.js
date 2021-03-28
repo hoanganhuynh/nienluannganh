@@ -96,25 +96,43 @@ const Payment = ({ history }) => {
         <Fragment>
             <MetaData title={'Payment'} />
 
-            <CheckoutSteps shipping confirmOrder payment />
+            {/* <CheckoutSteps shipping confirmOrder payment /> */}
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler}>
-                        
+            <section id="aa-myaccount">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="aa-myaccount-area">         
+                                <div className="row">
+                                    <div className="col-md-5">
+                                        <div className="aa-myaccount-login">
+                                            <h4>Xác nhận đặt hàng</h4>
+                                            <p>Vui lòng chuẩn bị số tiền <strong>{orderInfo && orderInfo.totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnđ</strong> khi nhận hàng</p>
+                                            <p></p>
+                                            <form lassName="aa-login-form" onSubmit={submitHandler}>
+                                                <button
+                                                    id="pay_btn"
+                                                    type="submit"
+                                                    className="aa-browse-btn"
+                                                >
+                                                    Xác nhận
+                                                </button>
+                                            </form> 
+                                            
+                                        </div>
+                                    </div>
 
-
-                        <button
-                            id="pay_btn"
-                            type="submit"
-                            className="btn btn-block py-3"
-                        >
-                            Pay {` - ${orderInfo && orderInfo.totalPrice}`}
-                        </button>
-
-                    </form>
+                                    <div className="col-md-7">
+                                        <div className="aa-myaccount-register">                 
+                                            <img width="600px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616907492/giao_hang_ihfaxt.png" alt="shipping image"></img>
+                                        </div>
+                                    </div>
+                                </div>          
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
 
         </Fragment>
     )

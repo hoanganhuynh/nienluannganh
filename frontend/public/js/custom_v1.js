@@ -357,3 +357,15 @@ jQuery(function($){
     
 });
 
+
+$(document).ready(function(){
+  $('#demo .thumbnails-container img').simpleGallery({
+    loading_image: '/images/demo/images/loading.gif'
+  });
+
+  $('#demo .big-image').simpleLens({
+    loading_image: '/images/demo/images/loading.gif'
+  });
+});
+
+

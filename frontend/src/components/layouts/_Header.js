@@ -52,26 +52,26 @@ const Header = () => {
                                             <img width="24px" src={user.avatar && user.avatar.url}
                                         alt={user && user.name} className="rounded-circle"></img>
                                         </li>
-                                        <li><a className="text-danger" href="/me">{user && user.name}</a></li>
+                                        <li><a className="text-danger" href="/me">Xin chào, {user && user.name}</a></li>
                                         {user && user.role === 'admin' && (
                                             // <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
-                                            <li><a href="/dashboard">Dashboard</a></li>
+                                            <li><span className="fa fa-shield"></span><a href="/dashboard">Trang quản trị</a></li>
                                         )}
-                                        <li className="hidden-xs"><a href="/orders/me">Order</a></li>
-                                        <li className="hidden-xs"><a href="/me">Profile</a></li>
+                                        <li className="hidden-xs"><span className="fa fa-shopping-cart"></span><a href="/orders/me">Đơn hàng</a></li>
+                                        <li className="hidden-xs"><span className="fa fa-user"></span><a href="/me">Thông tin cá nhân</a></li>
                                         {/* <li className="hidden-xs"><a href="#">Logout</a></li>
                                         <li><a href="" data-toggle="modal" data-target="#login-modal">Logout</a></li> */}
                                         {/* <Link className="hidden-xs" to="/" onClick={logoutHandler}>
                                             Logout
                                         </Link> */}
-                                        <li className="hidden-xs"><a href="/" onClick={logoutHandler}>Logout</a></li>
+                                        <li className="hidden-xs"><span className="fa fa-sign-out"></span><a href="/" onClick={logoutHandler}>Đăng xuất</a></li>
                                     </ul>
                                 </div>
                             ): !loading &&
                                 <div className="aa-header-top-right">
                                     <ul className="aa-head-top-nav-right">
                                         {/* <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li> */}
-                                        <li className="hidden-xs"><a href="/login">Login</a></li>
+                                        <li className="hidden-xs"><a href="/login">Đăng nhập</a></li>
                                         {/* <Link to="/login" className="hidden-xs" id="">Login</Link> */}
                                     </ul>
                                 </div>
@@ -94,16 +94,17 @@ const Header = () => {
                                         
                                         <a href="/">
                                         <span className="fa fa-shopping-cart"></span>
-                                        <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                                        <p>daily<strong>Shop</strong> <span>Uy tín - Chất lượng</span></p>
                                         </a>
                                         
                                     </div>
                                     
                                     <div className="aa-cartbox">
-                                        <a className="aa-cart-link" href="#">
+                                        <a className="aa-cart-link" href="/cart">
                                         <span className="fa fa-shopping-basket"></span>
-                                        <span className="aa-cart-title">SHOPPING CART</span>
-                                        <span className="aa-cart-notify">{cartItems.length}</span>
+                                        <span className="aa-cart-title">Giỏ hàng</span>
+                                        {cartItems.length > 0 ? (<span className="aa-cart-notify">{cartItems.length}</span>) : ('')}
+                                        
                                         </a>
                                         
                                     </div>

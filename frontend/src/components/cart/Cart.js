@@ -9,11 +9,13 @@ import MetaData from '../layouts/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart, removeItemFromCart } from '../../actions/cart.action'
 
+
 const Cart = ({ history }) => {
 
     const dispatch = useDispatch();
 
     const { cartItems } = useSelector(state => state.cart)
+
 
     const removeCartItemHandler = (id) => {
         toast.success('Xoá sản phẩm khỏi giỏ hàng thành công !')
@@ -23,7 +25,10 @@ const Cart = ({ history }) => {
     const increaseQty = (id, quantity, stock) => {
         const newQty = quantity + 1;
 
-        if (newQty > stock) return;
+        if (newQty > stock) {
+            toast.error('Sản phẩm vượt quá mức cho phép !')
+            return;
+        }
 
         dispatch(addItemToCart(id, newQty))
     }
@@ -32,11 +37,16 @@ const Cart = ({ history }) => {
 
         const newQty = quantity - 1;
 
-        if (newQty <= 0) return;
-
+        if (newQty <= 0) {
+            toast.error('Sản phẩm muốn mua phải tối thiếu 1 sản phẩm !')
+            return;
+        }
         dispatch(addItemToCart(id, newQty))
-
     }
+
+    let tongcong = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)
+
+
 
     const checkoutHandler = () => {
         history.push('/login?redirect=shipping')
@@ -47,42 +57,76 @@ const Cart = ({ history }) => {
             <MetaData title={'Giỏ hàng của bạn'} />
             {cartItems.length === 0 ? <h2 className="mt-5">Chưa có sản phẩm nào !</h2> : (
                 <Fragment>
-                    <h2 className="mt-5">Your Cart: <b>{cartItems.length} items</b></h2>
+                    <div className="gio-hang row d-flex justify-content-between">
+                        <div style={{borderRight:"1px solid #eaeaea"}} className="col-12 col-lg-8">
+                            <h2 className="gio-hang-tieu-de"><span className="fa fa-shopping-basket"></span>  Giỏ hàng của bạn: <b>{cartItems.length}</b></h2>
+                            <hr></hr>
+                            <div className="row item-in-cart">
+                                <div className="col-4 col-lg-3">
+                                    <p className="cart-title-table text-center">Hình ảnh</p>
+                                </div>
 
-                    <div className="row d-flex justify-content-between">
-                        <div className="col-12 col-lg-8">
+                                <div className="col-4 col-lg-3">
+                                    <p className="cart-title-table text-center">Tên sản phẩm</p>
+                                </div>
+                                <div className="col-3 col-lg-2 mt-4 mt-lg-0">
+                                    <p className="cart-title-table text-center" id="card_item_price">Kho</p>
+                                </div>
 
+                                <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                    <p className="cart-title-table text-center" id="card_item_price">Giá</p>
+                                </div>
+
+                                <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                    <p className="cart-title-table text-center" id="card_item_price">Số lượng</p>
+                                </div>
+
+                                <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                    <p className="cart-title-table text-center" id="card_item_price">Hành động</p>
+                                </div>
+
+                            </div>
+                            <hr></hr>
                             {cartItems.map(item => (
                                 <Fragment>
-                                    <hr />
-
                                     <div className="cart-item" key={item.product}>
-                                        <div className="row">
+
+                    
+
+                                        <div className="row item-in-cart">
                                             <div className="col-4 col-lg-3">
                                                 <img src={item.image} alt="Laptop" height="90" width="115" />
                                             </div>
 
-                                            <div className="col-5 col-lg-3">
+                                            <div className="ra-giua col-5 col-lg-3">
                                                 <Link to={`/product/${item.product}`}>{item.name}</Link>
                                             </div>
-
-
-                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                                <p id="card_item_price">${item.price}</p>
+                                            <div className="col-3 col-lg-2 mt-4 mt-lg-0">
+                                                <p className="text-center" id="card_item_price">{item.stock}</p>
                                             </div>
 
-                                            <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                                                <div className="stockCounter d-inline">
-                                                    <span className="btn btn-danger minus" onClick={() => decreaseQty(item.product, item.quantity)}>-</span>
+                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                                <p className="text-center" id="card_item_price">{item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                            </div>
 
-                                                    <input type="number" className="form-control count d-inline" value={item.quantity} readOnly />
+                                            <div className="ra-giua col-4 col-lg-2 mt-4 mt-lg-0">
+                                                <div className="tang-giam stockCounter d-inline">
+                                                    <span className="giam-sl btn" onClick={() => decreaseQty(item.product, item.quantity)}>-</span>
 
-                                                    <span className="btn btn-primary plus" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>+</span>
+                                                    <input type="number" className="so-luong form-control count d-inline" value={item.quantity} readOnly />
+
+                                                    {item.quantity > item.stock ? 
+                                                        (<span disabled className="tang-sl btn" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>+</span>)
+                                        
+                                                    : (<span className="tang-sl btn" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>+</span>)
+                                                    }
+
+                                                    
                                                 </div>
                                             </div>
 
-                                            <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                                <i id="delete_cart_item" className="fa fa-trash btn btn-danger" onClick={() => removeCartItemHandler(item.product)} ></i>
+                                            <div className="ra-giua col-4 col-lg-2 mt-4 mt-lg-0">
+                                                <i id="delete_cart_item" className="fa fa-trash btn" onClick={() => removeCartItemHandler(item.product)} ></i>
                                             </div>
 
                                         </div>
@@ -95,13 +139,12 @@ const Cart = ({ history }) => {
 
                         <div className="col-12 col-lg-3 my-4">
                             <div id="order_summary">
-                                <h4>Order Summary</h4>
+                                <h2 className="gio-hang-tieu-de"><span className="fa fa-file-text"></span> Hoá đơn</h2>
                                 <hr />
-                                <p>Subtotal:  <span className="order-summary-values">{cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} (Units)</span></p>
-                                <p>Est. total: <span className="order-summary-values">${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</span></p>
-
-                                <hr />
-                                <button id="checkout_btn" className="btn btn-primary btn-block" onClick={checkoutHandler}>Check out</button>
+                                <p>Tổng số lượng:  <span className="order-summary-values">{cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} (cái)</span></p>
+                                <p>Tổng cộng: <span className="order-summary-values">{tongcong.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnđ</span></p>
+                                                        
+                                <button id="checkout_btn" className="aa-browse-btn" onClick={checkoutHandler}>Tiếp tục</button>
                             </div>
                         </div>
                     </div>

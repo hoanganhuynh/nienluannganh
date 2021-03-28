@@ -78,87 +78,93 @@ const Register = ({ history }) => {
 
             <MetaData title={'Register User'} />
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                        <h1 className="mb-3">Register</h1>
+            <section id="aa-myaccount">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="aa-myaccount-area">         
+                                <div className="row">
+                                    
+                                <div className="col-md-6">
+                                    <div className="aa-myaccount-register">                 
+                                        <h4>Đăng ký tài khoản</h4>
+                                        <form onSubmit={submitHandler} encType='multipart/form-data' className="aa-login-form">
+                                            <label>Nhập tên tài khoản<span>*</span></label>
+                                            <input
+                                                type="name"
+                                                id="name_field"
+                                                className="form-control"
+                                                name='name'
+                                                value={name}
+                                                onChange={onChange}
+                                            ></input>
 
-                        <div className="form-group">
-                            <label htmlFor="email_field">Name</label>
-                            <input
-                                type="name"
-                                id="name_field"
-                                className="form-control"
-                                name='name'
-                                value={name}
-                                onChange={onChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="email_field">Email</label>
-                            <input
-                                type="email"
-                                id="email_field"
-                                className="form-control"
-                                name='email'
-                                value={email}
-                                onChange={onChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="password_field">Password</label>
-                            <input
-                                type="password"
-                                id="password_field"
-                                className="form-control"
-                                name='password'
-                                value={password}
-                                onChange={onChange}
-                            />
-                        </div>
-
-                        <div className='form-group'>
-                            <label htmlFor='avatar_upload'>Avatar</label>
-                            <div className='d-flex align-items-center'>
-                                <div>
-                                    <figure className='avatar mr-3 item-rtl'>
-                                        <img
-                                            src={avatarPreview}
-                                            className='rounded-circle'
-                                            alt='Avatar Preview'
-                                        />
-                                    </figure>
+                                            <label>Địa chỉ Email<span>*</span></label>
+                                            <input
+                                                type="email"
+                                                id="email_field"
+                                                className="form-control"
+                                                name='email'
+                                                value={email}
+                                                onChange={onChange}
+                                            ></input>
+                                            <label for="">Mật khẩu<span>*</span></label>
+                                            <input 
+                                                type="password"
+                                                id="password_field"
+                                                className="form-control"
+                                                name='password'
+                                                value={password}
+                                                onChange={onChange}
+                                            ></input>
+                                            <label for="">Ảnh đại diện</label>
+                                            <div className='custom-avatar-input'>
+                                                <div>
+                                                    <figure className='choose-avatar'>
+                                                        <img
+                                                            src={avatarPreview}
+                                                            className='rounded-circle'
+                                                            alt='Avatar Preview'
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <div className='custom-file'>
+                                                    <input
+                                                        type='file'
+                                                        name='avatar'
+                                                        className='custom-file-input'
+                                                        id='customFile'
+                                                        accept="images/*"
+                                                        onChange={onChange}
+                                                    />
+                                                    <label className='custom-file-label' htmlFor='customFile'>
+                                                        Chọn ảnh đại diện
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <button
+                                            id="register_button"
+                                            type="submit"
+                                            
+                                            disabled={loading ? true : false}
+                                            className="aa-browse-btn">
+                                                Đăng ký
+                                            </button>                    
+                                        </form>
+                                    </div>
                                 </div>
-                                <div className='custom-file'>
-                                    <input
-                                        type='file'
-                                        name='avatar'
-                                        className='custom-file-input'
-                                        id='customFile'
-                                        accept="images/*"
-                                        onChange={onChange}
-                                    />
-                                    <label className='custom-file-label' htmlFor='customFile'>
-                                        Choose Avatar
-                                    </label>
+
+                                <div className="col-md-6">
+                                    <div className="aa-myaccount-register">                 
+                                        <img width="600px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616591311/slider/Mesa_de_trabajo_1_rvpwj6.png" alt="register image"></img>
+                                    </div>
                                 </div>
+                                </div>          
                             </div>
                         </div>
-
-                        <button
-                            id="register_button"
-                            type="submit"
-                            className="btn btn-block py-3"
-                            disabled={loading ? true : false}
-                        >
-                            REGISTER
-                        </button>
-                    </form>
+                    </div>
                 </div>
-            </div>
-
+            </section>
         </Fragment>
     )
 }

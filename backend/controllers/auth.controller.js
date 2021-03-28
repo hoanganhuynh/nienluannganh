@@ -35,19 +35,19 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
 })
 // login => /api/v1/login
-exports.loginUser = catchAsyncErrors ( async (req, res, next) => {
+exports.loginUser = ( async (req, res, next) => {
     const { email, password} = req.body;
 
     // check if email or pass is entered by user
-    if(!email || !password) return next(new ErrorHandle('Please enter email & password', 400 ));
+    if(!email || !password) return next(new ErrorHandle('Bạn chưa điểm Email hoặc Mật khẩu', 400 ));
     
     // find user in database
     const user = await User.findOne({ email }).select('+password');
-    if(!user) return next(new ErrorHandler('Invalid Email or Password', 401));
+    if(!user) return next(new ErrorHandler('Email hoặc Mật khẩu không đúng', 401));
     
     // check if password is correct or not
     const isPasswordMatched = await user.comparePassword(password);
-    if(!isPasswordMatched) return next(new ErrorHandler('Invalid Email or Password', 401));
+    if(!isPasswordMatched) return next(new ErrorHandler('Email hoặc Mật khẩu không đúng', 401));
     
     sendToken(user, 200, res); 
 })
@@ -56,7 +56,7 @@ exports.loginUser = catchAsyncErrors ( async (req, res, next) => {
 exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if(!user) {
-        return next(new ErrorHandle('User not found with this email', 404));
+        return next(new ErrorHandle('Không tìm thấy Email nào !', 404));
     }
     const resetToken = user.getResetPasswordToken();
 

@@ -2,12 +2,12 @@ import React from 'react'
 
 const MenuCategory = () => {
     const categories = [
-        'Electronic',
-        'Camera',
+        'Điện tử',
+        'Máy ảnh',
         'Laptop',
-        'MobilePhone',
-        'Food',
-        'Book'
+        'Điện thoại',
+        'Thực phẩm',
+        'Sách'
     ]
     return (   
         <section id="menu">

@@ -40,7 +40,7 @@ const Header = () => {
 
                 <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
                     <Link to="/cart" style={{ textDecoration: 'none' }} >
-                        <span id="cart" className="ml-3"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</span>
+                        <span id="cart" className="ml-3"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Giỏ hàng</span>
                         <span className="ml-1" id="cart_count">{cartItems.length}</span>
                     </Link>
                     {user ? (
@@ -60,10 +60,10 @@ const Header = () => {
                             <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
 
                                 {user && user.role === 'admin' && (
-                                    <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
+                                    <Link className="dropdown-item" to="/dashboard">Trang quản trị</Link>
                                 )}
-                                <Link className="dropdown-item" to="/orders/me">Orders</Link>
-                                <Link className="dropdown-item" to="/me">Profile</Link>
+                                <Link className="dropdown-item" to="/orders/me">Đơn hàng</Link>
+                                <Link className="dropdown-item" to="/me">Thông tin tài khoản</Link>
                                 <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
                                     Logout
                                 </Link>
@@ -73,7 +73,7 @@ const Header = () => {
 
                         </div>
 
-                    ) : !loading && <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>}
+                    ) : !loading && <Link to="/login" className="btn ml-4" id="login_btn">Đăng nhập</Link>}
 
                 </div>
             </nav>

@@ -1,45 +1,47 @@
 import React, { Fragment } from 'react'
+import SimpleImageSlider from "react-simple-image-slider";
+
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+
 
 const SliderPhoto = () => {
+    const handleDragStart = (e) => e.preventDefault();
+
+    const images = [
+        { url: "https://salt.tikicdn.com/cache/w824/ts/banner/9b/0e/8e/26990b2286bfb999542f8221fa5ecadd.png.jpg" },
+        { url: "https://salt.tikicdn.com/cache/w824/ts/banner/be/6a/73/c35688bf41d7637bcf4b98c5a61906b3.jpg" },
+        { url: "https://salt.tikicdn.com/cache/w824/ts/banner/3c/2f/c7/dc4e0889afdc8836d311ca6f140a5921.png.jpg" }
+      
+    ];
+
+    const items = [
+        <img src="https://icms-image.slatic.net/images/ims-web/5050417c-130b-403c-8296-82600aad18fd.jpg" onDragStart={handleDragStart} />,
+        <img src="https://icms-image.slatic.net/images/ims-web/6c32db13-fb81-432e-b4db-103c63b6783f.jpg" onDragStart={handleDragStart} />,
+        <img src="https://icms-image.slatic.net/images/ims-web/657faaf6-248a-4e28-8386-0aedb8377fff.jpg" onDragStart={handleDragStart} />,
+      ];
+
     return (
         <Fragment>
-            <section id="aa-slider">
-                <div className="aa-slider-area">
-                    <div id="sequence" className="seq">
-                    <div className="seq-screen">
-                        <ul className="seq-canvas">
-                            <li>
-                                <div className="seq-model">
-                                    <img data-seq src="https://picsum.photos/1920/700" alt="Men slide img" />
-                                </div>
-                                <div className="seq-title">
-                                <span data-seq>Save Up to 75% Off</span>                
-                                    <h2 data-seq>Men Collection</h2>                
-                                    <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                                    <a data-seq href="#" className="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-                                </div>
-                            </li>
-                            
-                            <li>
-                                <div className="seq-model">
-                                    <img data-seq src="https://picsum.photos/1920/700" alt="Wristwatch slide img" />
-                                </div>
-                                <div className="seq-title">
-                                    <span data-seq>Save Up to 40% Off</span>                
-                                    <h2 data-seq>Wristwatch Collection</h2>                
-                                    <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                                    <a data-seq href="#" className="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-                                </div>
-                            </li>                  
-                        </ul>
-                    </div>
-                    <fieldset className="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
-                        <a type="button" className="seq-prev" aria-label="Previous"><span className="fa fa-angle-left"></span></a>
-                        <a type="button" className="seq-next" aria-label="Next"><span className="fa fa-angle-right"></span></a>
-                    </fieldset>
-                </div>
-                </div>
-            </section>
+            {/* <SimpleImageSlider
+                width={1410}
+                height={465}
+                images={images}
+                slideDuration= {0.5}
+                showNavs={true}
+                showBullets={true}
+                useGPURender={true}
+            /> */}
+
+            <AliceCarousel
+                mouseTracking
+                items={items}
+                autoPlay={true}
+                autoWidth={true}
+                animationDuration={2000}
+                disableButtonsControls={true}
+                infinite={true}
+            />
         </Fragment>
     )
 }

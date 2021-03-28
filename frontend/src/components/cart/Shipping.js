@@ -26,6 +26,7 @@ const Shipping = ({ history }) => {
         
         setCity(e.target.value);
     }
+    
     useEffect(() => {
         const [, id] = city.split('-');
         //console.log("City id: " +id)
@@ -58,9 +59,9 @@ const Shipping = ({ history }) => {
 
             <MetaData title={'Shipping Info'} />
 
-            <CheckoutSteps shipping />
+            {/* <CheckoutSteps shipping /> */}
 
-            <div className="row wrapper">
+            {/* <div className="row wrapper">
                 <div className="col-10 col-lg-5">
                     <form className="shadow-lg" onSubmit={submitHandler}>
                         <h1 className="mb-4">Shipping Info</h1>
@@ -152,7 +153,151 @@ const Shipping = ({ history }) => {
                             </button>
                     </form>
                 </div>
-            </div>
+            </div> */}
+
+            <section id="aa-myaccount">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="aa-myaccount-area">         
+                                <div className="row">
+                                    <div className="col-md-5">
+                                        <div className="aa-myaccount-login">
+                                            <h4>Thông tin giao hàng</h4>
+
+                                            {/* <form onSubmit={submitHandler} className="aa-login-form">
+                                                <label for="">Địa chỉ email<span>*</span></label>
+                                                <input 
+                                                    type="email"
+                                                    id="email_field"
+                                                    className="form-control"
+                                                    value={email}
+                                                    onChange={(e) => setEmail(e.target.value)}>
+                                                </input>
+                                                <label for="">Mật khẩu<span>*</span></label>
+                                                <input
+                                                    type="password"
+                                                    id="password_field"
+                                                    className="form-control"
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}>
+                                                </input>
+                                                <button type="submit" className="aa-browse-btn">Đăng nhập</button>
+                                                <br></br>
+                                                <br></br>
+                                                <p className="aa-lost-password"><a href="/password/forgot">Quên mật khẩu?</a></p>
+                                                <p className="aa-lost-password"><a href="/register">Đăng ký</a></p>
+                                            </form> */}
+
+                                            {/* FROM */}
+
+                                            <form className="aa-login-form" onSubmit={submitHandler}>
+                                                {/* <h1 className="mb-4">Shipping Info</h1> */}
+                                                {/* <label for="">Thông tin giao hàng<span>*</span></label> */}
+                                                <div className="form-group">
+                                                    {/* <label htmlFor="address_field">Address</label> */}
+                                                    <label htmlFor="address_field">Địa chỉ <span>*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        id="address_field"
+                                                        className="form-control"
+                                                        value={address}
+                                                        onChange={(e) => setAddress(e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label htmlFor="city_field">Thành phố <span>*</span></label>
+                                                    <select
+                                                        id="city_field"
+                                                        className="form-control"
+                                                        value={city}
+                                                        onChange={handleChangeCity}
+                                                        required
+                                                    >
+                                                        
+                                                        {data.map(city => (
+                                                            <option key={city.Name} value={city.Name + '-' + city.Id}>
+                                                                {city.Name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label htmlFor="postal_code_field">Quận / Huyện <span>*</span></label>
+                                                    <select
+                                                        id="postal_code_field"
+                                                        className="form-control"
+                                                        value={district}
+                                                        onChange={(e) => setDistrict(e.target.value)}
+                                                        required
+                                                    >
+                                                        
+                                                        {selectedDistrict && selectedDistrict.length && selectedDistrict.map(item => (
+                                                            <option key={item.Id} value={item.Name + "-" + item.Id }>
+                                                                {item.Name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label htmlFor="country_field">Phường / Xã <span>*</span></label>
+                                                    <select
+                                                        id="country_field"
+                                                        className="form-control"
+                                                        value={ward}
+                                                        onChange={(e) => setWard(e.target.value)}
+                                                        required
+                                                    >
+
+                                                        { selectedWard && selectedWard.length && selectedWard.map(item => (
+                                                            <option key={item.Id} value={item.Name  + "-" + item.Id}>
+                                                                {item.Name}
+                                                            </option>
+                                                        ))}
+
+                                                    </select>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label htmlFor="phone_field">Số điện thoại <span>*</span></label>
+                                                    <input
+                                                        type="phone"
+                                                        id="phone_field"
+                                                        className="form-control"
+                                                        value={phoneNo}
+                                                        onChange={(e) => setPhoneNo(e.target.value)}
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <button
+                                                    id="shipping_btn"
+                                                    // type="submit"
+                                                    // className="btn btn-block py-3"
+                                                    type="submit" className="aa-browse-btn"
+                                                >
+                                                    Tiếp tục
+                                                    </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-7">
+                                        <div className="aa-myaccount-register">                 
+                                            <img width="600px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616907492/giao_hang_ihfaxt.png" alt="shipping image"></img>
+                                        </div>
+                                    </div>
+                                </div>          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         </Fragment>
     )

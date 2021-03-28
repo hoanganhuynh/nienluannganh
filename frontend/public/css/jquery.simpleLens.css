@@ -1,10 +1,4 @@
 /* CSS Document */
-.simpleLens-thumbnails-container a{
-    display: inline-block;
-}
-.simpleLens-thumbnails-container a img{
-    display: block;
-}
 .simpleLens-container{
     display: table;
     position: relative;

@@ -40,27 +40,27 @@ const ListOrders = () => {
         const data = {
             columns: [
                 {
-                    label: 'Order ID',
+                    label: 'ID',
                     field: 'id',
                     sort: 'asc'
                 },
                 {
-                    label: 'Num of Items',
+                    label: 'Số lượng',
                     field: 'numOfItems',
                     sort: 'asc'
                 },
                 {
-                    label: 'Amount',
+                    label: 'Tổng tiền',
                     field: 'amount',
                     sort: 'asc'
                 },
                 {
-                    label: 'Status',
+                    label: 'Trạng thái',
                     field: 'status',
                     sort: 'asc'
                 },
                 {
-                    label: 'Actions',
+                    label: 'Hành động',
                     field: 'actions',
                     sort: 'asc'
                 },
@@ -99,16 +99,24 @@ const ListOrders = () => {
 
             <MetaData title={'My Orders'} />
 
-            <h1 className="my-5">My Orders</h1>
 
             {loading ? <Loader /> : (
-                <MDBDataTable
-                    data={setOrders()}
-                    className="px-3"
-                    bordered
-                    striped
-                    hover
-                />
+                <Fragment>
+                    <div className="gio-hang row d-flex justify-content-between">
+                        <div className="col-12 col-lg-12 order-confirm">
+                        <h2 className="gio-hang-tieu-de">Đơn hàng của tôi</h2>
+                        <MDBDataTable
+                            data={setOrders()}
+                            className="px-3"
+                            bordered
+                            striped
+                            hover
+                        />
+                        </div>
+                    </div>
+                </Fragment>
+                
+                
             )}
             
 

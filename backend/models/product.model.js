@@ -69,6 +69,10 @@ const productSchema = new mongoose.Schema({
                 ref: 'User',
                 required: true
             },
+            urlAvatar: {
+                type: String,
+                required: true
+            },
             name: {
                 type: String,
                 required: true

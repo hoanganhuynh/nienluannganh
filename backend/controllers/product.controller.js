@@ -58,8 +58,8 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
     //return next(new ErrorHandle('My Error',400));
 
-    const resPerPage = 8; // limit product show in each page
-    const productCount = await Product.countDocuments();
+    const resPerPage = 4; // limit product show in each page
+    const productsCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
         .filter()
@@ -72,7 +72,7 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     setTimeout(() => {
         res.status(200).json({
             success: true,
-            productCount,
+            productsCount,
             resPerPage,
             products,
             filteredProductsCount
@@ -99,6 +99,7 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 
     try {
         const product = await Product.findById(req.params.id);
+        // console.log(product)
         if (!product) return next(new ErrorHandle('Product not found', 404));
         return setTimeout(() => {res.status(200).json({ product })}, 400)
     } catch (error) {
@@ -191,6 +192,7 @@ exports.createNewReview = catchAsyncErrors(async (req, res, next) => {
 
     const review = {
         user: req.user._id,
+        urlAvatar: req.user.avatar.url,
         name: req.user.name,
         rating: Number(rating),
         createdAt: Date.now(),

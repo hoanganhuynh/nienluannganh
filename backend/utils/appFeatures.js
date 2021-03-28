@@ -32,11 +32,12 @@ class APIFeatures {
     }
 
     pagination(resPerPage) {
-        const currentPage = Number(this.queryStr.page) || 1; 
+        const currentPage = Number(this.queryStr.page) || 1;
+        console.log('hi',currentPage); 
         // console.log('hello',this.queryStr.page);
         const skip = resPerPage * (currentPage - 1); // bo cac san pham ra lay o cac trang truoc
-        console.log(currentPage);
-        console.log(skip);
+        
+        console.log('skip',skip);
         this.query = this.query.limit(resPerPage).skip(skip);
         return this;
     }

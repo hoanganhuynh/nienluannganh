@@ -3,11 +3,8 @@ import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from './components/layouts/_Header';
-import SliderPhoto from './components/layouts/SliderPhoto';
-import MenuCategory from './components/layouts/MenuCategory';
-import SupportComp from './components/layouts/SupportComp'
-import BrandPartner from './components/layouts/BrandPartner'
-import SendLetter from './components/layouts/SendLetter'
+// import SliderPhoto from './components/layouts/SliderPhoto';
+// import MenuCategory from './components/layouts/MenuCategory';
 import Footer from './components/layouts/Footer';
 import Home from './components/Home';
 import Cart from './components/cart/Cart'
@@ -57,8 +54,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <MenuCategory />
-        <SliderPhoto />
+        
         <div className="container-fluid">
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} />
@@ -67,9 +63,8 @@ function App() {
           <ProtectedRoute path="/orders/confirm" component={ConfirmOrder} />
           
           <ProtectedRoute path="/success" component={OrderSuccess} />
-          <ProtectedRoute path="/payment" component={Payment} />
-            
-        
+          <ProtectedRoute path="/payment" component={Payment} />  
+
           <Route path="/product/:id" component={ProductDetails} exact />
           <Route path="/login" component={Login} />
           <Route path="/password/forgot" component={ForgotPassword} exact />
@@ -96,16 +91,12 @@ function App() {
 
         </div>
         
-
-        {!loading && (!isAuthenticated || user.role !== 'admin') && (
+        <Footer />
+        {/* {!loading && (!isAuthenticated || user.role !== 'admin') && (
           <Fragment>
-            <SupportComp />
-            <BrandPartner />
-            <SendLetter />
             <Footer />
           </Fragment>
-          
-        )}
+        )} */}
         
       </div>
     </Router>

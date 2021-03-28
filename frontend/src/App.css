@@ -30,7 +30,9 @@ nav {
   background-color: #232f3e;
   padding: 1rem 1rem;
 }
-
+.modal.show {
+  opacity: 1!important;
+}
 #search_btn {
   background-color: #febd69;
 }

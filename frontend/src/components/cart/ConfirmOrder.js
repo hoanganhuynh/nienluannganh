@@ -32,35 +32,66 @@ const ConfirmOrder = ({ history }) => {
 
             <MetaData title={'Confirm Order'} />
 
-            <CheckoutSteps shipping confirmOrder />
+            {/* <CheckoutSteps shipping confirmOrder /> */}
 
-            <div className="row d-flex justify-content-between">
-                <div className="col-12 col-lg-8 mt-5 order-confirm">
+            <div className="gio-hang row d-flex justify-content-between">
+                <div style={{borderRight:"1px solid #eaeaea"}} className="col-12 col-lg-8 order-confirm">
 
-                    <h4 className="mb-3">Shipping Info</h4>
-                    <p><b>Name:</b> {user && user.name}</p>
-                    <p><b>Phone:</b> {shippingInfo.phoneNo}</p>
-                    <p className="mb-4"><b>Address:</b> {`${shippingInfo.address}, ${shippingInfo.city.split('-')[0]}, ${shippingInfo.district.split('-')[0]}, ${shippingInfo.ward.split('-')[0]}`}</p>
+                    <h2 className="gio-hang-tieu-de"><span className="fa fa-shopping-basket"></span>  Thông tin giao hàng</h2>
+
+                    <p><b>Tên khách hàng:</b> {user && user.name}</p>
+                    <p><b>Số điện thoại:</b> {shippingInfo.phoneNo}</p>
+                    <p className="mb-4"><b>Địa chỉ giao hàng:</b> {`${shippingInfo.address}, ${shippingInfo.city.split('-')[0]}, ${shippingInfo.district.split('-')[0]}, ${shippingInfo.ward.split('-')[0]}`}</p>
+                    <h3 className="gio-hang-tieu-de">Sản phẩm ({cartItems.length})</h3>
 
                     <hr />
-                    <h4 className="mt-4">Your Cart Items:</h4>
+                    {/* <h4 className="mt-4">Your Cart Items:</h4> */}
+                    <div className="row">
+                        <div className="col-4 col-lg-3">
+                            <p className="cart-title-table text-center">Hình ảnh</p>
+                        </div>
+
+                        <div className="col-4 col-lg-3">
+                            <p className="cart-title-table text-center">Tên sản phẩm</p>
+                        </div>
+
+                        <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                            <p className="cart-title-table text-center" id="card_item_price">Giá</p>
+                        </div>
+
+                        <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                            <p className="cart-title-table text-center" id="card_item_price">Số lượng</p>
+                        </div>
+
+                        <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                            <p className="cart-title-table text-center" id="card_item_price">Thành tiền</p>
+                        </div>
+
+                    </div>
 
                     {cartItems.map(item => (
                         <Fragment>
                             <hr />
                             <div className="cart-item my-1" key={item.product}>
                                 <div className="row">
-                                    <div className="col-4 col-lg-2">
+                                    <div className="ra-giua col-4 col-lg-3">
                                         <img src={item.image} alt="Laptop" height="45" width="65" />
                                     </div>
 
-                                    <div className="col-5 col-lg-6">
+                                    <div className="ra-giua col-4 col-lg-3">
                                         <Link to={`/product/${item.product}`}>{item.name}</Link>
                                     </div>
 
+                                    <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                        <p className="text-center" id="card_item_price">{item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} đ</p>
+                                    </div>
 
-                                    <div className="col-4 col-lg-4 mt-4 mt-lg-0">
-                                        <p>{item.quantity} x ${item.price} = <b>${(item.quantity * item.price).toFixed(2)}</b></p>
+                                    <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                        <p className="text-center" id="card_item_price">{item.quantity} cái</p>
+                                    </div>
+
+                                    <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                        <p className="text-center" id="card_item_price">{(item.quantity * item.price).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                     </div>
 
                                 </div>
@@ -75,17 +106,18 @@ const ConfirmOrder = ({ history }) => {
 
                 <div className="col-12 col-lg-3 my-4">
                     <div id="order_summary">
-                        <h4>Order Summary</h4>
+                        <h2 className="gio-hang-tieu-de"><span className="fa fa-file-text"></span> Xác nhận hoá đơn</h2>
                         <hr />
-                        <p>Subtotal:  <span className="order-summary-values">${itemsPrice}</span></p>
-                        <p>Shipping: <span className="order-summary-values">${shippingPrice}</span></p>
+                        <p>Tổng tiền:  <span className="order-summary-values">{itemsPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnđ</span></p>
+                        {shippingPrice ? <p>Phí giao hàng: <span className="order-summary-values">{shippingPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnđ</span></p> : <p>Phí giao hàng: <span className="order-summary-values">Miễn phí</span></p>}
+                        
 
                         <hr />
 
-                        <p>Total: <span className="order-summary-values">${totalPrice}</span></p>
+                        <p style={{color: '#ff6666'}}>Tổng cộng: <strong className="order-summary-values">{totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnđ</strong></p>
 
                         <hr />
-                        <button id="checkout_btn" className="btn btn-primary btn-block" onClick={processToPayment}>Proceed to Payment</button>
+                        <button id="checkout_btn" className="aa-browse-btn" onClick={processToPayment}>Tiến hành đặt hàng</button>
                     </div>
                 </div>
 

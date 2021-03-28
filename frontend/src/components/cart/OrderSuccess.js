@@ -9,16 +9,32 @@ const OrderSuccess = () => {
 
             <MetaData title={'Order Success'} />
 
-            <div className="row justify-content-center">
-                <div className="col-6 mt-5 text-center">
-                    <img className="my-5 img-fluid d-block mx-auto" src="/images/order_success.png" alt="Order Success" width="200" height="200" />
+            <section id="aa-myaccount">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="aa-myaccount-area">         
+                                <div className="row">
+                                    <div className="col-md-5">
+                                        <div className="aa-myaccount-login">
+                                            <h4>Đặt hàng thành công !</h4>
+                                            
+                                            <a className="aa-browse-btn" href="/orders/me" >Xem đơn hàng</a> 
+                                            
+                                        </div>
+                                    </div>
 
-                    <h2>Your Order has been placed successfully.</h2>
-
-                    <Link to="/orders/me">Go to Orders</Link>
+                                    <div className="col-md-7">
+                                        <div className="aa-myaccount-register">                 
+                                            <img width="600px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616907492/giao_hang_ihfaxt.png" alt="shipping image"></img>
+                                        </div>
+                                    </div>
+                                </div>          
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
+            </section>
 
         </Fragment>
     )

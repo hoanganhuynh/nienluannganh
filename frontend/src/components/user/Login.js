@@ -47,50 +47,55 @@ const Login = ({ history, location }) => {
         <Fragment>
             {loading ? <Loader /> : (
                 <Fragment>
-                    <MetaData title={'Login'} />
+                    <MetaData title={'Đăng nhập'} />
 
-                    <div className="row wrapper">
-                        <div className="col-10 col-lg-5">
-                            <form className="shadow-lg" onSubmit={submitHandler}>
-                                <h1 className="mb-3">Login</h1>
-                                <div className="form-group">
-                                    <label htmlFor="email_field">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email_field"
-                                        className="form-control"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
+                    <section id="aa-myaccount">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="aa-myaccount-area">         
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="aa-myaccount-login">
+                                                    <h4>Đăng nhập</h4>
+                                                    <form onSubmit={submitHandler} className="aa-login-form">
+                                                        <label for="">Địa chỉ email<span>*</span></label>
+                                                        <input 
+                                                            type="email"
+                                                            id="email_field"
+                                                            className="form-control"
+                                                            value={email}
+                                                            onChange={(e) => setEmail(e.target.value)}>
+                                                        </input>
+                                                        <label for="">Mật khẩu<span>*</span></label>
+                                                        <input
+                                                            type="password"
+                                                            id="password_field"
+                                                            className="form-control"
+                                                            value={password}
+                                                            onChange={(e) => setPassword(e.target.value)}>
+                                                        </input>
+                                                        <button type="submit" className="aa-browse-btn">Đăng nhập</button>
+                                                        {/* <label className="rememberme" for="rememberme"><input type="checkbox" id="rememberme"></input>Remember me</label> */}
+                                                        <br></br>
+                                                        <br></br>
+                                                        <p className="aa-lost-password"><a href="/password/forgot">Quên mật khẩu?</a></p>
+                                                        <p className="aa-lost-password"><a href="/register">Đăng ký</a></p>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="aa-myaccount-register">                 
+                                                    <img width="600px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616588460/slider/login_c6pzuf.png" alt="login image"></img>
+                                                </div>
+                                            </div>
+                                        </div>          
+                                    </div>
                                 </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="password_field">Password</label>
-                                    <input
-                                        type="password"
-                                        id="password_field"
-                                        className="form-control"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                </div>
-
-                                <Link to="/password/forgot" className="float-right mb-4">Forgot Password?</Link>
-
-                                <button
-                                    id="login_button"
-                                    type="submit"
-                                    className="btn btn-block py-3"
-                                >
-                                    LOGIN
-                                </button>
-
-                                <Link to="/register" className="float-right mt-3">New User?</Link>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-
-
+                    </section>
                 </Fragment>
             )}
         </Fragment>
