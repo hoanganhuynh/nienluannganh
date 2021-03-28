@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux'
 import Loader from '../layouts/Loader'
 import MetaData from '../layouts/MetaData'
 
+import Moment from 'react-moment';
+import 'moment-timezone';
+
 const Profile = () => {
 
     const { user, loading } = useSelector(state => state.auth)
@@ -14,39 +17,55 @@ const Profile = () => {
             {loading ? <Loader /> : (
                 <Fragment>
                     <MetaData title={'Your Profile'} />
+                
+                    <section id="aa-myaccount">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="aa-myaccount-area">         
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="aa-myaccount-login">
+                                                    <h4>Thông tin cá nhân</h4>
+                                                    <form className="aa-login-form">
+                                                        <p>Tên người dùng: <strong>{user.name}</strong></p>
+                                                        
+                                                        <p>Địa chỉ emmail: <strong>{user.email}</strong></p>
 
-                    <h2 className="mt-5 ml-5">My Profile</h2>
-                    <div className="row justify-content-around mt-5 user-info">
-                        <div className="col-12 col-md-3">
-                            <figure className='avatar avatar-profile'>
-                                <img className="rounded-circle img-fluid" src={user.avatar.url} alt={user.name} />
-                            </figure>
-                            <Link to="/me/update" id="edit_profile" className="btn btn-primary btn-block my-5">
-                                Edit Profile
-                            </Link>
+                                                        
+                                                        <p>Ngày tạo tài khoản: <strong><Moment format="hh:mm:ss - DD/MM/YYYY">{user.createdAt}</Moment></strong></p>
+                                                        
+                                                        {user.role !== 'admin' && (
+                                                            <Link to="/orders/me" className="aa-browse-btn">
+                                                                Đơn hàng
+                                                            </Link>
+                                                        )}
+
+                                                        <Link to="/password/update" className="mt-10 aa-browse-btn">
+                                                        <span className="mr-8 fa fa-key"></span>
+                                                            Đổi mật khẩu
+                                                        </Link>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="ra-giua-col aa-myaccount-register">                 
+                                                <figure className='ra-giua avatar avatar-profile'>
+                                                    <img className="rounded-circle img-fluid" src={user.avatar.url} alt={user.name} />
+                                                </figure>
+                                                <Link to="/me/update" id="edit_profile" className="aa-browse-btn">
+                                                    <span className="mr-8 fa fa-edit"></span>
+                                                     Chỉnh sửa tài khoản
+                                                </Link>
+                                                </div>
+                                            </div>
+                                        </div>          
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div className="col-12 col-md-5">
-                            <h4>Full Name</h4>
-                            <p>{user.name}</p>
-
-                            <h4>Email Address</h4>
-                            <p>{user.email}</p>
-
-                            <h4>Joined On</h4>
-                            <p>{String(user.createdAt).substring(0, 10)}</p>
-
-                            {user.role !== 'admin' && (
-                                <Link to="/orders/me" className="btn btn-danger btn-block mt-5">
-                                    My Orders
-                                </Link>
-                            )}
-
-                            <Link to="/password/update" className="btn btn-primary btn-block mt-3">
-                                Change Password
-                            </Link>
-                        </div>
-                    </div>
+                    </section>
                 </Fragment>
             )}
         </Fragment>

@@ -87,67 +87,70 @@ const UpdateProfile = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'Update Profile'} />
+            <div className="gio-hang row d-flex justify-content-between">
+                <div className="col-12 col-lg-12">
+                    <span><a href='/me' style={{color:'#ff6666'}}><span className="fa fa-chevron-left"></span> Thông tin tài khoản </a>/ Cập nhật thông tin</span>
+                    <section id="aa-myaccount">
+                        <div className="">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="aa-myaccount-area">         
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="aa-myaccount-login">
+                                                    <h4>Cập nhật thông tin</h4>
+                                                    <form onSubmit={submitHandler} className="aa-login-form" encType='multipart/form-data'>
+                                                        <label htmlFor="name_field">Tên đăng nhập</label>
+                                                        <input 
+                                                            type="text"
+                                                            id="name_field"
+                                                            className="form-control"
+                                                            value={name}
+                                                            onChange={(e) => setName(e.target.value)}>
+                                                        </input>
+                                                        <label htmlFor='avatar_upload'>Ảnh đại diện</label>
+                                                        <div>
+                                                            <figure className='avatar mr-3 item-rtl'>
+                                                                <img
+                                                                    src={avatarPreview}
+                                                                    width='60px'
+                                                                    className='rounded-circle'
+                                                                    alt='Avatar Preview'
+                                                                />
+                                                            </figure>
+                                                        </div>
+                                                        <div className='custom-file'>
+                                                            <input
+                                                                type='file'
+                                                                name='avatar'
+                                                                className='custom-file-input'
+                                                                id='customFile'
+                                                                accept='image/*'
+                                                                onChange={onChange}
+                                                            />
+                                                            <label className='custom-file-label' htmlFor='customFile'>
+                                                                Chọn ảnh đại diện
+                                                        </label>
+                                                        </div>
 
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                        <h1 className="mt-2 mb-5">Update Profile</h1>
+                                                        
+                                                        <button type="submit" className="aa-browse-btn" disabled={loading ? true : false} >Cập nhật</button>
+                                                    </form>
+                                                </div>
+                                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="email_field">Name</label>
-                            <input
-                                type="name"
-                                id="name_field"
-                                className="form-control"
-                                name='name'
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="email_field">Email</label>
-                            <input
-                                type="email"
-                                id="email_field"
-                                className="form-control"
-                                name='email'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-
-                        <div className='form-group'>
-                            <label htmlFor='avatar_upload'>Avatar</label>
-                            <div className='d-flex align-items-center'>
-                                <div>
-                                    <figure className='avatar mr-3 item-rtl'>
-                                        <img
-                                            src={avatarPreview}
-                                            className='rounded-circle'
-                                            alt='Avatar Preview'
-                                        />
-                                    </figure>
-                                </div>
-                                <div className='custom-file'>
-                                    <input
-                                        type='file'
-                                        name='avatar'
-                                        className='custom-file-input'
-                                        id='customFile'
-                                        accept='image/*'
-                                        onChange={onChange}
-                                    />
-                                    <label className='custom-file-label' htmlFor='customFile'>
-                                        Choose Avatar
-                                </label>
+                                            <div className="col-md-6">
+                                                <div className="aa-myaccount-register">                 
+                                                    <img width="600px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616936712/cap_nhat_thong_tin_tai_khoan_lkgqf1.png" alt="login image"></img>
+                                                </div>
+                                            </div>
+                                        </div>          
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <button type="submit" className="btn update-btn btn-block mt-4 mb-3" disabled={loading ? true : false} >Update</button>
-                    </form>
-                </div>
+                    </section>
+                </div> 
             </div>
         </Fragment>
     )

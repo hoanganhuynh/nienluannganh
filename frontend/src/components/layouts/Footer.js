@@ -12,26 +12,25 @@ const Footer = () => {
                         <div className="row">
                         <div className="col-md-3 col-sm-6">
                             <div className="aa-footer-widget">
-                            <h3>Main Menu</h3>
+                            <h3>Trang chủ</h3>
                             <ul className="aa-footer-nav">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Our Services</a></li>
-                                <li><a href="#">Our Products</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/me">Thông tin tài khoản</a></li>
+                                <li><a href="/orders/me">Giỏ hàng</a></li>
+                                
                             </ul>
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-6">
                             <div className="aa-footer-widget">
                             <div className="aa-footer-widget">
-                                <h3>Knowledge Base</h3>
+                                <h3>Khác</h3>
                                 <ul className="aa-footer-nav">
-                                <li><a href="#">Delivery</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Discount</a></li>
-                                <li><a href="#">Special Offer</a></li>
+                                <li><a href="#">Chính sách</a></li>
+                                <li><a href="#">Điều khoản</a></li>
+                                <li><a href="#">Ưu đãi</a></li>
+                                <li><a href="#">Thông báo</a></li>
+                                
                                 </ul>
                             </div>
                             </div>
@@ -39,13 +38,13 @@ const Footer = () => {
                         <div className="col-md-3 col-sm-6">
                             <div className="aa-footer-widget">
                             <div className="aa-footer-widget">
-                                <h3>Useful Links</h3>
+                                <h3>Mạng xã hội</h3>
                                 <ul className="aa-footer-nav">
-                                <li><a href="#">Site Map</a></li>
-                                <li><a href="#">Search</a></li>
-                                <li><a href="#">Advanced Search</a></li>
-                                <li><a href="#">Suppliers</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Facebook</a></li>
+                                <li><a href="#">Instagram</a></li>
+                                <li><a href="#">Zalo</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">Linkin</a></li>
                                 </ul>
                             </div>
                             </div>
@@ -53,11 +52,11 @@ const Footer = () => {
                         <div className="col-md-3 col-sm-6">
                             <div className="aa-footer-widget">
                             <div className="aa-footer-widget">
-                                <h3>Contact Us</h3>
+                                <h3>Liên hệ với chúng tôi</h3>
                                 <address>
-                                <p> 25 Astor Pl, NY 10003, USA</p>
-                                <p><span className="fa fa-phone"></span>+1 212-982-4589</p>
-                                <p><span className="fa fa-envelope"></span>dailyshop@gmail.com</p>
+                                <p><span className="fa fa-map"></span>Cần Thơ</p>
+                                <p><span className="fa fa-phone"></span>0327846162</p>
+                                <p><span className="fa fa-envelope"></span>anb1706560@gmail.com</p>
                                 </address>
                                 <div className="aa-footer-social">
                                 <a href="#"><span className="fa fa-facebook"></span></a>

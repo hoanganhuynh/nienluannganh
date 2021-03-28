@@ -3,6 +3,8 @@ import React, { Fragment, useEffect } from 'react'
 import MetaData from '../layouts/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 
+import Step from './Step'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder, clearErrors } from '../../actions/order.action'
 
@@ -91,12 +93,31 @@ const Payment = ({ history }) => {
         history.push('/success')
         
     }
+    function checkStep() {
+        let classesToAdd = ['gray-title', 'none-title']
+        let icon = ['fa', 'fa-check', 'active-step']
+        for(let c=0;c<=2; c++) 
+            document.getElementsByClassName("cricle-step")[c].classList.add(...icon);
+        for(let i=0; i<=2; i++)
+            document.getElementsByClassName("num-step")[i].classList.add('dNone');
+        for(let j=0;j<=3; j++) {
+            document.getElementsByClassName("step-title")[j].classList.add("active-title");
+            document.getElementsByClassName("cricle-step")[j].classList.add("active-step");
+        }
+        document.getElementsByClassName("step-title")[4].classList.add(...classesToAdd);
+    }
+    setTimeout(() => {
+        checkStep()
+    },1000)
 
     return (
         <Fragment>
             <MetaData title={'Payment'} />
+            <input type="text" value='order' style={{display:'none'}} id="check-title"></input>
+
 
             {/* <CheckoutSteps shipping confirmOrder payment /> */}
+            <Step/>
 
             <section id="aa-myaccount">
                 <div className="container">

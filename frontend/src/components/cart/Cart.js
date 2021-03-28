@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import MetaData from '../layouts/MetaData'
 
+import Step from './Step'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart, removeItemFromCart } from '../../actions/cart.action'
 
@@ -52,13 +54,38 @@ const Cart = ({ history }) => {
         history.push('/login?redirect=shipping')
     }
 
+    function checkStep() {
+        let classesToAdd = ['gray-title', 'none-title']        
+        document.getElementsByClassName("cricle-step")[0].classList.add("active-step");
+        document.getElementsByClassName("step-title")[0].classList.add("active-title");                
+        for(let i=1;i<=4;i++) 
+            document.getElementsByClassName("step-title")[i].classList.add(...classesToAdd);
+        for(let j=0;j<=3;j++) 
+            document.getElementsByClassName("step-image")[j].classList.add('gray-image');
+        }
+    setTimeout(() => {
+        checkStep()
+    },1000)
+    
+
     return (
         <Fragment>
             <MetaData title={'Giỏ hàng của bạn'} />
+            <input type="text" value='cart' style={{display:'none'}} id="check-title"></input>
             {cartItems.length === 0 ? <h2 className="mt-5">Chưa có sản phẩm nào !</h2> : (
+                
                 <Fragment>
+                    
+                    <Step />
+                    
+                    <hr></hr>
+                    
                     <div className="gio-hang row d-flex justify-content-between">
                         <div style={{borderRight:"1px solid #eaeaea"}} className="col-12 col-lg-8">
+                        
+                        
+                        {/* <spann><a href='/cart' style={{color:'#ff6666'}}><span className="fa fa-chevron-left"></span> Giỏ hàng </a>/ Thông tin giao hàng</spann> */}
+
                             <h2 className="gio-hang-tieu-de"><span className="fa fa-shopping-basket"></span>  Giỏ hàng của bạn: <b>{cartItems.length}</b></h2>
                             <hr></hr>
                             <div className="row item-in-cart">

@@ -7,11 +7,11 @@ const SendLetter = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="aa-subscribe-area">
-                            <h3>Subscribe our newsletter </h3>
+                            <h3>Đăng ký nhận thông báo</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
                             <form action="" className="aa-subscribe-form">
-                                <input type="email" name="" id="" placeholder="Enter your Email"></input>
-                                <input type="submit" value="Subscribe"></input>
+                                <input type="email" name="" id="" placeholder="Nhập địa chỉ email.."></input>
+                                <input type="submit" value="Đăng ký"></input>
                             </form>
                         </div>
                     </div>

@@ -58,8 +58,10 @@ const ProductDetails = ({ match }) => {
     const increaseQty = () => {
         const count = document.querySelector('.count')
 
-        if (count.valueAsNumber >= product.stock) return;
-
+        if (count.valueAsNumber >= product.stock) {
+            toast.error(`Chỉ còn ${product.stock} sản phẩm !`)
+            return;
+        }
         const qty = count.valueAsNumber + 1;
         setQuantity(qty)
     }
@@ -68,8 +70,10 @@ const ProductDetails = ({ match }) => {
 
         const count = document.querySelector('.count')
 
-        if (count.valueAsNumber <= 1) return;
-
+        if (count.valueAsNumber <= 1) {
+            toast.error(`Mua tối thiểu 1 sản phẩm !`)
+            return;
+        }
         const qty = count.valueAsNumber - 1;
         setQuantity(qty)
     }

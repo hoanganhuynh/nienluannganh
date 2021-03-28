@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import MetaData from '../layouts/MetaData'
 import CheckoutSteps from './CheckoutSteps'
+import Step from './Step'
 
 import { useSelector } from 'react-redux'
 
@@ -27,12 +28,36 @@ const ConfirmOrder = ({ history }) => {
         history.push('/payment')
     }
 
+    function checkStep() {
+        let classesToAdd = ['gray-title', 'none-title']
+        let icon = ['fa', 'fa-check', 'active-step']        
+        for(let c=0;c<=1; c++) {
+            document.getElementsByClassName("cricle-step")[c].classList.add(...icon);
+            document.getElementsByClassName("num-step")[c].classList.add('dNone');
+        }
+        for(let s=0;s<=2; s++) {
+            document.getElementsByClassName("step-title")[s].classList.add("active-title");
+            document.getElementsByClassName("cricle-step")[s].classList.add('active-step');
+        }
+            
+        for(let i=3;i<=4;i++) 
+            document.getElementsByClassName("step-title")[i].classList.add(...classesToAdd);
+        for(let j=2;j<=3;j++) 
+            document.getElementsByClassName("step-image")[j].classList.add('gray-image');
+    }
+    setTimeout(() => {
+        checkStep()
+    },1000)
+
     return (
         <Fragment>
 
             <MetaData title={'Confirm Order'} />
+            <input type="text" value='bill' style={{display:'none'}} id="check-title"></input>
+            
 
             {/* <CheckoutSteps shipping confirmOrder /> */}
+            <Step />
 
             <div className="gio-hang row d-flex justify-content-between">
                 <div style={{borderRight:"1px solid #eaeaea"}} className="col-12 col-lg-8 order-confirm">
