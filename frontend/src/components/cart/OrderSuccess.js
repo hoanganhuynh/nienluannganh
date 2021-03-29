@@ -7,12 +7,13 @@ import Step from './Step'
 const OrderSuccess = () => {
     function checkStep() {
         let icon = ['fa', 'fa-check', 'active-step']
+        let title = ['none-title', 'active-title']
+        document.getElementsByClassName("cricle-step")[4].classList.add("animation-pulse");
         for(let c=0;c<=4; c++) {
             document.getElementsByClassName("cricle-step")[c].classList.add(...icon);
             document.getElementsByClassName("num-step")[c].classList.add('dNone');
-        } 
-        for(let i=0;i<=4; i++) 
-            document.getElementsByClassName("step-title")[i].classList.add("none-title");
+            document.getElementsByClassName("step-title")[c].classList.add(...title);
+        }
     }
     setTimeout(() => {
         checkStep()

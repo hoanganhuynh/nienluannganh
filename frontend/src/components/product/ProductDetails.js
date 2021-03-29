@@ -306,7 +306,7 @@ const ProductDetails = ({ match }) => {
                       
                     </div>
                     <div className="aa-prod-view-bottom">
-                      <a onClick={addToCart} className="aa-add-to-cart-btn" href="#">Thêm vào giỏ hàng</a>
+                      <a onClick={addToCart} className="aa-add-to-cart-btn" href="#"><span className="fa fa-shopping-cart"></span>Thêm vào giỏ hàng</a>
                     </div>
                     <div className="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                   </div>

@@ -57,7 +57,8 @@ const Cart = ({ history }) => {
     function checkStep() {
         let classesToAdd = ['gray-title', 'none-title']        
         document.getElementsByClassName("cricle-step")[0].classList.add("active-step");
-        document.getElementsByClassName("step-title")[0].classList.add("active-title");                
+        document.getElementsByClassName("step-title")[0].classList.add("active-title");
+        document.getElementsByClassName("cricle-step")[0].classList.add("animation-pulse");
         for(let i=1;i<=4;i++) 
             document.getElementsByClassName("step-title")[i].classList.add(...classesToAdd);
         for(let j=0;j<=3;j++) 
@@ -65,7 +66,7 @@ const Cart = ({ history }) => {
         }
     setTimeout(() => {
         checkStep()
-    },1000)
+    },400)
     
 
     return (
@@ -173,6 +174,7 @@ const Cart = ({ history }) => {
                                                         
                                 <button id="checkout_btn" className="aa-browse-btn" onClick={checkoutHandler}>Tiếp tục</button>
                             </div>
+                            
                         </div>
                     </div>
                 </Fragment>

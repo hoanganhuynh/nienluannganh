@@ -30,7 +30,8 @@ const ConfirmOrder = ({ history }) => {
 
     function checkStep() {
         let classesToAdd = ['gray-title', 'none-title']
-        let icon = ['fa', 'fa-check', 'active-step']        
+        let icon = ['fa', 'fa-check', 'active-step'] 
+        document.getElementsByClassName("cricle-step")[2].classList.add("animation-pulse");       
         for(let c=0;c<=1; c++) {
             document.getElementsByClassName("cricle-step")[c].classList.add(...icon);
             document.getElementsByClassName("num-step")[c].classList.add('dNone');

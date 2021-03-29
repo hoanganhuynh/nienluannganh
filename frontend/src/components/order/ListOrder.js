@@ -2,6 +2,9 @@ import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 
+import Moment from 'react-moment';
+import 'moment-timezone';
+
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 
@@ -73,7 +76,7 @@ const ListOrders = () => {
                 id: order._id,
                 numOfItems: order.orderItems.length,
                 amount: `${order.totalPrice}`,
-                status: order.orderStatus && String(order.orderStatus).includes('Delivered')
+                status: order.orderStatus && String(order.orderStatus).includes('Đã nhận hàng')
                     ? <p style={{ color: 'green' }}>{order.orderStatus}</p>
                     : <p style={{ color: 'red' }}>{order.orderStatus}</p>,
                 actions:
@@ -102,7 +105,8 @@ const ListOrders = () => {
 
             {loading ? <Loader /> : (
                 <Fragment>
-                    <div className="gio-hang row d-flex justify-content-between">
+
+                    {/* <div className="gio-hang row d-flex justify-content-between">
                         <div className="col-12 col-lg-12 order-confirm">
                         <h2 className="gio-hang-tieu-de">Đơn hàng của tôi</h2>
                         <MDBDataTable
@@ -113,7 +117,58 @@ const ListOrders = () => {
                             hover
                         />
                         </div>
-                    </div>
+                    </div> */}
+                    {orders && orders.map(order => (
+                        <Fragment>
+                            <div className="order-item">
+                                <div className="info-order">
+                                    <p className="orderID">Mã đơn hàng: <Link to={`/order/${order._id}`}>{order._id}</Link></p>
+                                    <p className="orderDate"><Moment format="hh:mm:ss - DD/MM/YYYY">{order.createdAt}</Moment></p>
+                                    {/* <p className="orderStatus">{order.orderStatus}</p> */}
+                                    {order.orderStatus && String(order.orderStatus).includes('Đã nhận hàng') ? (
+                                        <p className="orderStatus green-status">{order.orderStatus}</p>
+                                    ) : (
+                                        <p className="orderStatus orange-status">{order.orderStatus}</p>
+                                    )}
+                                </div>
+                                
+                                {order && order.orderItems && order.orderItems.map(item => (
+                                    <div className="cart-item">
+                                        <div className="row item-in-cart">
+                                            <div className="col-4 col-lg-3">
+                                                <img src={item.image} alt={item.name} width="70" />
+                                            </div>
+
+                                            <div className="col-4 col-lg-3">
+                                                <p className="text-center" id="card_item_price">{item.name}</p>
+                                            </div>
+
+                                            <div className="col-4 col-lg-3">
+                                                <p className="text-center" id="card_item_price">{item.quantity} cái</p>
+                                            </div>
+
+                                            <div className="col-4 col-lg-3">
+                                                <p style={{color:'#ff6666'}} className="text-center" id="card_item_price">{item.price}</p>
+                                            </div>
+
+                                        </div>
+                                        <hr></hr>
+                                    </div>
+                                    
+                                    
+                                )) }
+                                <div className="totalPrice item">
+                                    <p style={{margin:'0 20px 0 0',}} >Tổng số tiền: <span style={{fontSize:'24px', color:'#ff6666'}}>đ {order.totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</span></p>
+                                    <Link to={`/order/${order._id}`} className="aa-browse-btn">
+                                        Xem chi tiết
+                                    </Link>
+                                </div>
+                                
+                            </div>
+                            <hr></hr>
+                            
+                        </Fragment>
+                    ))}
                 </Fragment>
                 
                 

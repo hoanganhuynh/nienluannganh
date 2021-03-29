@@ -82,7 +82,7 @@ const ProcessOrder = ({ match }) => {
 
 
                                     <h4 className="my-4">Order Status:</h4>
-                                    <p className={order.orderStatus && String(order.orderStatus).includes('Delivered') ? "greenColor" : "redColor"} ><b>{orderStatus}</b></p>
+                                    <p className={order.orderStatus && String(order.orderStatus).includes('Đã nhận hàng') ? "greenColor" : "redColor"} ><b>{orderStatus}</b></p>
 
 
 
@@ -125,9 +125,9 @@ const ProcessOrder = ({ match }) => {
                                             value={status}
                                             onChange={(e) => setStatus(e.target.value)}
                                         >
-                                            <option value="Processing">Processing</option>
-                                            <option value="Shipped">Shipped</option>
-                                            <option value="Delivered">Delivered</option>
+                                            <option value="Đăng xử lý">Đang xử lý</option>
+                                            <option value="Đã giao">Đã giao</option>
+                                            <option value="Đã nhận hàng">Đã nhận hàng</option>
                                         </select>
                                     </div>
 

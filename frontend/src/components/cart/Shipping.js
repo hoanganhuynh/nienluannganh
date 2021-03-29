@@ -62,6 +62,8 @@ const Shipping = ({ history }) => {
         let icon = ['fa', 'fa-check', 'active-step']
         document.getElementsByClassName("cricle-step")[0].classList.add(...icon);
         document.getElementsByClassName("num-step")[0].classList.add('dNone');
+        document.getElementsByClassName("cricle-step")[1].classList.add("animation-pulse");
+
         for(let c = 0; c <= 1; c++) {
             document.getElementsByClassName("cricle-step")[c].classList.add('active-step');
             document.getElementsByClassName("step-title")[c].classList.add("active-title");
@@ -73,7 +75,7 @@ const Shipping = ({ history }) => {
     }
     setTimeout(() => {
         checkStep()
-    },1000)
+    },400)
 
     return (
         <Fragment>

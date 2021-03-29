@@ -96,6 +96,7 @@ const Payment = ({ history }) => {
     function checkStep() {
         let classesToAdd = ['gray-title', 'none-title']
         let icon = ['fa', 'fa-check', 'active-step']
+        document.getElementsByClassName("cricle-step")[3].classList.add("animation-pulse");
         for(let c=0;c<=2; c++) 
             document.getElementsByClassName("cricle-step")[c].classList.add(...icon);
         for(let i=0; i<=2; i++)
