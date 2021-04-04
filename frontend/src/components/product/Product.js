@@ -18,7 +18,7 @@ const Product = ({ product }) => {
             <figure>
                 <a className="aa-product-img" href={`/product/${product._id}`}><img src={product.images[0].url} alt={product.name}></img></a>
                 <figcaption>
-                    <h4 className="aa-product-title"><a href={`/product/${product._id}`}>{product.name}</a></h4>
+                    <h4 className="aa-product-title"><a href={`/product/${product._id}`}>{product.name.length > 18 ? product.name.substring(0,18)+'...' : product.name}</a></h4>
                     <div className="rating-outer">
                         <div className="rating-inner" style={{ width: `${(product.rating / 5) * 100}%` }}></div>
                     </div>
@@ -33,13 +33,13 @@ const Product = ({ product }) => {
 
             <Modal size="lg" centered aria-labelledby="contained-modal-title-vcenter" isOpen={show} show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                {/* <Modal.Title>{product.name}</Modal.Title> */}
+                
                 </Modal.Header>
                 <Modal.Body className="show-grid">
                     <div className="modal-product">
-                        <img width="420px" src={product && product.images && product.images[0] && product.images[0].url}></img>
+                        <img style={{marginRight:'16px'}} width="420px" src={product && product.images && product.images[0] && product.images[0].url}></img>
                         <div>
-                            <h3><a href={`/product/${product._id}`}>{product.name}</a></h3>
+                            <h3><a href={`/product/${product._id}`}>{product.name.length > 18 ? product.name.substring(0,25)+'...' : product.name}</a></h3>
                             <div className="rating-detail">
                                 <p>({product.rating} )</p>
                                 <div className="rating-outer">
@@ -59,17 +59,11 @@ const Product = ({ product }) => {
                             </div>
                     </div>
                     
-                    
                 </Modal.Body>
-                {/* <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                </Modal.Footer> */}
             </Modal>
 
             {product.stock > 0 ? (
-                <span className="aa-badge aa-hot" href="#">HOT!</span> 
+                <span className="" href="#"></span> 
             ) : (
                 <span className="aa-badge aa-sold-out" href="#">Hết hàng</span>  
             )}   

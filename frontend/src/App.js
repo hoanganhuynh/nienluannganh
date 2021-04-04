@@ -35,6 +35,7 @@ import NewPassword from './components/user/NewPassword'
 
 // Admin Imports
 import Dashboard from './components/admin/Dashboard'
+import HeaderAdmin from './components/layouts/HeaderAdmin'
 
 
 import ProtectedRoute from './components/route/ProtectedRoute'
@@ -47,12 +48,15 @@ function App() {
     store.dispatch(loadUser())
 
   }, [])
-  const { user, isAuthenticated, loading } = useSelector(state => state.auth)
-
+  const { user, isAuthenticated, loading, auth} = useSelector(state => state.auth)
+  // if(auth && auth.user && auth.user.role === 'user') {
+  //   document.getElementsByClassName('headerAdmin')[0].classList.add("hide-main-header");
+  // }
 
   return (
     <Router>
       <div className="App">
+      {/* <HeaderAdmin /> */}
         <Header />
         
         <div className="container-fluid">

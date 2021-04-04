@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Vui lòng nhập tên sản phẩm'],
         trim: true,
-        maxLength: [100, 'Tên sản phẩm không được quá 100 ký tự']
+        // maxLength: [100, 'Tên sản phẩm không được quá 100 ký tự']
     },
     price: {
         type: Number,

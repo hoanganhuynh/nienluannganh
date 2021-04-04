@@ -3,6 +3,8 @@ import React, { Fragment, useState, useEffect } from 'react'
 import MetaData from '../layouts/MetaData'
 import Sidebar from './Sidebar'
 
+import HeaderAdmin from '../layouts/HeaderAdmin'
+
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -91,6 +93,7 @@ const NewProduct = ({ history }) => {
 
     return (
         <Fragment>
+            {/* <HeaderAdmin /> */}
             <MetaData title={'New Product'} />
             <div className="row">
                 <div className="col-12 col-md-2">

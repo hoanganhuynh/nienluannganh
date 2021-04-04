@@ -58,7 +58,7 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
     //return next(new ErrorHandle('My Error',400));
 
-    const resPerPage = 4; // limit product show in each page
+    const resPerPage = 12; // limit product show in each page
     const productsCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()

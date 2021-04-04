@@ -36,9 +36,13 @@ h2 {
 .aa-cart-view-btn {
   background-color: #ff6666;  
 }
+.aa-logo a > span, .aa-logo a strong {
+  color: dodgerblue;
+}
 #aa-header .aa-header-bottom .aa-header-bottom-area .aa-logo a > span {
   color: #ff6666;  
 }
+
 #aa-header .aa-header-bottom .aa-header-bottom-area .aa-logo a strong {
   color: #ff6666;
 }

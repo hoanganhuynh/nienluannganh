@@ -8,6 +8,9 @@ import MenuCategory from '../components/layouts/MenuCategory';
 import SupportComp from '../components/layouts/SupportComp'
 import BrandPartner from '../components/layouts/BrandPartner'
 import SendLetter from '../components/layouts/SendLetter'
+import Footer from './layouts/Footer'
+
+import Header from './layouts/_Header'
 
 // import Pagination from 'react-bootstrap-4-pagination';
 
@@ -77,20 +80,12 @@ const Home = ({ match }) => {
     }
     // console.log(products)
 
-    let paginationConfig = {
-        totalPages: productsCount,
-        currentPage: currentPage,
-        showMax: productsCount / resPerPage,
-        // size: "lg",
-        // threeDots: true,
-        prevNext: true,
-        // onChange: setCurrentPageNo
-        // onClick: setCurrentPageNo()
-      };
+
 
     return (
         
         <Fragment>
+            {/* <Header /> */}
             <ScrollToTop smooth />
             <MenuCategory />
             
@@ -217,6 +212,7 @@ const Home = ({ match }) => {
         <SupportComp />
         <BrandPartner />
         <SendLetter />
+        <Footer />
         </Fragment>
     )
 }

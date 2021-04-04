@@ -1,23 +1,18 @@
 import React, { Fragment } from 'react';
 import {  Route, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-//import { useAlert } from 'react-alert'
 import { logout } from '../../actions/user.actions'
 import Search from './Search'
-// import '../../App_.css'
-// import '../../App.css'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { get } from 'mongoose';
 
-// eslint-disable-next-line
-const Header = () => {
+const HeaderAdmin = () => {
 
     //const alert = useAlert();
     const dispatch = useDispatch();
 
     const { user, loading } = useSelector(state => state.auth)
-    const { cartItems } = useSelector(state => state.cart)
+    // const { cartItems } = useSelector(state => state.cart)
 
     const logoutHandler = () => {
         dispatch(logout());
@@ -25,12 +20,18 @@ const Header = () => {
         //alert.success('Logged out successfully.')
     }
 
-
-    
+    // function hideMainHeader() {
+    //     document.getElementById('aa-header').classList.add("hide-main-header");
+    //     document.getElementById('aa-footer').classList.add("hide-main-header");
+        
+    // }
+    setTimeout(() => {
+        // hideMainHeader()
+    },400)
 
     return (
         <Fragment>
-            <header id="aa-header" className="hi">
+            <header className="headerAdmin" id="aa-header">
                 <div className="aa-header-top">
                     <div className="container">
                         <div className="row">
@@ -57,17 +58,9 @@ const Header = () => {
                                         alt={user && user.name} className="rounded-circle"></img>
                                         </li>
                                         <li><a className="text-danger" href="/me">Xin chào, {user && user.name}</a></li>
-                                        {user && user.role === 'admin' && (
-                                            // <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
-                                            <li><span className="fa fa-shield"></span><a href="/dashboard">Trang quản trị</a></li>
-                                        )}
-                                        <li className="hidden-xs"><span className="fa fa-shopping-cart"></span><a href="/orders/me">Đơn hàng</a></li>
-                                        <li className="hidden-xs"><span className="fa fa-user"></span><a href="/me">Thông tin cá nhân</a></li>
-                                        {/* <li className="hidden-xs"><a href="#">Logout</a></li>
-                                        <li><a href="" data-toggle="modal" data-target="#login-modal">Logout</a></li> */}
-                                        {/* <Link className="hidden-xs" to="/" onClick={logoutHandler}>
-                                            Logout
-                                        </Link> */}
+
+                                        <li><span className="fa fa-shield"></span><a href="/">Trang chủ</a></li>
+                                        
                                         <li className="hidden-xs"><span className="fa fa-sign-out"></span><a href="/" onClick={logoutHandler}>Đăng xuất</a></li>
                                     </ul>
                                 </div>
@@ -103,23 +96,6 @@ const Header = () => {
                                         
                                     </div>
                                     
-                                    <div className="aa-cartbox">
-                                        <a className="aa-cart-link" href="/cart">
-                                        <span className="fa fa-shopping-basket"></span>
-                                        <span className="aa-cart-title">Giỏ hàng</span>
-                                        {cartItems.length > 0 ? (<span className="aa-cart-notify">{cartItems.length}</span>) : ('')}
-                                        
-                                        </a>
-                                        
-                                    </div>
-                                    
-                                    <div className="aa-search-box">
-                                        {/* <form action="">
-                                            <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
-                                            <button type="submit"><span className="fa fa-search"></span></button>
-                                        </form> */}
-                                        <Route render={({ history }) => <Search history={history} />} />
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -130,4 +106,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default HeaderAdmin

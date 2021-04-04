@@ -64,9 +64,12 @@ const Cart = ({ history }) => {
         for(let j=0;j<=3;j++) 
             document.getElementsByClassName("step-image")[j].classList.add('gray-image');
         }
-    setTimeout(() => {
-        checkStep()
-    },400)
+    if(cartItems.length > 0) {
+        setTimeout(() => {
+            checkStep()
+        },400)
+    }
+    
     
 
     return (
