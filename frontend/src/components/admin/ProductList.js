@@ -169,7 +169,6 @@ const ProductsList = ({ history }) => {
             tableRow[i].classList.remove('dNone');
             tableRow[rows.length].classList.remove('dNone');
         }
-        
     }
 
     
@@ -194,7 +193,7 @@ const ProductsList = ({ history }) => {
                             name="q"
                             id="q"
                             // value=""
-                            // onKeyUp={setTimeout(doSearch,500)}>
+                            onKeyUp={doSearch}
                             >
                         </input>
                         <button id='restoreTable' type="button" onClick={restoreTable}>x</button>
@@ -264,7 +263,7 @@ const ProductsList = ({ history }) => {
                             </li>
                         ))}
 
-                        <li className="table-row row item-in-cart" id="noresults" >
+                        <li className="row item-in-cart" id="noresults" >
                             <div className="col-12 col-lg-12">
                                 <p className="admin-null-table cart-title-table text-center">Không có dữ liệu với từ khoá "<span id="qt"></span>"</p>
                             </div>

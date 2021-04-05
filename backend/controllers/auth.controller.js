@@ -92,6 +92,7 @@ exports.resetPassword = catchAsyncErrors (async (req, res, next) => {
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() }
     })
+    // console.log(user);
     // check
     if(!user) {
         return next(new ErrorHandle('Password reset token is valid or has been expired', 400))

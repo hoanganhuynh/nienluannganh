@@ -4729,9 +4729,7 @@ ul.show-danh-gia {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   /* margin: 22px 0; */
   justify-content: flex-start !important;
-}
-.table-row:last-child {
-  border: none;
+  transition: all .3s;
 }
 .admin-title-table {
   color: dodgerblue;
@@ -4822,4 +4820,17 @@ ul.show-danh-gia {
 }
 .admin-null-table span {
   font-weight: 500;
+}
+.table-row:hover {
+  background-color: #f9f9f9;
+  /* transform: scale(1.1); */
+}
+.table-row:last-child {
+  border: none !important;
+}
+.maxProduct {
+  color: dodgerblue !important;
+  font-size: 26px !important;
+  margin-top: 7px !important;
+  display: block;
 }
