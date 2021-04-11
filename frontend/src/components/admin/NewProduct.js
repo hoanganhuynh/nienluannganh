@@ -3,8 +3,6 @@ import React, { Fragment, useState, useEffect } from 'react'
 import MetaData from '../layouts/MetaData'
 import Sidebar from './Sidebar'
 
-import HeaderAdmin from '../layouts/HeaderAdmin'
-
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -95,19 +93,19 @@ const NewProduct = ({ history }) => {
         <Fragment>
             {/* <HeaderAdmin /> */}
             <MetaData title={'New Product'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
+            <div className="pRow row">
+                <div className="pl-0 col-12 col-md-3">
                     <Sidebar />
                 </div>
 
-                <div className="col-12 col-md-10">
+                <div style={{color:'#fff', overflow:'scroll', height:'96vh', padding: '30px 40px'}} className="new-product col-12 col-md-5">
                     <Fragment>
                         <div className="wrapper my-5">
                             <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                                <h1 className="mb-4">New Product</h1>
+                                <h1 className="mb-4">Tạo sản phẩm mới</h1>
 
                                 <div className="form-group">
-                                    <label htmlFor="name_field">Name</label>
+                                    <label htmlFor="name_field">Tên</label>
                                     <input
                                         type="text"
                                         id="name_field"
@@ -118,7 +116,7 @@ const NewProduct = ({ history }) => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="price_field">Price</label>
+                                    <label htmlFor="price_field">Giá</label>
                                     <input
                                         type="text"
                                         id="price_field"
@@ -129,12 +127,12 @@ const NewProduct = ({ history }) => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="description_field">Description</label>
-                                    <textarea className="form-control" id="description_field" rows="8" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                                    <label htmlFor="description_field">Mô tả</label>
+                                    <textarea className="form-control" id="description_field" rows="4" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="category_field">Category</label>
+                                    <label htmlFor="category_field">Danh mục</label>
                                     <select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
                                         {categories.map(category => (
                                             <option key={category} value={category} >{category}</option>
@@ -143,7 +141,7 @@ const NewProduct = ({ history }) => {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="stock_field">Stock</label>
+                                    <label htmlFor="stock_field">Kho</label>
                                     <input
                                         type="number"
                                         id="stock_field"
@@ -154,7 +152,7 @@ const NewProduct = ({ history }) => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="seller_field">Seller Name</label>
+                                    <label htmlFor="seller_field">Nhà cung cấp</label>
                                     <input
                                         type="text"
                                         id="seller_field"
@@ -165,7 +163,7 @@ const NewProduct = ({ history }) => {
                                 </div>
 
                                 <div className='form-group'>
-                                    <label>Images</label>
+                                    <label>Ảnh</label>
 
                                     <div className='custom-file'>
                                         <input
@@ -177,7 +175,7 @@ const NewProduct = ({ history }) => {
                                             multiple
                                         />
                                         <label className='custom-file-label' htmlFor='customFile'>
-                                            Choose Images
+                                            Chọn hình
                                      </label>
                                     </div>
 
@@ -189,16 +187,26 @@ const NewProduct = ({ history }) => {
 
 
                                 <button
+                                    style={{width: '100%', borderRadius:'4px'}}
                                     id="login_button"
                                     type="submit"
-                                    className="btn btn-block py-3"
+                                    className="aa-browse-btn aa-browse-btn-admin"
                                     disabled={loading ? true : false}
                                 >
-                                    CREATE
+                                    Tạo
                                 </button>
 
                             </form>
                         </div>
+                    </Fragment>
+                </div>
+
+                <div className="col-12 col-md-4">
+                    <Fragment>
+                        <div className="admin-create-product ra-giua item-in-cart wrapper my-5">
+                            <img width="530px" src="/images/admin/create-pana.svg"></img>
+                        </div>
+                        
                     </Fragment>
                 </div>
             </div>

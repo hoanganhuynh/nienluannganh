@@ -1,13 +1,16 @@
+import { get } from 'mongoose';
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
     setTimeout(function(){ 
         let getCurrentPage = window.location.href.toString().substring(22);
+        // console.log(getCurrentPage.length)
         let classActive = ['blue-text', 'blue-bg']
         switch(getCurrentPage) {
             case 'dashboard' :
                 document.getElementsByClassName('item-admin')[0].classList.add(...classActive)
+                // document.getElementsByClassName('active-item-admin')[0].style.opacity = '1'
                 break;
             case 'admin/products' :
                 document.getElementsByClassName('item-admin')[1].classList.add(...classActive)
@@ -24,11 +27,12 @@ const Sidebar = () => {
                 break;
             default: break;
         }
-        let isAdmin = ['dashboard', 'admin/products', 'admin/users', 'admin/orders', 'admin/reviews'];
+        let isAdmin = ['dashboard', 'admin/products', 'admin/users', 'admin/orders', 'admin/reviews', 'admin/product'];
         for (let i = 0; i<=isAdmin.length; i++) {
-            if(getCurrentPage == isAdmin[i]) {
+            if(getCurrentPage == isAdmin[i] || getCurrentPage.length >= 35) {
               document.getElementById('aa-header').classList.add('dNone');
               document.getElementById('aa-footer').classList.add('dNone');
+              document.getElementsByClassName('active-item-admin')[i].style.opacity = '1'
             } 
         }
     }, 400);
@@ -72,36 +76,44 @@ const Sidebar = () => {
         // </div>
         <div className="sidenav">
             <div className="aa-logo m-20">        
-                <a href="/dashboard">
+                <Link to="/dashboard">
                 <span className="fa fa-shopping-cart"></span>
                 <p>admin<strong>Shop</strong> <span>TRANG QUẢN TRỊ</span></p>
-                </a>
+                </Link>
             </div>
+            
             <div className="items-admin">
-                <a className="item-admin from-left" href="/dashboard">
+            
+                <Link className="dFlex item-in-cart item-admin from-left" to="/dashboard">
                     <img src='/images/admin/switch.svg'>
-                        </img> Dashboard
-                </a>
-                <a className="item-admin from-left" href="/admin/products">
+                    </img> Dashboard
+                    <div className="active-item-admin"></div>
+                </Link>
+                <Link className="dFlex item-in-cart item-admin from-left" to="/admin/products">
                     <img src='/images/admin/computer.svg'>
                     </img> Sản phẩm
-                </a>
-                <a className="item-admin" href="/admin/users">
+                    <div className="active-item-admin"></div>
+                </Link>
+                <Link className="dFlex item-in-cart item-admin" to="/admin/users">
                     <img src='/images/admin/user.svg'>
                     </img> Người dùng
-                </a>
-                <a className="item-admin" href="/admin/orders">
+                    <div className="active-item-admin"></div>
+                </Link>
+                <Link className="dFlex item-in-cart item-admin" to="/admin/orders">
                     <img src='/images/admin/newspaper.svg'>
                     </img> Đơn đặt hàng
-                </a>
-                <a className="item-admin" href="/admin/reviews">
+                    <div className="active-item-admin"></div>
+                </Link>
+                <Link className="dFlex item-in-cart item-admin" to="/admin/reviews">
                     <img src='/images/admin/pen.svg'></img>
                     Đánh giá sản phẩm
-                </a>
-                <a className="item-admin" href="/">
+                    <div className="active-item-admin"></div>
+                </Link>
+                <Link className="dFlex item-in-cart item-admin" to="/">
                     <img src='/images/admin/home.svg'></img>
                     Trang chủ
-                </a>
+                    <div className="active-item-admin"></div>
+                </Link>
             </div>
             
         </div>

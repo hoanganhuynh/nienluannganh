@@ -66,28 +66,29 @@ const UpdateUser = ({ history, match }) => {
     return (
         <Fragment>
             <MetaData title={`Update User`} />
-            <div className="row">
-                <div className="col-12 col-md-2">
+            <div className="pRow row">
+                <div className="col-12 col-md-3 pl-0">
                     <Sidebar />
                 </div>
 
-                <div className="col-12 col-md-10">
-                    <div className="row wrapper">
-                        <div className="col-10 col-lg-5">
-                            <form className="shadow-lg" onSubmit={submitHandler}>
-                                <h1 className="mt-2 mb-5">Update User</h1>
+
+                <div style={{padding: 0}} className="new-product update-profile-admin col-12 col-md-5">
+                    <Fragment>
+                        <div style={{height:'95vh'}} className="ra-giua item-in-cart wrapper my-5">
+                            <form style={{width:'85%'}} className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
+                                <h1 className="mb-4">Cập nhật thông tin</h1>
 
                                 <div className="form-group">
-                                    <label htmlFor="name_field">Name</label>
+                                    <label htmlFor="name_field">Tên</label>
                                     <input
-                                        type="name"
+                                        type="text"
                                         id="name_field"
                                         className="form-control"
-                                        name='name'
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                     />
                                 </div>
+
 
                                 <div className="form-group">
                                     <label htmlFor="email_field">Email</label>
@@ -102,7 +103,7 @@ const UpdateUser = ({ history, match }) => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="role_field">Role</label>
+                                    <label htmlFor="role_field">Vai trò</label>
 
                                     <select
                                         id="role_field"
@@ -116,11 +117,30 @@ const UpdateUser = ({ history, match }) => {
                                     </select>
                                 </div>
 
-                                <button type="submit" className="btn update-btn btn-block mt-4 mb-3" >Update</button>
+                                <button
+                                    style={{width: '100%', borderRadius:'4px', backgroundColor:'dodgerblue', border:'none'}}
+                                    // id="login_button"
+                                    type="submit"
+                                    className="aa-browse-btn aa-browse-btn-admin"
+                                    // disabled={loading ? true : false}
+                                >
+                                    Lưu thay đổi
+                                </button>
+
                             </form>
                         </div>
-                    </div>
+                    </Fragment>
                 </div>
+
+                <div className="col-12 col-md-4">
+                    <Fragment>
+                        <div className="admin-create-product ra-giua item-in-cart wrapper my-5">
+                            <img width="530px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1618062042/Update-pana_yi6y6c.svg"></img>
+                        </div>
+                        
+                    </Fragment>
+                </div>
+                
             </div>
 
         </Fragment>

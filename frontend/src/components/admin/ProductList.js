@@ -176,18 +176,18 @@ const ProductsList = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'All Products'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
+            <div className="pRow row">
+                <div className="pl-0 col-12 col-md-3">
                     <Sidebar />
                 </div>
 
-                <div className="dashboard col-12 col-md-10">
+                <div className="dashboard col-12 col-md-9">
                     <div className='title-img'><img src='/images/admin/computer.svg'></img></div>
                     <h1 className="db-title my-4">{title}<span></span></h1>
                     <Link className="btn-add-new" to="/admin/product"><i className="mr-8 fa fa-plus"></i>Thêm mới sản phẩm</Link>
-                    <form method='get' className='form-search item-in-cart' actions='/'>
+                    <form method='get' className='dFlex form-search item-in-cart' actions='/'>
                         {/* <span className="fa fa-search"></span> */}
-                        <input placeholder='Tìm kiếm'
+                        <input placeholder='Tên sản phẩm...'
                             className='search-input-table'
                             type="text"
                             name="q"
@@ -199,7 +199,7 @@ const ProductsList = ({ history }) => {
                         <button id='restoreTable' type="button" onClick={restoreTable}>x</button>
                         <button id='doSearch' type="button" onClick={doSearch}><span className="fa fa-search"></span></button>
                     </form>
-                    <ul className="table-admin">
+                    <ul style={{overflow:'scroll', height:'70vh'}} className="table-admin">
 
                         <li className="table-row row item-in-cart ra-giua">
                             <div className="col-2 col-lg-2">
@@ -226,6 +226,14 @@ const ProductsList = ({ history }) => {
                                 <p className="admin-title-table cart-title-table text-center">Hành động</p>
                             </div>
                         </li>
+
+                        {products && products.length == 0 ? (
+                        <li className="row item-in-cart ra-giua">
+                            <div className="col-12 col-lg-12">
+                                <p className="admin-null-table cart-title-table text-center">Chưa có dữ liệu</p>
+                            </div>
+                        </li>
+                        ):('')}
 
                         {products && products.map(product => (
                             <li className="table-row row item-in-cart ra-giua">

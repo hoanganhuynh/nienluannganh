@@ -212,7 +212,7 @@ const Home = ({ match }) => {
         <SupportComp />
         <BrandPartner />
         <SendLetter />
-        <Footer />
+        {/* <Footer /> */}
         </Fragment>
     )
 }

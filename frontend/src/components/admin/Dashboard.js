@@ -106,12 +106,12 @@ const Dashboard = () => {
     return (
         
         <Fragment>
-            <div className="row">
-                <div className="col-12 col-md-2">
+            <div className="pRow row">
+                <div className="pl-0 col-12 col-md-3">
                     <Sidebar />
                 </div>
 
-                <div className="dashboard col-12 col-md-10">
+                <div style={{height:'95vh', overflow:'scroll'}} className="dashboard col-12 col-md-9">
                     <div className='title-img'><img src='/images/admin/switch.svg'></img></div>
                     <h1 className="db-title my-4">Dashboard</h1>
                     {loading ? <Loader /> : (
@@ -208,7 +208,7 @@ const Dashboard = () => {
                                 <div className="col-xl-3 col-sm-6 mb-3">
                                     <div>
                                         <div className="item-db card-body">
-                                            <div className="card-font-size">Sản phẩm được mua nhiều nhất<br /><Link className='maxProduct' to={`/product/${maxObj.product}`}>{maxObj.name}</Link></div>
+                                            <div className="card-font-size">Sản phẩm được mua nhiều nhất<br /><Link className='maxProduct' to={`/product/${maxObj.product}`}>{maxObj && maxObj.name.length > 15 ? maxObj.name.substring(0,14)+'...' : maxObj.name}</Link></div>
                                             <div className="card-font-size">Số lượng<br /> <b>{maxObj.quantity}</b></div>
                                             
                                             <img src={maxObj.image}></img>
@@ -219,7 +219,7 @@ const Dashboard = () => {
                                 <div className="col-xl-3 col-sm-6 mb-3">
                                     <div>
                                         <div className="item-db card-body">
-                                            <div className="card-font-size">Sản phẩm được mua ít nhất<br /><Link className='maxProduct' to={`/product/${minObj.product}`}>{minObj.name.length > 15 ? minObj.name.substring(0,14)+'...' : minObj.name}</Link></div>
+                                            <div className="card-font-size">Sản phẩm được mua ít nhất<br /><Link className='maxProduct' to={`/product/${minObj.product}`}>{minObj && minObj.name.length > 15 ? minObj.name.substring(0,14)+'...' : minObj.name}</Link></div>
                                             <div className="card-font-size">Số lượng<br /> <b>{minObj.quantity}</b></div>
                                             
                                             <img src={minObj.image}></img>

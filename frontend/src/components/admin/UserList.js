@@ -199,18 +199,18 @@ const UsersList = ({ history }) => {
         // </Fragment>
         <Fragment>
             <MetaData title={'All Products'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
+            <div className="pRow row">
+                <div className="pl-0 col-12 col-md-3">
                     <Sidebar />
                 </div>
 
-                <div className="dashboard col-12 col-md-10">
+                <div className="dashboard col-12 col-md-9">
                     <div className='title-img'><img src='/images/admin/user.svg'></img></div>
                     <h1 className="db-title my-4">{title}<span></span></h1>
                     {/* <Link className="btn-add-new" to="/admin/product"><i className="mr-8 fa fa-plus"></i>Thêm mới sản phẩm</Link> */}
-                    <form method='get' className='form-search item-in-cart' actions='/'>
+                    <form method='get' className='dFlex form-search item-in-cart' actions='/'>
                         {/* <span className="fa fa-search"></span> */}
-                        <input placeholder='Tìm kiếm'
+                        <input placeholder='Địa chỉ email...'
                             className='search-input-table'
                             type="text"
                             name="q"

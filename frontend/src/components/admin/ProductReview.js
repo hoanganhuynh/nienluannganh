@@ -22,7 +22,7 @@ const ProductReviews = () => {
     useEffect(() => {
 
         if (error) {
-            toast.error(error);
+            // toast.error(error);
             dispatch(clearErrors())
         }
 
@@ -30,6 +30,8 @@ const ProductReviews = () => {
             toast.error(deleteError);
             dispatch(clearErrors())
         }
+
+        
 
         if (productId !== '') {
             dispatch(getProductReviews(productId))
@@ -104,54 +106,98 @@ const ProductReviews = () => {
     return (
         <Fragment>
             <MetaData title={'Product Reviews'} />
-            <div className="container">
-                <div className="col-12 col-md-2">
+            <div className="pRow row">
+                <div className="col-12 col-md-3 pl-0">
                     <Sidebar />
                 </div>
 
-                <div className="col-12 col-md-10">
-                    <Fragment>
-                        <div className="row justify-content-center mt-5">
-                            <div className="col-5">
-                                <form onSubmit={submitHandler}>
-                                    <div className="form-group">
-                                        <label htmlFor="productId_field">Enter Product ID</label>
-                                        <input
-                                            type="text"
-                                            id="productId_field"
-                                            className="form-control"
-                                            value={productId}
-                                            onChange={(e) => setProductId(e.target.value)}
-                                        />
-                                    </div>
+                <div className="dashboard col-12 col-md-9">
+                    <div className='title-img'><img src='/images/admin/pen.svg'></img></div>
+                    <h1 className="db-title my-4">Xem đánh giá sản phẩm<span></span></h1>
 
-                                    <button
-                                        id="search_button"
-                                        type="submit"
-                                        className="btn btn-primary btn-block py-2"
-                                    >
-                                        SEARCH
-								    </button>
-                                </ form>
+                    <form className='dFlex form-search item-in-cart' onSubmit={submitHandler}>
+                        {/* <span className="fa fa-search"></span> */}
+                        <input
+                            style={{width:'270px'}}
+                            type="text"
+                            id="name_field"
+                            className="search-input-table"
+                            value={productId}
+                            placeholder="Nhập ID sản phẩm.."
+                            onChange={(e) => setProductId(e.target.value)}
+                        />
+                        {/* <button id='restoreTable' type="button" onClick={restoreTable}>x</button> */}
+                        <button id='doSearch' type="submit"><span className="fa fa-search"></span></button>
+                    </form>
+                    <ul style={{overflow:'scroll', height:'70vh'}} className="table-admin">
+                        <li className="table-row row item-in-cart ra-giua">
+                            <div className="col-2 col-lg-2">
+                                <p className="admin-title-table cart-title-table">ID</p>
                             </div>
 
-                        </div>
+                            <div className="col-2 col-lg-1">
+                                <p className="admin-title-table cart-title-table">Đánh giá</p>
+                            </div>
 
-                        {reviews && reviews.length > 0 ? (
-                            <MDBDataTable
-                                data={setReviews()}
-                                className="px-3"
-                                bordered
-                                striped
-                                hover
-                            />
-                        ) : (
-                                <p className="mt-5 text-center">No Reviews.</p>
-                            )}
+                            <div className="col-2 col-lg-4">
+                                <p className="admin-title-table cart-title-table">Bình luận</p>
+                            </div>
 
+                            <div className="col-2 col-lg-1">
+                                <p className="admin-title-table cart-title-table">Avatar</p>
+                            </div>
 
-                    </Fragment>
+                            <div className="col-2 col-lg-2">
+                                <p className="admin-title-table cart-title-table">Tác giả</p>
+                            </div>
+
+                            <div className="col-2 col-lg-2">
+                                <p className="admin-title-table cart-title-table text-center">Hành động</p>
+                            </div>
+                        </li>
+
+                        {reviews && reviews.length == 0 ? (
+                        <li className="row item-in-cart ra-giua">
+                            <div className="col-12 col-lg-12">
+                                <p className="admin-null-table cart-title-table text-center">Chưa có dữ liệu</p>
+                            </div>
+                        </li>
+                        ):('')}
+
+                        {reviews && reviews.map(review => (
+                            <li className="table-row row item-in-cart ra-giua">
+                                <div className="col-2 col-lg-2">
+                                    <p className="admin-title-table cart-title-table admin-row-color">{review._id.length > 10 ? review._id.substring(0,10)+'...' : review._id}</p>
+                                </div>
+
+                                <div className="col-2 col-lg-1">
+                                    <p className="admin-title-table cart-title-table admin-row-color">{review.rating} <span style={{color:'orange'}} className="fa fa-star"></span></p>
+                                </div>
+
+                                <div className="col-2 col-lg-4">
+                                    <p className="admin-title-table cart-title-table admin-row-color">{review.comment}</p>
+                                </div>
+
+                                <div className="col-2 col-lg-1">
+                                    <img width="36px" src={review.urlAvatar}></img>
+                                </div>
+
+                                <div className="col-2 col-lg-2">
+                                    
+                                    <p className="admin-title-table cart-title-table admin-row-color">{review.name}</p>
+                                </div>
+
+                                <div className="ra-giua col-2 col-lg-2">
+                                    <button className="del-item-admin" onClick={() => deleteReviewHandler(review._id)}>
+                                        <i className="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>    
+
                 </div>
+                    
             </div>
 
         </Fragment>

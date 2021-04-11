@@ -22,6 +22,8 @@ router.get('/order/:id', isAuthenticateUser, getSingleOrder);
 router.get('/orders/me', isAuthenticateUser, myOrders);
 router.get('/admin/orders', isAuthenticateUser, authorizeRoles('admin'), allOrders);
 router.get('/admin/orders', isAuthenticateUser, authorizeRoles('admin'), allOrders);
+router.delete('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), deleteOrder);
+
 
 router.put('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), updateOrders);
 router.post('/admin/newCoupon', isAuthenticateUser, authorizeRoles('admin'), newCoupon);

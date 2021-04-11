@@ -35,7 +35,10 @@ import NewPassword from './components/user/NewPassword'
 
 // Admin Imports
 import Dashboard from './components/admin/Dashboard'
-import HeaderAdmin from './components/layouts/HeaderAdmin'
+// import HeaderAdmin from './components/layouts/HeaderAdmin'
+
+import ScrollToTop from "react-scroll-to-top";
+
 
 
 import ProtectedRoute from './components/route/ProtectedRoute'
@@ -58,6 +61,7 @@ function App() {
       <div className="App">
       {/* <HeaderAdmin /> */}
         <Header />
+        <ScrollToTop smooth />
         
         <div className="container-fluid">
           <Route path="/" component={Home} exact />

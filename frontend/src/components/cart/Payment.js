@@ -85,10 +85,7 @@ const Payment = ({ history }) => {
         if(result.error) {
             toast.error('Loi')
         }
-        // order.paymentInfo = {
-        //     id: result.paymentIntent.id,
-        //     status: result.paymentIntent.status
-        // }
+        
         dispatch(createOrder(order))
         history.push('/success')
         
