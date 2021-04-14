@@ -29,7 +29,7 @@ const Sidebar = () => {
         }
         let isAdmin = ['dashboard', 'admin/products', 'admin/users', 'admin/orders', 'admin/reviews', 'admin/product'];
         for (let i = 0; i<=isAdmin.length; i++) {
-            if(getCurrentPage == isAdmin[i] || getCurrentPage.length >= 35) {
+            if(getCurrentPage == isAdmin[i] || isAdmin[i] && getCurrentPage.length >= 35) {
               document.getElementById('aa-header').classList.add('dNone');
               document.getElementById('aa-footer').classList.add('dNone');
               document.getElementsByClassName('active-item-admin')[i].style.opacity = '1'

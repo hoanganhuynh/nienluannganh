@@ -93,7 +93,7 @@ const Cart = ({ history }) => {
                             <h2 className="gio-hang-tieu-de"><span className="fa fa-shopping-basket"></span>  Giỏ hàng của bạn: <b>{cartItems.length}</b></h2>
                             <hr></hr>
                             <div className="row item-in-cart">
-                                <div className="col-4 col-lg-3">
+                                <div className="col-4 col-lg-1">
                                     <p className="cart-title-table text-center">Hình ảnh</p>
                                 </div>
 
@@ -125,7 +125,7 @@ const Cart = ({ history }) => {
                     
 
                                         <div className="row item-in-cart">
-                                            <div className="col-4 col-lg-3">
+                                            <div className="col-4 col-lg-1">
                                                 <img src={item.image} alt="Laptop" height="90" width="115" />
                                             </div>
 
