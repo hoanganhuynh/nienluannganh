@@ -1,30 +1,35 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable } from 'mdbreact'
+// import { MDBDataTable } from 'mdbreact'
 
 import MetaData from '../layouts/MetaData'
-import Loader from '../layouts/Loader'
+// import Loader from '../layouts/Loader'
 import Sidebar from './Sidebar'
-import HeaderAdmin from '../layouts/HeaderAdmin'
+// import HeaderAdmin from '../layouts/HeaderAdmin'
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 //import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/product.actions'
-import { DELETE_PRODUCT_RESET } from '../../constants/product.constant'
+import { getAdminCategories, getAdminProducts, deleteCategory , clearErrors } from '../../actions/product.actions'
+import { DELETE_CATEGORY_RESET } from '../../constants/product.constant'
+// import { deleteCategory } from '../../../../backend/controllers/product.controller'
 
-const ProductsList = ({ history }) => {
+const CategoriesList = ({ history }) => {
 
     //const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, error, products } = useSelector(state => state.products);
-    console.log('hi', products);
+    const { loading, error, categories } = useSelector(state => state.categories);
+
+    const { products } = useSelector(state => state.products);
+    console.log('products',products)
+    // console.log('hi', products);
     const { error: deleteError, isDeleted } = useSelector(state => state.product)
 
     useEffect(() => {
+        dispatch(getAdminCategories());
         dispatch(getAdminProducts());
 
         if (error) {
@@ -39,73 +44,23 @@ const ProductsList = ({ history }) => {
 
         if (isDeleted) {
             //alert.success('Product deleted successfully');
-            toast.success('Đã xoá sản phẩm')
-            history.push('/admin/products');
-            dispatch({ type: DELETE_PRODUCT_RESET })
+            toast.success('Đã xoá danh mục !')
+            history.push('/admin/categories');
+            dispatch({ type: DELETE_CATEGORY_RESET })
         }
 
-    }, [dispatch, error, deleteError, isDeleted, history])
+    }, [dispatch, error, history])
 
-    const setProducts = () => {
-        const data = {
-            columns: [
-                {
-                    label: 'ID',
-                    field: 'id',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Name',
-                    field: 'name',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Price',
-                    field: 'price',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Stock',
-                    field: 'stock',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Actions',
-                    field: 'actions',
-                },
-            ],
-            rows: []
-        }
 
-        products?.forEach(product => {
-            data.rows.push({
-                id: product._id,
-                name: product.name,
-                price: `$${product.price}`,
-                stock: product.stock,
-                actions: <Fragment>
-                    <Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
-                        <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(product._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </Fragment>
-            })
-        })
-
-        return data;
-    }
-
-    const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id))
+    const deleteCategoryHandler = (id) => {
+        dispatch(deleteCategory(id))
     }
 
     let title = '';
-    let total = products.length;
+    let total = categories && categories.length;
     
-    if (total > 0) title = 'Tất cả sản phẩm: ' + total.toString();
-    else title = 'Không có sản phẩm'
+    if (total > 0) title = 'Tất cả danh muc: ' + total.toString();
+    else title = 'Không có danh muc'
 
     function nonAccentVietnamese(str) {
         str = str.toLowerCase();
@@ -184,7 +139,7 @@ const ProductsList = ({ history }) => {
                 <div className="dashboard col-12 col-md-9">
                     <div className='title-img'><img src='/images/admin/computer.svg'></img></div>
                     <h1 className="db-title my-4">{title}<span></span></h1>
-                    <Link className="btn-add-new" to="/admin/product"><i className="mr-8 fa fa-plus"></i>Thêm mới sản phẩm</Link>
+                    <Link className="btn-add-new" to="/admin/category"><i className="mr-8 fa fa-plus"></i>Thêm mới sản phẩm</Link>
                     <form method='get' className='dFlex form-search item-in-cart' actions='/'>
                         {/* <span className="fa fa-search"></span> */}
                         <input placeholder='Tên sản phẩm...'
@@ -202,32 +157,24 @@ const ProductsList = ({ history }) => {
                     <ul style={{overflow:'scroll', height:'70vh'}} className="table-admin">
 
                         <li className="table-row row item-in-cart ra-giua">
-                            <div className="col-2 col-lg-2">
-                                <p className="admin-title-table cart-title-table">Hình ảnh</p>
-                            </div>
+                            
 
                             <div className="col-2 col-lg-3">
                                 <p className="admin-title-table cart-title-table">ID</p>
                             </div>
 
-                            <div className="col-2 col-lg-2">
-                                <p className="admin-title-table cart-title-table">Tên sản phẩm</p>
+                            <div className="col-2 col-lg-7">
+                                <p className="admin-title-table cart-title-table">Tên danh muc</p>
                             </div>
 
-                            <div className="col-2 col-lg-2">
-                                <p className="admin-title-table cart-title-table text-center">Giá</p>
-                            </div>
-
-                            <div className="col-2 col-lg-2">
-                                <p className="admin-title-table cart-title-table text-center">Kho</p>
-                            </div>
+                            
 
                             <div className="col-2 col-lg-2">
                                 <p className="admin-title-table cart-title-table text-center">Hành động</p>
                             </div>
                         </li>
 
-                        {products && products.length == 0 ? (
+                        {categories && categories.length == 0 ? (
                         <li className="row item-in-cart ra-giua">
                             <div className="col-12 col-lg-12">
                                 <p className="admin-null-table cart-title-table text-center">Chưa có dữ liệu</p>
@@ -235,35 +182,27 @@ const ProductsList = ({ history }) => {
                         </li>
                         ):('')}
 
-                        {products && products.map(product => (
+                        {categories && categories.map(category => (
                             <li className="table-row row item-in-cart ra-giua">
-                                <div className="admin-cell-img col-2 col-lg-2">
-                                    <img src={product && product.images && product.images[0].url} alt={product.name} width="60" />
-                                </div>
+                                
 
                                 <div className="col-2 col-lg-3">
-                                    <p className="admin-title-table cart-title-table admin-row-color"><Link to={`/product/${product._id}`}>{product._id.substring(0,20)+'...'}</Link></p>
+                                    <p className="admin-title-table cart-title-table admin-row-color"><Link to={`/product/${category._id}`}>{category._id.substring(0,20)+'...'}</Link></p>
                                 </div>
 
-                                <div className="col-2 col-lg-2">
-                                    <p className="value-name admin-title-table cart-title-table admin-row-color">{product.name.length > 20 ? product.name.substring(0,20)+'...' : product.name}</p>
+                                <div className="col-2 col-lg-7">
+                                    <p className="value-name admin-title-table cart-title-table admin-row-color">{category.name.length > 20 ? category.name.substring(0,20)+'...' : category.name}</p>
                                 </div>
 
-                                <div className="col-2 col-lg-2">
-                                    <p className="admin-title-table cart-title-table text-center admin-row-color">{product.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} đ</p>
-                                </div>
-
-                                <div className="col-2 col-lg-2">
-                                    <p className="admin-title-table cart-title-table text-center admin-row-color">{product.stock}</p>
-                                </div>
+                                
 
                                 <div className="ra-giua col-2 col-lg-2">
                                     {/* <p className="admin-title-table cart-title-table text-center admin-row-color">Hành động</p> */}
                                     {/* <i id="delete_cart_item" className="fa fa-trash btn" ></i> */}
-                                    <Link to={`/admin/product/${product._id}`} className="ra-giua item-in-cart del-item-admin edit-item-admin">
+                                    <Link to={`/admin/category/${category._id}`} className="ra-giua item-in-cart del-item-admin edit-item-admin">
                                         <i className="fa fa-pencil"></i>
                                     </Link>
-                                    <button className="del-item-admin" onClick={() => deleteProductHandler(product._id)}>
+                                    <button className="del-item-admin" onClick={() => deleteCategoryHandler(category._id)}>
                                         <i className="fa fa-trash"></i>
                                     </button>
 
@@ -300,4 +239,4 @@ const ProductsList = ({ history }) => {
     )
 }
 
-export default ProductsList
+export default CategoriesList

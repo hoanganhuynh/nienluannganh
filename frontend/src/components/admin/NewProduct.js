@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { newProduct, clearErrors } from '../../actions/product.actions'
+import { getAdminCategories } from '../../actions/product.actions'
+
 import { NEW_PRODUCT_RESET } from '../../constants/product.constant'
 
 const NewProduct = ({ history }) => {
@@ -21,20 +23,21 @@ const NewProduct = ({ history }) => {
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([])
 
-    const categories = [
-        'Electronic',
-        'Camera',
-        'Laptop',
-        'MobilePhone',
-        'Food',
-        'Book'
-    ]
-
+    
     const dispatch = useDispatch();
 
     const { loading, error, success } = useSelector(state => state.newProduct);
+    const { categories } = useSelector(state => state.categories);
+
+    // const cateArr = []
+    // categories && categories.map(category => {
+    //     cateArr.push(category.name)
+    // })
+
 
     useEffect(() => {
+
+        dispatch(getAdminCategories());
 
         if (error) {
             toast.error(error)
@@ -68,7 +71,6 @@ const NewProduct = ({ history }) => {
     }
 
     const onChange = e => {
-
         const files = Array.from(e.target.files)
 
         setImagesPreview([]);
@@ -134,8 +136,8 @@ const NewProduct = ({ history }) => {
                                 <div className="form-group">
                                     <label htmlFor="category_field">Danh mục</label>
                                     <select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
-                                        {categories.map(category => (
-                                            <option key={category} value={category} >{category}</option>
+                                        {categories && categories.map(category => (
+                                            <option key={category._id} value={category._id} >{category.name}</option>
                                         ))}
 
                                     </select>

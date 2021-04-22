@@ -4,14 +4,17 @@ const router = express.Router();
 const {
     getProducts,
     newProduct,
+    newCategory,
     getSingleProduct,
     updateProduct,
     deleteProduct,
+    deleteCategory,
     deleteAllProducts,
     createNewReview,
     getProductReviews,
     deleteReview,
-    getAdminProducts
+    getAdminProducts,
+    getAdminCategories,
 } = require('../controllers/product.controller');
 
 const {
@@ -21,11 +24,16 @@ const {
 
 
 router.post('/admin/product/new',isAuthenticateUser, authorizeRoles('admin'), newProduct);
+router.post('/admin/category/new',isAuthenticateUser, authorizeRoles('admin'), newCategory);
 router.route('/admin/products').get(getAdminProducts);
+router.route('/admin/categories').get(getAdminCategories);
 router.delete('/admin/delAllProducts',isAuthenticateUser, authorizeRoles('admin'), deleteAllProducts); // warning: delete all products in DB
 router.route('/admin/product/:id')
     .put(isAuthenticateUser, authorizeRoles('admin'), updateProduct)
     .delete(isAuthenticateUser, deleteProduct);
+
+router.route('/admin/category/:id')
+    .delete(isAuthenticateUser, deleteCategory);    
 
 router.route('/products').get(getProducts);
 router.get('/product/:id', getSingleProduct);

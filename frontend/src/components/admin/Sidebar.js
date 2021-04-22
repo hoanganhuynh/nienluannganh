@@ -15,19 +15,22 @@ const Sidebar = () => {
             case 'admin/products' :
                 document.getElementsByClassName('item-admin')[1].classList.add(...classActive)
                 break;
-            case 'admin/users':
+            case 'admin/categories' :
                 document.getElementsByClassName('item-admin')[2].classList.add(...classActive)
+                break;
+            case 'admin/users':
+                document.getElementsByClassName('item-admin')[3].classList.add(...classActive)
                 break;
             
             case 'admin/orders':
-                document.getElementsByClassName('item-admin')[3].classList.add(...classActive)
+                document.getElementsByClassName('item-admin')[4].classList.add(...classActive)
                 break;
             case 'admin/reviews':
-                document.getElementsByClassName('item-admin')[4].classList.add(...classActive)
+                document.getElementsByClassName('item-admin')[5].classList.add(...classActive)
                 break;
             default: break;
         }
-        let isAdmin = ['dashboard', 'admin/products', 'admin/users', 'admin/orders', 'admin/reviews', 'admin/product'];
+        let isAdmin = ['dashboard', 'admin/products', 'admin/categories', 'admin/users', 'admin/orders', 'admin/reviews', 'admin/product'];
         for (let i = 0; i<=isAdmin.length; i++) {
             if(getCurrentPage == isAdmin[i] || isAdmin[i] && getCurrentPage.length >= 35) {
               document.getElementById('aa-header').classList.add('dNone');
@@ -92,6 +95,11 @@ const Sidebar = () => {
                 <Link className="dFlex item-in-cart item-admin from-left" to="/admin/products">
                     <img src='/images/admin/computer.svg'>
                     </img> Sản phẩm
+                    <div className="active-item-admin"></div>
+                </Link>
+                <Link className="dFlex item-in-cart item-admin from-left" to="/admin/categories">
+                    <img src='/images/admin/computer.svg'>
+                    </img> Danh muc
                     <div className="active-item-admin"></div>
                 </Link>
                 <Link className="dFlex item-in-cart item-admin" to="/admin/users">

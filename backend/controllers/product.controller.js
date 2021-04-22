@@ -1,4 +1,5 @@
 const Product = require('../models/product.model');
+const Category = require('../models/category.model');
 
 const ErrorHandle = require('../utils/errorHandle');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors.middleware');
@@ -37,6 +38,17 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
     res.status(201).json({
         success: true,
         product
+    })
+})
+
+// create new product => /api/v1/admin/product/new
+exports.newCategory = catchAsyncErrors(async (req, res, next) => {
+
+    const category = await Category.create(req.body);
+
+    res.status(201).json({
+        success: true,
+        category
     })
 })
 
@@ -88,6 +100,17 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
         res.status(200).json({
             success: true,
             products
+        })
+    }, 400) 
+})
+
+exports.getAdminCategories = catchAsyncErrors(async (req, res, next) => {
+
+    const categories = await Category.find();
+    setTimeout(() => {
+        res.status(200).json({
+            success: true,
+            categories
         })
     }, 400) 
 })
@@ -182,7 +205,21 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
         success: true,
         message: 'Product is deleted.'
     })
+})
 
+// Delete Product   =>   /api/v1/admin/product/:id
+exports.deleteCategory = catchAsyncErrors(async (req, res, next) => {
+    const category = await Category.findById(req.params.id);
+
+    if (!category) {
+        return next(new ErrorHandler('Không tìm thấy danh mục', 404));
+    }
+    await category.remove();
+
+    res.status(200).json({
+        success: true,
+        message: 'Đã xoá danh mục'
+    })
 })
 
 // create new review => api/v1/review

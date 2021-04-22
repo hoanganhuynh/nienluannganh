@@ -2,31 +2,52 @@ import {
     ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
+
+    ALL_CATEGORIES_REQUEST,
+    ALL_CATEGORIES_SUCCESS,
+    ALL_CATEGORIES_FAIL,
+
     ADMIN_PRODUCTS_REQUEST,
     ADMIN_PRODUCTS_SUCCESS,
     ADMIN_PRODUCTS_FAIL,
+
+    ADMIN_CATEGORIES_REQUEST,
+    ADMIN_CATEGORIES_SUCCESS,
+    ADMIN_CATEGORIES_FAIL,
+
     NEW_PRODUCT_REQUEST,
     NEW_PRODUCT_SUCCESS,
     NEW_PRODUCT_RESET,
     NEW_PRODUCT_FAIL,
+
+    NEW_CATEGORY_REQUEST,
+    NEW_CATEGORY_SUCCESS,
+    NEW_CATEGORY_RESET,
+    NEW_CATEGORY_FAIL,
+
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_RESET,
     DELETE_PRODUCT_FAIL,
+
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_RESET,
     UPDATE_PRODUCT_FAIL,
+
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
+
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_RESET,
     NEW_REVIEW_FAIL,
+
     GET_REVIEWS_REQUEST,
     GET_REVIEWS_SUCCESS,
     GET_REVIEWS_FAIL,
+    
     DELETE_REVIEW_REQUEST,
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_RESET,
@@ -77,6 +98,46 @@ export const productsReducer = (state = { products: [] }, action) => {
     }
 }
 
+export const categoriesReducer = (state = { products: [] }, action) => {
+    switch (action.type) {
+        case ALL_CATEGORIES_REQUEST:
+        case ADMIN_CATEGORIES_REQUEST:
+            return {
+                loading: true,
+                products: []
+            }
+
+        case ALL_CATEGORIES_SUCCESS:
+            return {
+                loading: false,
+                categories: action.payload.categories,
+                
+            }
+
+        case ADMIN_CATEGORIES_SUCCESS:
+            return {
+                loading: false,
+                categories: action.payload
+            }
+
+        case ALL_CATEGORIES_FAIL:
+        case ADMIN_CATEGORIES_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state;
+    }
+}
+
 export const newProductReducer = (state = { product: {} }, action) => {
     switch (action.type) {
 
@@ -100,6 +161,45 @@ export const newProductReducer = (state = { product: {} }, action) => {
             }
 
         case NEW_PRODUCT_RESET:
+            return {
+                ...state,
+                success: false
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
+    }
+}
+
+export const newCategoryReducer = (state = { product: {} }, action) => {
+    switch (action.type) {
+
+        case NEW_CATEGORY_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case NEW_CATEGORY_SUCCESS:
+            return {
+                loading: false,
+                success: action.payload.success,
+                category: action.payload.product
+            }
+
+        case NEW_CATEGORY_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case NEW_CATEGORY_RESET:
             return {
                 ...state,
                 success: false

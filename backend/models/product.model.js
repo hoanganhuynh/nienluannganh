@@ -34,19 +34,9 @@ const productSchema = new mongoose.Schema({
         }
     ],
     category: {
-        type: String,
-        required: true,
-        enum: {
-            values: [
-                'Electronic',
-                'Camera',
-                'Laptop',
-                'MobilePhone',
-                'Food',
-                'Book'
-            ],
-            messages: 'Vui lòng chọn danh mục cho sản phẩm.'
-        }
+        type: mongoose.Schema.ObjectId,
+        ref: 'Category',
+        required: true
     },
     seller: {
         type: String,

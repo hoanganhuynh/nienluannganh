@@ -16,7 +16,9 @@ import ListOrders from './components/order/ListOrder'
 import OrderDetails from './components/order/OrderDetails'
 
 import ProductsList from './components/admin/ProductList'
+import CategoriesList from './components/admin/CategoriesList'
 import NewProduct from './components/admin/NewProduct'
+import NewCategory from './components/admin/NewCategory'
 import UpdateProduct from './components/admin/UpdateProduct'
 import OrdersList from './components/admin/OrdersList'
 import ProcessOrder from './components/admin/ProcessOrder'
@@ -89,7 +91,9 @@ function App() {
 
           <ProtectedRoute path="/dashboard" isAdmin={true} component={Dashboard} exact />
           <ProtectedRoute path="/admin/products" isAdmin={true} component={ProductsList} exact />
+          <ProtectedRoute path="/admin/categories" isAdmin={true} component={CategoriesList} exact />
           <ProtectedRoute path="/admin/product" isAdmin={true} component={NewProduct} exact />
+          <ProtectedRoute path="/admin/category" isAdmin={true} component={NewCategory} exact />
           <ProtectedRoute path="/admin/product/:id" isAdmin={true} component={UpdateProduct} exact />
           <ProtectedRoute path="/admin/orders" isAdmin={true} component={OrdersList} exact />
           <ProtectedRoute path="/admin/order/:id" isAdmin={true} component={ProcessOrder} exact />
