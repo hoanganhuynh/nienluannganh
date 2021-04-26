@@ -7,6 +7,7 @@ const {
     newCategory,
     getSingleProduct,
     updateProduct,
+    updateCategory,
     deleteProduct,
     deleteCategory,
     deleteAllProducts,
@@ -33,6 +34,7 @@ router.route('/admin/product/:id')
     .delete(isAuthenticateUser, deleteProduct);
 
 router.route('/admin/category/:id')
+    .put(isAuthenticateUser, authorizeRoles('admin'), updateCategory)
     .delete(isAuthenticateUser, deleteCategory);    
 
 router.route('/products').get(getProducts);

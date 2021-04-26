@@ -17,11 +17,14 @@ import { DELETE_PRODUCT_RESET } from '../../constants/product.constant'
 
 const ProductsList = ({ history }) => {
 
-    //const alert = useAlert();
+  
     const dispatch = useDispatch();
 
+    const { categories } = useSelector(state => state.categories);
     const { loading, error, products } = useSelector(state => state.products);
-    console.log('hi', products);
+    
+    console.log('hi',categories)
+  
     const { error: deleteError, isDeleted } = useSelector(state => state.product)
 
     useEffect(() => {
@@ -45,57 +48,6 @@ const ProductsList = ({ history }) => {
         }
 
     }, [dispatch, error, deleteError, isDeleted, history])
-
-    const setProducts = () => {
-        const data = {
-            columns: [
-                {
-                    label: 'ID',
-                    field: 'id',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Name',
-                    field: 'name',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Price',
-                    field: 'price',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Stock',
-                    field: 'stock',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Actions',
-                    field: 'actions',
-                },
-            ],
-            rows: []
-        }
-
-        products?.forEach(product => {
-            data.rows.push({
-                id: product._id,
-                name: product.name,
-                price: `$${product.price}`,
-                stock: product.stock,
-                actions: <Fragment>
-                    <Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
-                        <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(product._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </Fragment>
-            })
-        })
-
-        return data;
-    }
 
     const deleteProductHandler = (id) => {
         dispatch(deleteProduct(id))
@@ -171,6 +123,13 @@ const ProductsList = ({ history }) => {
         }
     }
 
+    function getCatName(category) {
+        let catName ='';
+        categories && categories.map(x => {
+        if(x._id == category) catName = x.name
+        return catName
+      })
+    }
     
 
     return (
@@ -202,12 +161,16 @@ const ProductsList = ({ history }) => {
                     <ul style={{overflow:'scroll', height:'70vh'}} className="table-admin">
 
                         <li className="table-row row item-in-cart ra-giua">
-                            <div className="col-2 col-lg-2">
+                            <div className="col-2 col-lg-1">
                                 <p className="admin-title-table cart-title-table">Hình ảnh</p>
                             </div>
 
-                            <div className="col-2 col-lg-3">
+                            <div className="col-2 col-lg-2">
                                 <p className="admin-title-table cart-title-table">ID</p>
+                            </div>
+
+                            <div className="col-2 col-lg-2">
+                                <p className="admin-title-table cart-title-table">Danh mục</p>
                             </div>
 
                             <div className="col-2 col-lg-2">
@@ -218,7 +181,7 @@ const ProductsList = ({ history }) => {
                                 <p className="admin-title-table cart-title-table text-center">Giá</p>
                             </div>
 
-                            <div className="col-2 col-lg-2">
+                            <div className="col-2 col-lg-1">
                                 <p className="admin-title-table cart-title-table text-center">Kho</p>
                             </div>
 
@@ -237,12 +200,16 @@ const ProductsList = ({ history }) => {
 
                         {products && products.map(product => (
                             <li className="table-row row item-in-cart ra-giua">
-                                <div className="admin-cell-img col-2 col-lg-2">
+                                <div className="admin-cell-img col-2 col-lg-1">
                                     <img src={product && product.images && product.images[0].url} alt={product.name} width="60" />
                                 </div>
 
-                                <div className="col-2 col-lg-3">
-                                    <p className="admin-title-table cart-title-table admin-row-color"><Link to={`/product/${product._id}`}>{product._id.substring(0,20)+'...'}</Link></p>
+                                <div className="col-2 col-lg-2">
+                                    <p className="admin-title-table cart-title-table admin-row-color"><Link to={`/product/${product._id}`}>{product._id.substring(0,10)+'...'}</Link></p>
+                                </div>
+                                
+                                <div className="col-2 col-lg-2">
+                                    <p className="value-name admin-title-table cart-title-table admin-row-color">{getCatName("608159fa3d3f04e2335f4eba")}</p>
                                 </div>
 
                                 <div className="col-2 col-lg-2">
@@ -253,7 +220,7 @@ const ProductsList = ({ history }) => {
                                     <p className="admin-title-table cart-title-table text-center admin-row-color">{product.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                 </div>
 
-                                <div className="col-2 col-lg-2">
+                                <div className="col-2 col-lg-1">
                                     <p className="admin-title-table cart-title-table text-center admin-row-color">{product.stock}</p>
                                 </div>
 

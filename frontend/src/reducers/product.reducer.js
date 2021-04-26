@@ -35,9 +35,23 @@ import {
     UPDATE_PRODUCT_RESET,
     UPDATE_PRODUCT_FAIL,
 
+    DELETE_CATEGORY_REQUEST,
+    DELETE_CATEGORY_SUCCESS,
+    DELETE_CATEGORY_RESET,
+    DELETE_CATEGORY_FAIL,
+
+    UPDATE_CATEGORY_REQUEST,
+    UPDATE_CATEGORY_SUCCESS,
+    UPDATE_CATEGORY_RESET,
+    UPDATE_CATEGORY_FAIL,
+
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
+
+    CATEGORY_DETAILS_REQUEST,
+    CATEGORY_DETAILS_SUCCESS,
+    CATEGORY_DETAILS_FAIL,
 
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
@@ -98,20 +112,19 @@ export const productsReducer = (state = { products: [] }, action) => {
     }
 }
 
-export const categoriesReducer = (state = { products: [] }, action) => {
+export const categoriesReducer = (state = { categories: [] }, action) => {
     switch (action.type) {
         case ALL_CATEGORIES_REQUEST:
         case ADMIN_CATEGORIES_REQUEST:
             return {
                 loading: true,
-                products: []
+                categories: []
             }
 
         case ALL_CATEGORIES_SUCCESS:
             return {
                 loading: false,
                 categories: action.payload.categories,
-                
             }
 
         case ADMIN_CATEGORIES_SUCCESS:
@@ -177,7 +190,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
     }
 }
 
-export const newCategoryReducer = (state = { product: {} }, action) => {
+export const newCategoryReducer = (state = { category: {} }, action) => {
     switch (action.type) {
 
         case NEW_CATEGORY_REQUEST:
@@ -190,7 +203,7 @@ export const newCategoryReducer = (state = { product: {} }, action) => {
             return {
                 loading: false,
                 success: action.payload.success,
-                category: action.payload.product
+                category: action.payload.category
             }
 
         case NEW_CATEGORY_FAIL:
@@ -271,6 +284,61 @@ export const productReducer = (state = {}, action) => {
     }
 }
 
+export const categoryReducer = (state = {}, action) => {
+    switch (action.type) {
+
+        case DELETE_CATEGORY_REQUEST:
+        case UPDATE_CATEGORY_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case DELETE_CATEGORY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+
+        case UPDATE_CATEGORY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: action.payload
+            }
+
+
+        case DELETE_CATEGORY_FAIL:
+        case UPDATE_CATEGORY_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case DELETE_CATEGORY_RESET:
+            return {
+                ...state,
+                isDeleted: false
+            }
+
+        case UPDATE_CATEGORY_RESET:
+            return {
+                ...state,
+                isUpdated: false
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
+    }
+}
+
 export const productDetailsReducer = (state = { product: {} }, action) => {
     switch (action.type) {
 
@@ -287,6 +355,38 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
             }
 
         case PRODUCT_DETAILS_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
+    }
+}
+
+export const categoryDetailsReducer = (state = { category: {} }, action) => {
+    switch (action.type) {
+
+        case CATEGORY_DETAILS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case CATEGORY_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                category: action.payload
+            }
+
+        case CATEGORY_DETAILS_FAIL:
             return {
                 ...state,
                 error: action.payload

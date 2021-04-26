@@ -24,9 +24,19 @@ import {
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
+
+    UPDATE_CATEGORY_REQUEST,
+    UPDATE_CATEGORY_SUCCESS,
+    UPDATE_CATEGORY_FAIL,
+
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
+
+    CATEGORY_DETAILS_REQUEST,
+    CATEGORY_DETAILS_SUCCESS,
+    CATEGORY_DETAILS_FAIL,
+
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,
@@ -82,6 +92,25 @@ export const getProductDetails = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const getCategoryDetails = (id) => async (dispatch) => {
+    try {
+
+        dispatch({ type: CATEGORY_DETAILS_REQUEST })
+
+        const { data } = await axios.get(`/api/v1/category/${id}`)
+        dispatch({
+            type: CATEGORY_DETAILS_SUCCESS,
+            payload: data.category
+        })
+
+    } catch (error) {
+        dispatch({
+            type: CATEGORY_DETAILS_FAIL,
             payload: error.response.data.message
         })
     }
@@ -179,6 +208,33 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: UPDATE_PRODUCT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+// Update Category (ADMIN)
+export const updateCategory = (id, categoryData) => async (dispatch) => {
+    try {
+
+        dispatch({ type: UPDATE_CATEGORY_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.put(`/api/v1/admin/category/${id}`, categoryData, config)
+
+        dispatch({
+            type: UPDATE_CATEGORY_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+        dispatch({
+            type: UPDATE_CATEGORY_FAIL,
             payload: error.response.data.message
         })
     }

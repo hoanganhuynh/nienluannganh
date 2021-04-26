@@ -185,6 +185,30 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
 })
 
+
+// Update Category   =>   /api/v1/admin/category/:id
+exports.updateCategory = catchAsyncErrors(async (req, res, next) => {
+
+    let category = await Category.findById(req.params.id);
+
+    if (!category) {
+        return next(new ErrorHandler('Không tìm thấy danh mục', 404));
+    }
+
+
+    category = await Category.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        success: true,
+        category
+    })
+
+})
+
 // Delete Product   =>   /api/v1/admin/product/:id
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 
@@ -207,7 +231,7 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Delete Product   =>   /api/v1/admin/product/:id
+// Delete Product   =>   /api/v1/admin/category/:id
 exports.deleteCategory = catchAsyncErrors(async (req, res, next) => {
     const category = await Category.findById(req.params.id);
 

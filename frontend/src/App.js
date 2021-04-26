@@ -20,6 +20,7 @@ import CategoriesList from './components/admin/CategoriesList'
 import NewProduct from './components/admin/NewProduct'
 import NewCategory from './components/admin/NewCategory'
 import UpdateProduct from './components/admin/UpdateProduct'
+import UpdateCategory from './components/admin/UpdateCategory'
 import OrdersList from './components/admin/OrdersList'
 import ProcessOrder from './components/admin/ProcessOrder'
 import UsersList from './components/admin/UserList'
@@ -95,6 +96,7 @@ function App() {
           <ProtectedRoute path="/admin/product" isAdmin={true} component={NewProduct} exact />
           <ProtectedRoute path="/admin/category" isAdmin={true} component={NewCategory} exact />
           <ProtectedRoute path="/admin/product/:id" isAdmin={true} component={UpdateProduct} exact />
+          <ProtectedRoute path="/admin/category/:id" isAdmin={true} component={UpdateCategory} exact />
           <ProtectedRoute path="/admin/orders" isAdmin={true} component={OrdersList} exact />
           <ProtectedRoute path="/admin/order/:id" isAdmin={true} component={ProcessOrder} exact />
           <ProtectedRoute path="/admin/users" isAdmin={true} component={UsersList} exact />

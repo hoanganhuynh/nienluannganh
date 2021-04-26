@@ -23,19 +23,14 @@ const UpdateProduct = ({ match, history }) => {
     const [oldImages, setOldImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([])
 
-    const categories = [
-        'Electronic',
-        'Camera',
-        'Laptop',
-        'MobilePhone',
-        'Food',
-        'Book'
-    ]
+    const { categories } = useSelector(state => state.categories);
+
 
     
     const dispatch = useDispatch();
 
     const { error, product } = useSelector(state => state.productDetails)
+    // console.log(product)
     const { loading, error: updateError, isUpdated } = useSelector(state => state.product);
 
     const productId = match.params.id;
@@ -161,8 +156,8 @@ const UpdateProduct = ({ match, history }) => {
                                 <div className="form-group">
                                     <label htmlFor="category_field">Danh mục</label>
                                     <select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
-                                        {categories.map(category => (
-                                            <option key={category} value={category} >{category}</option>
+                                        {categories && categories.map(category => (
+                                            <option key={category._id} value={category._id} >{category.name}</option>
                                         ))}
 
                                     </select>

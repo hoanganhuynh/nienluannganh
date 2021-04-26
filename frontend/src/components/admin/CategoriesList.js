@@ -23,14 +23,14 @@ const CategoriesList = ({ history }) => {
 
     const { loading, error, categories } = useSelector(state => state.categories);
 
-    const { products } = useSelector(state => state.products);
-    console.log('products',products)
-    // console.log('hi', products);
-    const { error: deleteError, isDeleted } = useSelector(state => state.product)
+    // const { products } = useSelector(state => state.products);
+    // console.log('products',products)
+    console.log('hi', categories);
+    const { error: deleteError, isDeleted } = useSelector(state => state.category)
 
     useEffect(() => {
         dispatch(getAdminCategories());
-        dispatch(getAdminProducts());
+        // dispatch(getAdminProducts());
 
         if (error) {
             toast.error(error)
@@ -139,7 +139,7 @@ const CategoriesList = ({ history }) => {
                 <div className="dashboard col-12 col-md-9">
                     <div className='title-img'><img src='/images/admin/computer.svg'></img></div>
                     <h1 className="db-title my-4">{title}<span></span></h1>
-                    <Link className="btn-add-new" to="/admin/category"><i className="mr-8 fa fa-plus"></i>Thêm mới sản phẩm</Link>
+                    <Link className="btn-add-new" to="/admin/category"><i className="mr-8 fa fa-plus"></i>Thêm mới danh mục</Link>
                     <form method='get' className='dFlex form-search item-in-cart' actions='/'>
                         {/* <span className="fa fa-search"></span> */}
                         <input placeholder='Tên sản phẩm...'

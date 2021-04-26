@@ -41,7 +41,7 @@ const OrderDetails = ({ match }) => {
                     <div className="gio-hang row d-flex justify-content-between">
                     
                         <div className="col-12 col-lg-12">
-                            <span><a href='/orders/me' style={{color:'#ff6666'}}><span className="fa fa-chevron-left"></span> Đơn hàng </a>/ {order._id}</span>
+                            <span><Link to='/orders/me' style={{color:'#ff6666'}}><span className="fa fa-chevron-left"></span> Đơn hàng </Link>/ {order._id}</span>
                             <h2 className="gio-hang-tieu-de"><span className="fa fa-shopping-basket"></span> Đơn hàng của bạn</h2>
                             <h4 className="my-5">Order # {order._id}</h4>
 
@@ -51,7 +51,11 @@ const OrderDetails = ({ match }) => {
                             <p><b>Tên người nhận hàng: </b> {user && user.name}</p>
                             <p><b>Số điện thoại: </b> {shippingInfo && shippingInfo.phoneNo}</p>
                             <p className="mb-4"><b>Địa chỉ nhận hàng: </b>{shippingDetails}</p>
-                            <p><b>Tổng tiền: </b>{totalPrice} vnđ</p>
+                            <p><b>Tổng tiền: </b>{totalPrice && totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnđ</p>
+                            {orderStatus && orderStatus.toString().includes('Đã nhận hàng') ? 
+                            (<b style={{display:'inline-block'}}>Trạng thái: <p style={{display:'inline-block', color:'green'}}>{orderStatus}</p></b>) : 
+                            (<b style={{display:'inline-block'}}>Trạng thái: <p style={{display:'inline-block',color:'orange'}}>{orderStatus}</p></b>)}
+                            
                             <hr />
                             <div className="row">
                                 <div className="col-3 col-lg-2">
@@ -89,7 +93,7 @@ const OrderDetails = ({ match }) => {
                                         </div>
 
                                         <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                            <p className="text-center">{item.price}</p>
+                                            <p className="text-center">{item.price && item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnd</p>
                                         </div>
 
                                         <div className="col-4 col-lg-2 mt-4 mt-lg-0">

@@ -148,7 +148,7 @@ const ListOrders = () => {
                                             </div>
 
                                             <div className="col-4 col-lg-3">
-                                                <p style={{color:'#ff6666'}} className="text-center" id="card_item_price">{item.price}</p>
+                                                <p style={{color:'#ff6666'}} className="text-center" id="card_item_price">{item.price && item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} vnd</p>
                                             </div>
 
                                         </div>
