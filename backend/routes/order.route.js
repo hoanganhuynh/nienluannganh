@@ -10,7 +10,7 @@ const { newOrder,
     deleteAllOrders
 } = require('../controllers/order.controller')
 
-const { newCoupon } = require('../controllers/discount.controller')
+// const { newCoupon } = require('../controllers/discount.controller')
 
 const {
     isAuthenticateUser,
@@ -25,8 +25,8 @@ router.get('/admin/orders', isAuthenticateUser, authorizeRoles('admin'), allOrde
 router.delete('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), deleteOrder);
 
 
-router.put('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), updateOrders);
-router.post('/admin/newCoupon', isAuthenticateUser, authorizeRoles('admin'), newCoupon);
+router.put('/order/:id', isAuthenticateUser, updateOrders);
+// router.post('/admin/newCoupon', isAuthenticateUser, authorizeRoles('admin'), newCoupon);
 
 router.delete('/admin/delAllOrders',isAuthenticateUser, authorizeRoles('admin'), deleteAllOrders);
 
