@@ -38,10 +38,6 @@ const productSchema = new mongoose.Schema({
         ref: 'Category',
         required: true
     },
-    seller: {
-        type: String,
-        required: [true, 'Vui lòng nhập người bán sản phẩm']
-    },
     stock: {
         type: Number,
         required: [true, 'Vui lòng nhập kho sản phẩm'],
