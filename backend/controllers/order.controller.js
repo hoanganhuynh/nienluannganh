@@ -74,7 +74,7 @@ exports.allOrders = catchAsyncErrors( async (req, res, next) => {
 exports.updateOrders = catchAsyncErrors( async (req, res, next) => {
     const order = await Order.findById(req.params.id)
     
-    if(order.orderStatus === 'Đã nhận hàng') return next(new ErrorHandle('You have already delivered this order', 400))
+    if(order.orderStatus === 'Đã nhận hàng') return next(new ErrorHandle('Đơn hàng đã được giao !', 400))
 
     order.orderItems.forEach(async item => {
         await updateStock(item.product, item.quantity)
@@ -87,7 +87,7 @@ exports.updateOrders = catchAsyncErrors( async (req, res, next) => {
     
     res.status(200).json({
         success: true,
-        message:"Change status order successfuly !"
+        message:"Đã thay đổi trang thái đơn hàng !"
     })
 })
 async function updateStock(id, quantity) {

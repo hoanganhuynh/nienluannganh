@@ -23,14 +23,14 @@ const CategoriesList = ({ history }) => {
 
     const { loading, error, categories } = useSelector(state => state.categories);
 
-    // const { products } = useSelector(state => state.products);
-    // console.log('products',products)
-    console.log('hi', categories);
+    const { products } = useSelector(state => state.products);
+    console.log('products',products)
+    // console.log('hi', categories);
     const { error: deleteError, isDeleted } = useSelector(state => state.category)
 
     useEffect(() => {
         dispatch(getAdminCategories());
-        // dispatch(getAdminProducts());
+        dispatch(getAdminProducts());
 
         if (error) {
             toast.error(error)
@@ -126,6 +126,14 @@ const CategoriesList = ({ history }) => {
         }
     }
 
+    function countProducts(idCat) {
+        var count = 0;
+        products && products.map(pro => {
+            if(idCat === pro.category) count++
+        })
+        return count;
+    }
+
     
 
     return (
@@ -163,8 +171,12 @@ const CategoriesList = ({ history }) => {
                                 <p className="admin-title-table cart-title-table">ID</p>
                             </div>
 
-                            <div className="col-2 col-lg-7">
+                            <div className="col-2 col-lg-5">
                                 <p className="admin-title-table cart-title-table">Tên danh muc</p>
+                            </div>
+
+                            <div className="col-2 col-lg-2">
+                                <p className="admin-title-table cart-title-table">Số sản phẩm</p>
                             </div>
 
                             
@@ -190,8 +202,13 @@ const CategoriesList = ({ history }) => {
                                     <p className="admin-title-table cart-title-table admin-row-color"><Link to={`/product/${category._id}`}>{category._id.substring(0,20)+'...'}</Link></p>
                                 </div>
 
-                                <div className="col-2 col-lg-7">
+                                <div className="col-2 col-lg-5">
                                     <p className="value-name admin-title-table cart-title-table admin-row-color">{category.name.length > 20 ? category.name.substring(0,20)+'...' : category.name}</p>
+                                </div>
+
+
+                                <div className="col-2 col-lg-2">
+                                    <p className="value-name admin-title-table cart-title-table admin-row-color">{countProducts(category._id)}</p>
                                 </div>
 
                                 

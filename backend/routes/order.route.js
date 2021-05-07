@@ -25,8 +25,14 @@ router.get('/admin/orders', isAuthenticateUser, authorizeRoles('admin'), allOrde
 router.delete('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), deleteOrder);
 
 
+<<<<<<< HEAD
 router.put('/order/:id', isAuthenticateUser, updateOrders);
 // router.post('/admin/newCoupon', isAuthenticateUser, authorizeRoles('admin'), newCoupon);
+=======
+router.put('/admin/order/:id', isAuthenticateUser, authorizeRoles('admin'), updateOrders);
+// router.put('/order/:id', isAuthenticateUser, updateOrders);
+
+>>>>>>> 093871a (add count category products)
 
 router.delete('/admin/delAllOrders',isAuthenticateUser, authorizeRoles('admin'), deleteAllOrders);
 

@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/product.actions'
+import { getAdminProducts, getAdminCategories, deleteProduct, clearErrors } from '../../actions/product.actions'
 import { DELETE_PRODUCT_RESET } from '../../constants/product.constant'
 
 const ProductsList = ({ history }) => {
@@ -29,6 +29,7 @@ const ProductsList = ({ history }) => {
 
     useEffect(() => {
         dispatch(getAdminProducts());
+        dispatch(getAdminCategories());
 
         if (error) {
             toast.error(error)
@@ -123,12 +124,13 @@ const ProductsList = ({ history }) => {
         }
     }
 
-    function getCatName(category) {
-        let catName ='';
+    function getCatName(cat) {
+        var catName = '';
         categories && categories.map(x => {
-        if(x._id == category) catName = x.name
-        return catName
+            if(x._id === cat) catName = x.name
+            console.log(catName);
       })
+      return catName;
     }
     
 
@@ -209,7 +211,7 @@ const ProductsList = ({ history }) => {
                                 </div>
                                 
                                 <div className="col-2 col-lg-2">
-                                    <p className="value-name admin-title-table cart-title-table admin-row-color">{getCatName("608159fa3d3f04e2335f4eba")}</p>
+                                    <p className="value-name admin-title-table cart-title-table admin-row-color">{getCatName(product.category)}</p>
                                 </div>
 
                                 <div className="col-2 col-lg-2">

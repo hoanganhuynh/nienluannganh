@@ -55,6 +55,10 @@ const ProductDetails = ({ match }) => {
         toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng !`)
     }
 
+    const soldOut = () => {
+        toast.error('Sản phẩm đã hết hàng !')
+    }
+
     const increaseQty = () => {
         const count = document.querySelector('.count')
 
@@ -291,7 +295,7 @@ const ProductDetails = ({ match }) => {
                     </div>
                     {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p> */}
                     
-                    <div style={{margin: "16px 0"}}>Nhà cung cấp: {product.seller}<img style={{marginLeft:"6px"}} width="80px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616643375/slider/officicalstore_fyjvsq.png"></img></div>
+                    {/* <div style={{margin: "16px 0"}}>Nhà cung cấp: {product.seller}<img style={{marginLeft:"6px"}} width="80px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616643375/slider/officicalstore_fyjvsq.png"></img></div> */}
                     <p style={{marginTop: "16px", borderTop: "1px solid #ddd", paddingTop: "6px"}}>Số lượng</p>
                     <div className="aa-prod-quantity">
                     
@@ -301,13 +305,18 @@ const ProductDetails = ({ match }) => {
                             <input type="number" className="so-luong form-control count d-inline" value={quantity} readOnly />
         
                             <span className="tang-sl btn " disabled={product.stock === 0} onClick={increaseQty}>+</span>
-                            <span className="sl-sp">Chỉ còn lại {product.stock} sản phẩm</span>
+                            {(product.stock == 0 ? (<span className="sl-sp">Hết hàng</span>) : (<span className="sl-sp">Chỉ còn lại {product.stock} sản phẩm</span>))}
+                            
                         </div>
                       
                     </div>
-                    <div className="aa-prod-view-bottom">
+                    {product.stock == 0 ? (<div className="aa-prod-view-bottom">
+                      <a  onClick={soldOut} className="aa-add-to-cart-btn" href="#"><span className="fa fa-shopping-cart"></span>Thêm vào giỏ hàng</a>
+                    </div>) 
+                    : (<div className="aa-prod-view-bottom">
                       <a onClick={addToCart} className="aa-add-to-cart-btn" href="#"><span className="fa fa-shopping-cart"></span>Thêm vào giỏ hàng</a>
-                    </div>
+                    </div>)}
+                    
                     <div className="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import MetaData from '../layouts/MetaData'
@@ -6,27 +6,49 @@ import Loader from '../layouts/Loader'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getOrderDetails, clearErrors } from '../../actions/order.action'
+import { getOrderDetails, updateOrder, clearErrors } from '../../actions/order.action'
+
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { UPDATE_ORDER_RESET } from '../../constants/order.constant'
+
 
 const OrderDetails = ({ match }) => {
+
+    const [status, setStatus] = useState('');
 
     const dispatch = useDispatch();
 
     //const { cartItems } = useSelector(state => state.cart)
 
-    const { loading, error, order = {} } = useSelector(state => state.orderDetails)
+    const { loading, order = {} } = useSelector(state => state.orderDetails)
     const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus } = order
-
+    const { error, isUpdated } = useSelector(state => state.order)
+    
+    const orderId = match.params.id;
     useEffect(() => {
-        dispatch(getOrderDetails(match.params.id));
+        // dispatch(getOrderDetails(match.params.id));
+        dispatch(getOrderDetails(orderId))
 
         if (error) {
             toast.error(error)
             dispatch(clearErrors())
         }
-    }, [dispatch, error, match.params.id])
+
+        if (isUpdated) {
+            toast.success('Đơn hàng đã được cập nhật !')
+            dispatch({ type: UPDATE_ORDER_RESET })
+        }
+
+    }, [dispatch, error, isUpdated, orderId ])
+
+    const updateOrderHandler = (id) => {
+
+        const formData = new FormData();
+        formData.set('status', status);
+
+        dispatch(updateOrder(id, formData))
+    }
 
     const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city.split('-')[0]}, ${shippingInfo.district.split('-')[0]}, ${shippingInfo.ward.split('-')[0]}`
 
@@ -56,6 +78,7 @@ const OrderDetails = ({ match }) => {
                             (<b style={{display:'inline-block'}}>Trạng thái: <p style={{display:'inline-block', color:'green'}}>{orderStatus}</p></b>) : 
                             (<b style={{display:'inline-block'}}>Trạng thái: <p style={{display:'inline-block',color:'orange'}}>{orderStatus}</p></b>)}
                             
+
                             <hr />
                             <div className="row">
                                 <div className="col-3 col-lg-2">

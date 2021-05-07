@@ -137,7 +137,7 @@ const Cart = ({ history }) => {
                                             </div>
 
                                             <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                                <p className="text-center" id="card_item_price">{item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                                <p className="text-center" id="card_item_price">{item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                             </div>
 
                                             <div className="ra-giua col-4 col-lg-2 mt-4 mt-lg-0">

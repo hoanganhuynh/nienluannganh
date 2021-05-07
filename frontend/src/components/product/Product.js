@@ -53,8 +53,8 @@ const Product = ({ product }) => {
                                 <span className="aa-product-view-price">{product && product.price && product.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} ₫</span>
                                 <img width="130px" src="https://salt.tikicdn.com/ts/upload/2e/da/c9/4b9c0150392c753ccb65b2595500e9d6.png"></img>
                             </div>
-                            <div style={{margin: "16px 0"}}>Nhà cung cấp: {product.seller}<img style={{marginLeft:"6px"}} width="80px" src="https://res.cloudinary.com/hha-nlnganh/image/upload/v1616643375/slider/officicalstore_fyjvsq.png"></img></div>
-                                <p style={{marginTop: "16px", borderTop: "1px solid #ddd", paddingTop: "6px"}}>Số lượng:<span className="sl-sp">Chỉ còn lại {product.stock} sản phẩm</span></p>
+                            
+                            <p style={{marginTop: "16px", borderTop: "1px solid #ddd", paddingTop: "6px"}}>Số lượng:<span className="sl-sp">Chỉ còn lại {product.stock} sản phẩm</span></p>
 
                             </div>
                     </div>

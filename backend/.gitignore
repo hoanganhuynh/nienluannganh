@@ -1,0 +1,5 @@
+/node_modules
+/.env
+/.sh
+/frontend/node_modules
+

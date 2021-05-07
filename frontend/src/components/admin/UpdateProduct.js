@@ -17,7 +17,7 @@ const UpdateProduct = ({ match, history }) => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [stock, setStock] = useState(0);
-    const [seller, setSeller] = useState('');
+    // const [seller, setSeller] = useState('');
     const [images, setImages] = useState([]);
 
     const [oldImages, setOldImages] = useState([]);
@@ -44,7 +44,7 @@ const UpdateProduct = ({ match, history }) => {
             setPrice(product.price);
             setDescription(product.description);
             setCategory(product.category);
-            setSeller(product.seller);
+            // setSeller(product.seller);
             setStock(product.stock)
             setOldImages(product.images)
         }
@@ -78,7 +78,7 @@ const UpdateProduct = ({ match, history }) => {
         formData.set('description', description);
         formData.set('category', category);
         formData.set('stock', stock);
-        formData.set('seller', seller);
+        // formData.set('seller', seller);
 
         images.forEach(image => {
             formData.append('images', image)
@@ -175,7 +175,7 @@ const UpdateProduct = ({ match, history }) => {
                                     />
                                 </div>
 
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <label htmlFor="seller_field">Nhà cung cấp</label>
                                     <input
                                         type="text"
@@ -184,7 +184,7 @@ const UpdateProduct = ({ match, history }) => {
                                         value={seller}
                                         onChange={(e) => setSeller(e.target.value)}
                                     />
-                                </div>
+                                </div> */}
 
                                 <div className='form-group'>
                                     <label>Hình ảnh</label>

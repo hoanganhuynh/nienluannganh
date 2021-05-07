@@ -128,13 +128,13 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
 
         dispatch({
             type: UPDATE_ORDER_SUCCESS,
-            payload: data.success
+            payload: data.success 
         })
 
     } catch (error) {
         dispatch({
             type: UPDATE_ORDER_FAIL,
-            payload: error.response.data.message
+            payload: error.response.data.message 
         })
     }
 }
